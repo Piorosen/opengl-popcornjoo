@@ -25,6 +25,12 @@
     <Filter Include="헤더 파일\Game">
       <UniqueIdentifier>{7e6495bf-57d1-4e15-a9c3-cbeb3a22f8e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Utils">
+      <UniqueIdentifier>{96c2ea9a-cb49-4bfc-8a28-23f9887e0050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Utils">
+      <UniqueIdentifier>{9f63dbcd-3a48-41e0-899d-3be5c0cea967}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +45,9 @@
     <ClCompile Include="convert.cpp">
       <Filter>소스 파일\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="imagecollect.cpp">
+      <Filter>소스 파일\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h">
@@ -52,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="convert.h">
       <Filter>헤더 파일\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="imagecollect.h">
+      <Filter>헤더 파일\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

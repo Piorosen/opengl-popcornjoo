@@ -116,6 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,6 +143,7 @@
     <ClCompile Include="application.cpp" />
     <ClCompile Include="convert.cpp" />
     <ClCompile Include="display.cpp" />
+    <ClCompile Include="imagecollect.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +151,7 @@
     <ClInclude Include="convert.h" />
     <ClInclude Include="data_structure.h" />
     <ClInclude Include="display.h" />
+    <ClInclude Include="imagecollect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

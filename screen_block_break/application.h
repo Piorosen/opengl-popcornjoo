@@ -7,6 +7,7 @@
 namespace graphics {
 	void keyboardEvent(unsigned char key, int x, int y);
 	void renderEvent();
+	void timerEvent(int value);
 	void reshapeEvent(int x, int y);
 	// mouse position
 	void passiveMotionEvent(int x, int y);

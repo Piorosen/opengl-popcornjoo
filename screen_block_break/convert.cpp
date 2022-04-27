@@ -1,6 +1,5 @@
 #include "convert.h"
 #include "display.h"
-
 namespace graphics {
 	namespace convert {
 		graphics::point screenToGraphic(const graphics::point& pt) {
