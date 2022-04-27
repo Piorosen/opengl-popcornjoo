@@ -6,6 +6,8 @@ using namespace std;
 #include "application.h"
 #include "display.h"
 
+static graphics::size displaySize;
+static graphics::point mouseCursorPosition;
 
 void graphics::keyboardEvent(unsigned char key, int x, int y) {
 
@@ -26,10 +28,21 @@ void graphics::reshapeEvent(int x, int y) {
 }
 
 void timerTest(int value) {
-	glutTimerFunc(500, timerTest, value + 1);
+	auto m = graphics::global::getMousePosition();
+	cout << m.x << " " << m.y << endl;
+	auto pm = graphics::info::primaryMonitor();
+
+	double rad = (double)m.x / 180.0 * 3.141592;
+	graphics::info::setPosition(graphics::point{
+		m.x,
+		(int)(sin(rad) * pm.size.height / 2 + pm.size.height / 2)
+		});
+
+	glutTimerFunc(10, timerTest, value);
 }
 
-static graphics::size displaySize;
+
+
 graphics::size graphics::global::getDisplaySize() {
 	return displaySize;
 }
@@ -37,6 +50,18 @@ graphics::size graphics::global::getDisplaySize() {
 graphics::point graphics::global::getDisplayPosition() {
 	return graphics::info::getPosition();
 }
+
+graphics::point graphics::global::getMousePosition() {
+	POINT pt = POINT();
+	LPPOINT
+	GetCursorPos(&pt);
+	return graphics::point{
+		pt.x,
+		pt.y
+	};
+}
+
+
 
 void graphics::initDisplay(int* argc, char** argv, 
 						   size display, std::string title) {
@@ -60,9 +85,11 @@ void graphics::initDisplay(int* argc, char** argv,
 	// 렌더링 이벤트 등록
 	glutDisplayFunc(graphics::renderEvent);
 	// Test
-	glutTimerFunc(500, timerTest, 0);
+	glutTimerFunc(50, timerTest, 0);
 	// 키보드 이벤트 등록
 	glutKeyboardFunc(graphics::keyboardEvent);
 
 	glutMainLoop();
 }
+
+// 싄나는 나의 개발 시간>< 얏호오>< 넘무 신나아앙

@@ -19,6 +19,12 @@
     <Filter Include="헤더 파일\Graphics">
       <UniqueIdentifier>{172163ba-b959-48b1-be89-f094004f0a3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Game">
+      <UniqueIdentifier>{0b71e741-7946-45ed-aeef-a1d520a67183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Game">
+      <UniqueIdentifier>{7e6495bf-57d1-4e15-a9c3-cbeb3a22f8e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

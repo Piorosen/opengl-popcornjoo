@@ -3,7 +3,7 @@
 
 namespace graphics {
 	namespace convert {
-		graphics::point screenToGraphic(graphics::point pt) {
+		graphics::point screenToGraphic(const graphics::point& pt) {
 			auto pos = graphics::info::getPosition();
 			return graphics::point{
 				pt.x - pos.x,
@@ -12,3 +12,5 @@ namespace graphics {
 		}
 	}
 }
+
+// 내가 좋아하는 개발개발~ 예수우우~ 오우예에에엥

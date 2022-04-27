@@ -6,10 +6,10 @@
 
 namespace graphics {
 	void keyboardEvent(unsigned char key, int x, int y);
-
 	void renderEvent();
-
 	void reshapeEvent(int x, int y);
+	// mouse position
+	void passiveMotionEvent(int x, int y);
 
 	void initDisplay(int* argc, char** argv, 
 					 size display, std::string title);
@@ -17,5 +17,6 @@ namespace graphics {
 	namespace global {
 		size getDisplaySize();
 		point getDisplayPosition();
+		point getMousePosition();
 	}
 }

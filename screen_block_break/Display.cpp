@@ -4,6 +4,7 @@
 
 static graphics::rect globalRectPrimaryMonitor;
 
+// 暹�� 褐釭朝 OPENGL!!!! 蕨墨辦辦辦辦辦
 graphics::rect graphics::info::primaryMonitor() {
 	if (globalRectPrimaryMonitor.size.width == 0) {
 		globalRectPrimaryMonitor.point.x = 0;
@@ -16,7 +17,7 @@ graphics::rect graphics::info::primaryMonitor() {
 }
 
 static graphics::point displayPosition;
-void graphics::info::setPosition(graphics::point pt) {
+void graphics::info::setPosition(const graphics::point& pt) {
 	displayPosition = pt;
 	glutPositionWindow(pt.x, pt.y);
 }

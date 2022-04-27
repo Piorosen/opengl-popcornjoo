@@ -3,6 +3,6 @@
 
 namespace graphics {
 	namespace convert {
-		graphics::point screenToGraphic(graphics::point);
+		graphics::point screenToGraphic(const graphics::point&);
 	}
 }

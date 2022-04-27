@@ -5,7 +5,7 @@ namespace graphics {
 	namespace info {
 		rect primaryMonitor();
 		// 좌 상단 기준.
-		void setPosition(graphics::point);
+		void setPosition(const graphics::point&);
 		graphics::point getPosition();
 	}
 	
