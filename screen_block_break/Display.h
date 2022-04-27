@@ -7,6 +7,10 @@ namespace graphics {
 		// 좌 상단 기준.
 		void setPosition(const graphics::point&);
 		graphics::point getPosition();
+
+		void setMousePosition(const graphics::point&);
+		graphics::point getMousePosition();
+
 	}
 	
 }

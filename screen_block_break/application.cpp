@@ -52,24 +52,20 @@ graphics::point graphics::global::getDisplayPosition() {
 }
 
 graphics::point graphics::global::getMousePosition() {
-	POINT pt = POINT();
-	LPPOINT
-	GetCursorPos(&pt);
-	return graphics::point{
-		pt.x,
-		pt.y
-	};
+	return graphics::info::getMousePosition();
 }
-
 
 
 void graphics::initDisplay(int* argc, char** argv, 
 						   size display, std::string title) {
+
 	displaySize = display;
 	glutInit(argc, argv);
+
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutCreateWindow(title.c_str());
 
+	glutSetCursor(GLUT_CURSOR_FULL_CROSSHAIR);
 	auto pMonitor = graphics::info::primaryMonitor();
 	graphics::info::setPosition(graphics::point{
 		pMonitor.size.width / 2 - display.width / 2,

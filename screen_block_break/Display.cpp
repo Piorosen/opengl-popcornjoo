@@ -25,3 +25,16 @@ void graphics::info::setPosition(const graphics::point& pt) {
 graphics::point graphics::info::getPosition() {
 	return displayPosition;
 }
+
+void graphics::info::setMousePosition(const graphics::point& pt) {
+	SetCursorPos(pt.x, pt.y);
+}
+
+graphics::point graphics::info::getMousePosition() {
+	POINT pt = POINT();
+	GetCursorPos(&pt);
+	return graphics::point{
+		pt.x,
+		pt.y
+	};
+}
