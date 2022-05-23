@@ -11,7 +11,7 @@ namespace grc
     public:
         virtual void mouseEvent(int button, int state, int x, int y);
         virtual void keyboardEvent(unsigned char key, int x, int y);
-        virtual void render() const;
+        virtual void render(long long tick) const;
         
         std::function<void(scene*, int button, int state, int x, int y)> mouse;
         std::function<void(scene*, unsigned char key, int x, int y)> keyboard;

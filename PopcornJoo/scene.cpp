@@ -12,13 +12,6 @@ void grc::scene::mouseEvent(int button, int state, int x, int y)
             v->click(state, x, y);
         }
     }
-    //else if (button == 2)
-    //{
-    //    for (auto& v : view)
-    //    {
-    //        v->click(state, x, y);
-    //    }
-    //}
 }
 
 void grc::scene::keyboardEvent(unsigned char key, int x, int y)
@@ -32,10 +25,10 @@ void grc::scene::keyboardEvent(unsigned char key, int x, int y)
     }
 }
 
-void grc::scene::render() const
+void grc::scene::render(long long tick) const
 {
     for (auto& v : view)
     {
-        v->render();
+        v->render(tick);
     }
 }

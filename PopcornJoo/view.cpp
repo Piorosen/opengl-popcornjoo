@@ -72,7 +72,7 @@ bool grc::view::getHidden() const
     return this->isHidden;
 }
 
-bool grc::view::render() const
+bool grc::view::render(long long tick) const
 {
     if (!getHidden())
     {
@@ -92,7 +92,7 @@ bool grc::view::render() const
         }
         for (auto& v : controls)
         {
-            v->render();
+            v->render(tick);
         }
         return true;
     }

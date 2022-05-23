@@ -11,6 +11,7 @@
 std::unique_ptr<grc::application> grc::application::shared = std::make_unique<grc::application>();
 
 long long prevEscTime;
+long long prevRenderTime;
 void grc::application::keyboard(unsigned char key, int x, int y) const
 {
     this->entryScene->keyboardEvent(key, x, y);
@@ -52,7 +53,10 @@ void grc::application::render() const
     }
     else
     {
-        this->entryScene->render();
+        auto time = std::chrono::system_clock::now();
+        auto mill = std::chrono::duration_cast<std::chrono::milliseconds>(time.time_since_epoch()).count();
+        this->entryScene->render(mill - prevRenderTime);
+        prevRenderTime = mill;
     }
 }
 
@@ -87,6 +91,7 @@ void grc::application::run()
     glutMouseFunc(grc::glMouse);
     glutDisplayFunc(grc::glDisplay);
     glutIdleFunc(grc::glDisplay);
+    glutTimerFunc(50, grc::glTimer, 0);
 
     glutMainLoop();
 }
@@ -147,4 +152,10 @@ void grc::glKeyboard(unsigned char key, int x, int y)
 void grc::glMouse(int button, int state, int x, int y)
 {
     grc::application::shared->mouse(button, state, x, y);
+}
+
+void grc::glTimer(int value) {
+    //grc::application::shared->timer(value);
+    glutPostRedisplay();
+    glutTimerFunc(50, grc::glTimer, value);
 }

@@ -31,6 +31,7 @@ std::shared_ptr<grc::scene> getMainPage() {
 
 		data->view.push_back(v);
 	}
+
 	data->keyboard = [](grc::scene* self, int button, int x, int y) {
 		self->view[i % 8]->setHidden(true);
 		i += 1;
