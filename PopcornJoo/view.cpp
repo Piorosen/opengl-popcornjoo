@@ -1,7 +1,6 @@
 #define GL_SILENCE_DEPRECATION
 
 #include "view.h"
-#include "render.h"
 #include "application.h"
 
 #if defined(_WIN32)
@@ -39,6 +38,25 @@ int grc::view::click(int state, int x, int y)
     else
     {
         return 0;
+    }
+}
+
+// 0 : 상태 X
+// 1 : 상태 O
+int grc::view::keyboard(unsigned char key, int x, int y)
+{
+    if (getHidden())
+    {
+        return 0;
+    }
+    int wrapCheck = 0;
+    for (auto& p : this->controls)
+    {
+        wrapCheck = p->keyboard(key, x, y);
+        if (wrapCheck > 0)
+        {
+            return 1;
+        }
     }
 }
 

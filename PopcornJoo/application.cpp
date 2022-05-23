@@ -13,7 +13,7 @@ std::unique_ptr<grc::application> grc::application::shared = std::make_unique<gr
 long long prevEscTime;
 void grc::application::keyboard(unsigned char key, int x, int y) const
 {
-    //this->entryController->keyboardEvent(key, x, y);
+    this->entryScene->keyboardEvent(key, x, y);
 
     //ESC 키가 눌러졌다면 프로그램 종료
 
@@ -32,28 +32,28 @@ void grc::application::keyboard(unsigned char key, int x, int y) const
 
 void grc::application::mouse(int button, int state, int x, int y) const
 {
-    //if (this->entryController == nullptr)
-    //{
-    //    spdlog::critical("Entry Controller Not Found");
-    //    return;
-    //}
-    //else
-    //{
-    //    this->entryController->mouseEvent(button, state, x, y);
-    //}
+    if (this->entryScene == nullptr)
+    {
+        spdlog::critical("Entry Controller Not Found");
+        return;
+    }
+    else
+    {
+        this->entryScene->mouseEvent(button, state, x, y);
+    }
 }
 
 void grc::application::render() const
 {
-    //if (this->entryController == nullptr)
-    //{
-    //    spdlog::critical("Entry Controller Not Found");
-    //    return;
-    //}
-    //else
-    //{
-    //    this->entryController->render();
-    //}
+    if (this->entryScene == nullptr)
+    {
+        spdlog::critical("Entry Controller Not Found");
+        return;
+    }
+    else
+    {
+        this->entryScene->render();
+    }
 }
 
 grc::application::application()
@@ -103,12 +103,6 @@ void grc::application::close() const
     exit(0);
 }
 
-//void grc::application::setViewController(std::shared_ptr<grc::viewcontroller>&& vc)
-//{
-//    this->entryController = vc;
-//    glutPostRedisplay();
-//}
-
 void grc::application::initialize(const grc::size size, const std::string title)
 {
     this->size = size;
@@ -129,6 +123,11 @@ grc::size grc::application::getSize() const
 {
     return this->size;
 }
+void grc::application::setScene(std::shared_ptr<grc::scene>&& scene) {
+    this->entryScene = scene;
+    glutPostRedisplay();
+}
+
 
 void grc::glDisplay()
 {
