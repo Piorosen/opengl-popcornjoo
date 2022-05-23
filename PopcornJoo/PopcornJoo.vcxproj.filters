@@ -13,5 +13,104 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\imagecollect">
+      <UniqueIdentifier>{2c61db6b-e907-42d6-ae22-b9d891eb737e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\imagecollect">
+      <UniqueIdentifier>{814e2827-4a0a-484c-930e-d1dc55183c25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\scene">
+      <UniqueIdentifier>{46edb3e4-fe56-465e-aefc-132eae36bc11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\utils">
+      <UniqueIdentifier>{d48cc664-8451-4a16-8c02-dbd1cca8063a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\core">
+      <UniqueIdentifier>{a62ab232-2481-4bf0-bd6f-31140f862fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\core">
+      <UniqueIdentifier>{1312267e-3526-41da-b077-2dba840b8c8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\scene">
+      <UniqueIdentifier>{a5b5b095-809e-4293-b4f1-35d41accbb29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\scene\component">
+      <UniqueIdentifier>{05031413-6817-48b5-baea-0a11fb08b9c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\scene\component">
+      <UniqueIdentifier>{6d2b073f-0ddb-480e-b8fc-0cd5cb76a332}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="imagecollect.cpp">
+      <Filter>소스 파일\imagecollect</Filter>
+    </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>소스 파일\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="view.cpp">
+      <Filter>소스 파일\scene\component</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="imagecollect.h">
+      <Filter>헤더 파일\imagecollect</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="rect.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="size.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="render.h">
+      <Filter>헤더 파일\core</Filter>
+    </ClInclude>
+    <ClInclude Include="render.cpp">
+      <Filter>소스 파일\core</Filter>
+    </ClInclude>
+    <ClInclude Include="application.h">
+      <Filter>헤더 파일\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>헤더 파일\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="view.h">
+      <Filter>헤더 파일\scene\component</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\tile000.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\tile001.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\tile002.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\tile003.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\tile004.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\tile005.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\tile006.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\tile007.png">
+      <Filter>리소스 파일</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
