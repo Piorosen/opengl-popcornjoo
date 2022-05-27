@@ -35,7 +35,7 @@ namespace grc
         bool getHidden() const;
 
         virtual bool render(long long tick);
-        //virtual int mouse(int x, int y);
+        virtual int mouse(int x, int y);
         virtual int click(int state, int x, int y);
         virtual int keyboard(unsigned char key, int x, int y);
 

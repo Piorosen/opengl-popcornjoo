@@ -46,7 +46,16 @@ void grc::application::mouse(int button, int state, int x, int y) const
 
 void grc::application::mousePassive(int x, int y) const
 {
-    spdlog::info("[{}, {}]", x, y);
+    if (this->entryScene == nullptr)
+    {
+        spdlog::critical("Entry Controller Not Found");
+        return;
+    }
+    else
+    {
+        this->entryScene->mousePassiveEvent(x, y);
+    }
+}
 }
 
 void grc::application::render() const

@@ -102,6 +102,23 @@ bool grc::view::render(long long tick)
     }
 }
 
+int grc::view::mouse(int x, int y)
+{
+    if (getHidden())
+    {
+        return 0;
+    }
+    int wrapCheck = 0;
+    for (auto& p : this->controls)
+    {
+        wrapCheck = p->mouse(x, y);
+        if (wrapCheck > 0)
+        {
+            return 1;
+        }
+    }
+}
+
 
 
 void grc::view::drawRect(grc::rect size, grc::color color) const

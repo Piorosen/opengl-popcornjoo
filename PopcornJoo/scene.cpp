@@ -14,6 +14,17 @@ void grc::scene::mouseEvent(int button, int state, int x, int y)
     }
 }
 
+void grc::scene::mouseMotionEvent(int x, int y)
+{
+    if (mouse != nullptr) {
+        mouseMotion(this, x, y);
+    }
+	for (auto& v : view)
+	{
+		v->mouse(x, y);
+	}
+}
+
 void grc::scene::keyboardEvent(unsigned char key, int x, int y)
 {
     if (keyboard != nullptr) {
