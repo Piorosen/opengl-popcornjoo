@@ -57,6 +57,9 @@
     <ClCompile Include="spriteview.cpp">
       <Filter>소스 파일\scene\component</Filter>
     </ClCompile>
+    <ClCompile Include="buttonview.cpp">
+      <Filter>소스 파일\scene\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imagecollect.h">
@@ -82,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="view.h">
       <Filter>헤더 파일\scene\component</Filter>
+    </ClInclude>
+    <ClInclude Include="buttonview.h">
+      <Filter>헤더 파일\scene\component</Filter>
+    </ClInclude>
+    <ClInclude Include="Func.h">
+      <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>헤더 파일\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

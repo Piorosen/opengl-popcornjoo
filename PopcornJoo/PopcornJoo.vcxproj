@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="buttonview.cpp" />
     <ClCompile Include="imagecollect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
@@ -153,7 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="buttonview.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Func.h" />
     <ClInclude Include="imagecollect.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />

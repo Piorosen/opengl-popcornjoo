@@ -22,7 +22,9 @@ namespace grc
 
         view(grc::rect f, int backgroundImage) {
             frame = f;
-            this->backgroundImage = backgroundImage;
+            if (backgroundImage != -1) {
+                this->backgroundImage = backgroundImage;
+            }
         }
 
         std::vector<std::shared_ptr<grc::view>> controls;

@@ -1,6 +1,7 @@
 #include <spdlog/spdlog.h>
 
 #include "spriteview.h"
+
 grc::spriteview::spriteview(grc::rect f, std::vector<int> images) : view(f, grc::color())
 {
 	frame = f;
@@ -23,7 +24,6 @@ void grc::spriteview::reset()
 }
 
 bool grc::spriteview::render(long long tick) {
-	spdlog::info("Render Event {}", tick);
 	if (this->playTimer) {
 		this->timer += tick;
 	}

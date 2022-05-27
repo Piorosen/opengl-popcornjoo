@@ -13,6 +13,16 @@ namespace grc
         {
             return { location.x + (size.width / 2), location.y + (size.height / 2) };
         }
+
+        bool exists(grc::point pt) const {
+            if (location.x < pt.x && pt.x < location.x + size.width &&
+                location.y < pt.y && pt.y < location.y + size.height) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     };
 
 }
