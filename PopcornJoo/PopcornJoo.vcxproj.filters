@@ -13,38 +13,44 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\imagecollect">
+    <Filter Include="소스 파일\engine">
+      <UniqueIdentifier>{7e774095-da41-433d-a35f-2a063050435b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\engine\imagecollect">
       <UniqueIdentifier>{2c61db6b-e907-42d6-ae22-b9d891eb737e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\imagecollect">
-      <UniqueIdentifier>{814e2827-4a0a-484c-930e-d1dc55183c25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\scene">
-      <UniqueIdentifier>{46edb3e4-fe56-465e-aefc-132eae36bc11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\utils">
-      <UniqueIdentifier>{d48cc664-8451-4a16-8c02-dbd1cca8063a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\scene">
-      <UniqueIdentifier>{a5b5b095-809e-4293-b4f1-35d41accbb29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\scene\component">
-      <UniqueIdentifier>{05031413-6817-48b5-baea-0a11fb08b9c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\scene\component">
-      <UniqueIdentifier>{6d2b073f-0ddb-480e-b8fc-0cd5cb76a332}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\physics">
+    <Filter Include="소스 파일\engine\physics">
       <UniqueIdentifier>{19fd337b-fc97-4716-9b5d-e38a26205b71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\physics">
+    <Filter Include="소스 파일\engine\scene">
+      <UniqueIdentifier>{46edb3e4-fe56-465e-aefc-132eae36bc11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\engine\scene\component">
+      <UniqueIdentifier>{6d2b073f-0ddb-480e-b8fc-0cd5cb76a332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\engine">
+      <UniqueIdentifier>{5c30a138-368e-4842-b5de-603201fe685e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\engine\physics">
       <UniqueIdentifier>{103e8b59-ccdd-4360-b18b-8dcc4a2258ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\physics\object">
+    <Filter Include="헤더 파일\engine\physics\object">
       <UniqueIdentifier>{63f7609b-4f58-4597-a9cc-ffe518b52ecc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\physics\utils">
+    <Filter Include="헤더 파일\engine\physics\utils">
       <UniqueIdentifier>{8755c375-997a-45f7-b572-0c7851bcf06e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\engine\scene">
+      <UniqueIdentifier>{a5b5b095-809e-4293-b4f1-35d41accbb29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\engine\scene\component">
+      <UniqueIdentifier>{05031413-6817-48b5-baea-0a11fb08b9c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\engine\utils">
+      <UniqueIdentifier>{d48cc664-8451-4a16-8c02-dbd1cca8063a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\engine\imagecollect">
+      <UniqueIdentifier>{814e2827-4a0a-484c-930e-d1dc55183c25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,78 +58,78 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="imagecollect.cpp">
-      <Filter>소스 파일\imagecollect</Filter>
+      <Filter>소스 파일\engine\imagecollect</Filter>
     </ClCompile>
     <ClCompile Include="application.cpp">
-      <Filter>소스 파일\scene</Filter>
+      <Filter>소스 파일\engine\scene</Filter>
     </ClCompile>
     <ClCompile Include="view.cpp">
-      <Filter>소스 파일\scene\component</Filter>
+      <Filter>소스 파일\engine\scene\component</Filter>
     </ClCompile>
     <ClCompile Include="scene.cpp">
-      <Filter>소스 파일\scene</Filter>
+      <Filter>소스 파일\engine\scene</Filter>
     </ClCompile>
     <ClCompile Include="spriteview.h">
-      <Filter>헤더 파일\scene\component</Filter>
+      <Filter>헤더 파일\engine\scene\component</Filter>
     </ClCompile>
     <ClCompile Include="spriteview.cpp">
-      <Filter>소스 파일\scene\component</Filter>
+      <Filter>소스 파일\engine\scene\component</Filter>
     </ClCompile>
     <ClCompile Include="buttonview.cpp">
-      <Filter>소스 파일\scene\component</Filter>
+      <Filter>소스 파일\engine\scene\component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imagecollect.h">
-      <Filter>헤더 파일\imagecollect</Filter>
+      <Filter>헤더 파일\engine\imagecollect</Filter>
     </ClInclude>
     <ClInclude Include="color.h">
-      <Filter>헤더 파일\utils</Filter>
+      <Filter>헤더 파일\engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="point.h">
-      <Filter>헤더 파일\utils</Filter>
+      <Filter>헤더 파일\engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="rect.h">
-      <Filter>헤더 파일\utils</Filter>
+      <Filter>헤더 파일\engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="size.h">
-      <Filter>헤더 파일\utils</Filter>
+      <Filter>헤더 파일\engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="application.h">
-      <Filter>헤더 파일\scene</Filter>
+      <Filter>헤더 파일\engine\scene</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
-      <Filter>헤더 파일\scene</Filter>
+      <Filter>헤더 파일\engine\scene</Filter>
     </ClInclude>
     <ClInclude Include="view.h">
-      <Filter>헤더 파일\scene\component</Filter>
+      <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
     <ClInclude Include="buttonview.h">
-      <Filter>헤더 파일\scene\component</Filter>
+      <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
     <ClInclude Include="Func.h">
-      <Filter>헤더 파일\utils</Filter>
+      <Filter>헤더 파일\engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="EventHandler.h">
-      <Filter>헤더 파일\utils</Filter>
+      <Filter>헤더 파일\engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="collision.h">
-      <Filter>헤더 파일\physics</Filter>
+      <Filter>헤더 파일\engine\physics</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
-      <Filter>헤더 파일\physics\object</Filter>
+      <Filter>헤더 파일\engine\physics\object</Filter>
     </ClInclude>
     <ClInclude Include="circle.h">
-      <Filter>헤더 파일\physics\object</Filter>
+      <Filter>헤더 파일\engine\physics\object</Filter>
     </ClInclude>
     <ClInclude Include="rectangle.h">
-      <Filter>헤더 파일\physics\object</Filter>
+      <Filter>헤더 파일\engine\physics\object</Filter>
     </ClInclude>
     <ClInclude Include="physics.hpp">
-      <Filter>헤더 파일\physics</Filter>
+      <Filter>헤더 파일\engine\physics</Filter>
     </ClInclude>
     <ClInclude Include="vector2d.h">
-      <Filter>헤더 파일\physics\utils</Filter>
+      <Filter>헤더 파일\engine\physics\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
