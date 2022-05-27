@@ -33,7 +33,7 @@ namespace grc
         void setHidden(bool value);
         bool getHidden() const;
 
-        virtual bool render(long long tick) const;
+        virtual bool render(long long tick);
         virtual int click(int state, int x, int y);
         virtual int keyboard(unsigned char key, int x, int y);
 

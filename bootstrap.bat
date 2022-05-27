@@ -3,7 +3,7 @@ echo ##### Make Visual Studio Projecct #####
 
 cmd.exe /C git clone --recurse-submodules https://github.com/microsoft/vcpkg
 cmd.exe /C .\ThirdParty\vcpkg\bootstrap-vcpkg.bat
-cmd.exe /C .\ThirdParty\vcpkg\vcpkg install freeglut glew
+cmd.exe /C .\ThirdParty\vcpkg\vcpkg install freeglut glew spdlog stb
 cmd.exe /C .\ThirdParty\vcpkg\vcpkg integrate install
 
 

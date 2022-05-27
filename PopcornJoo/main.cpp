@@ -3,8 +3,8 @@
 #include <string>
 
 #include "application.h"
-
 #include "imagecollect.h"
+#include "spriteview.h"
 
 //void reshape(int w, int h)
 //{
@@ -21,22 +21,20 @@ int i = 0;
 
 std::shared_ptr<grc::scene> getMainPage() {
 	auto data = std::make_shared<grc::scene>();
+	std::vector<int> im;
 	for (int i = 0; i < 8; i++) {
 		std::string title = "tile00" + std::to_string(i) + ".png";
 		int value = grc::imagecollect::shared->add(title);
-		auto v = std::make_shared<grc::view>(grc::rect{
-			0, 0, 100, 100
-			}, value);
-		v->setHidden(true);
-
-		data->view.push_back(v);
+		im.push_back(value);
 	}
 
-	data->keyboard = [](grc::scene* self, int button, int x, int y) {
-		self->view[i % 8]->setHidden(true);
-		i += 1;
-		self->view[i % 8]->setHidden(false);
-	};
+	auto v = std::make_shared<grc::spriteview>(grc::rect{
+			0, 0, 100, 100
+		}, im);
+
+	v->play();
+
+	data->view.push_back(v);
 
 	return data;
 }
