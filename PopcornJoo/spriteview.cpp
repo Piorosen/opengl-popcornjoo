@@ -1,4 +1,5 @@
 #include <spdlog/spdlog.h>
+#include <vector>
 
 #include "spriteview.h"
 

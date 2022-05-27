@@ -44,6 +44,11 @@ void grc::application::mouse(int button, int state, int x, int y) const
     }
 }
 
+void grc::application::mousePassive(int x, int y) const
+{
+    spdlog::info("[{}, {}]", x, y);
+}
+
 void grc::application::render() const
 {
     if (this->entryScene == nullptr)
@@ -91,6 +96,7 @@ void grc::application::run()
     glutMouseFunc(grc::glMouse);
     glutDisplayFunc(grc::glDisplay);
     glutIdleFunc(grc::glDisplay);
+    glutPassiveMotionFunc(grc::glMousePassive);
     glutTimerFunc(50, grc::glTimer, 0);
 
     glutMainLoop();
@@ -152,6 +158,11 @@ void grc::glKeyboard(unsigned char key, int x, int y)
 void grc::glMouse(int button, int state, int x, int y)
 {
     grc::application::shared->mouse(button, state, x, y);
+}
+
+void grc::glMousePassive(int x, int y)
+{
+    grc::application::shared->mousePassive(x, y);
 }
 
 void grc::glTimer(int value) {

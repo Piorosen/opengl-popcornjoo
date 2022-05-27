@@ -28,6 +28,7 @@ namespace grc
 
         void keyboard(unsigned char key, int x, int y) const;
         void mouse(int button, int state, int x, int y) const;
+        void mousePassive(int x, int y) const;
         //void timer(int value) const;
         void render() const;
 
@@ -53,5 +54,6 @@ namespace grc
     void glTimer(int value);
     void glKeyboard(unsigned char key, int x, int y);
     void glMouse(int button, int state, int x, int y);
+    void glMousePassive(int x, int y);
     void glDisplay();
 }

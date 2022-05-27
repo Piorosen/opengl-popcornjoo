@@ -34,6 +34,18 @@
     <Filter Include="소스 파일\scene\component">
       <UniqueIdentifier>{6d2b073f-0ddb-480e-b8fc-0cd5cb76a332}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\physics">
+      <UniqueIdentifier>{19fd337b-fc97-4716-9b5d-e38a26205b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\physics">
+      <UniqueIdentifier>{103e8b59-ccdd-4360-b18b-8dcc4a2258ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\physics\object">
+      <UniqueIdentifier>{63f7609b-4f58-4597-a9cc-ffe518b52ecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\physics\utils">
+      <UniqueIdentifier>{8755c375-997a-45f7-b572-0c7851bcf06e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -94,6 +106,24 @@
     </ClInclude>
     <ClInclude Include="EventHandler.h">
       <Filter>헤더 파일\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>헤더 파일\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>헤더 파일\physics\object</Filter>
+    </ClInclude>
+    <ClInclude Include="circle.h">
+      <Filter>헤더 파일\physics\object</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>헤더 파일\physics\object</Filter>
+    </ClInclude>
+    <ClInclude Include="physics.hpp">
+      <Filter>헤더 파일\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2d.h">
+      <Filter>헤더 파일\physics\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

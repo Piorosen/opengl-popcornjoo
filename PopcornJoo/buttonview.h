@@ -6,7 +6,7 @@
 
 namespace grc
 {
-    enum buttonstate {
+    enum class buttonstate {
         /*leave,
         hover,*/
         mouseDown = 0,
@@ -18,6 +18,7 @@ namespace grc
     private:
         int timer = 0;
         bool playTimer = false;
+        buttonstate state = buttonstate::mouseUp;
 
     public:
         // 전체를 렌더링 할 시간 루프 시간.

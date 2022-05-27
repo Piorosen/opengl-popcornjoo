@@ -155,14 +155,20 @@
   <ItemGroup>
     <ClInclude Include="application.h" />
     <ClInclude Include="buttonview.h" />
+    <ClInclude Include="circle.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="imagecollect.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="physics.hpp" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />
+    <ClInclude Include="rectangle.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="size.h" />
+    <ClInclude Include="vector2d.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>
   <ItemGroup>
