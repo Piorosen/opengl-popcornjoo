@@ -53,9 +53,8 @@ void grc::application::mousePassive(int x, int y) const
     }
     else
     {
-        this->entryScene->mousePassiveEvent(x, y);
+        this->entryScene->mouseMotionEvent(x, y);
     }
-}
 }
 
 void grc::application::render() const
