@@ -52,6 +52,9 @@
     <Filter Include="헤더 파일\engine\imagecollect">
       <UniqueIdentifier>{814e2827-4a0a-484c-930e-d1dc55183c25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\ui">
+      <UniqueIdentifier>{d5f13814-9a05-4731-ac79-6f30a1c9f51c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="vector2d.h">
       <Filter>헤더 파일\engine\physics\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="mainScene.hpp">
+      <Filter>헤더 파일\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

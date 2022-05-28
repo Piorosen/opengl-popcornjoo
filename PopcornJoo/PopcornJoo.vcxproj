@@ -161,6 +161,7 @@
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="imagecollect.h" />
+    <ClInclude Include="mainScene.hpp" />
     <ClInclude Include="object.h" />
     <ClInclude Include="physics.hpp" />
     <ClInclude Include="point.h" />
