@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "view.h"
+#include "rect.h"
 
 namespace grc
 {

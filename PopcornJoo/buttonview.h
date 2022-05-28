@@ -11,6 +11,8 @@ namespace grc
         hover,*/
         mouseDown = 0,
         mouseUp = 1,
+        mouseHover = 2,
+        mouseLeave = 3,
     };
 
     class buttonview : public view
@@ -18,7 +20,7 @@ namespace grc
     private:
         int timer = 0;
         bool playTimer = false;
-        buttonstate state = buttonstate::mouseUp;
+        buttonstate state = buttonstate::mouseLeave;
 
     public:
         // 전체를 렌더링 할 시간 루프 시간.
