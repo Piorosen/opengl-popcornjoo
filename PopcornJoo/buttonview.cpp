@@ -11,17 +11,23 @@ bool grc::buttonview::render(long long tick)
 	return false;
 }
 
-int grc::buttonview::click(int state, int x, int y)
+grc::mouseclick grc::buttonview::click(int state, int x, int y)
 {
-	
 	spdlog::info("buttonview - click : [{}, {}, {}]", state, x, y);
-	if (this->frame.exists({ x, y })) {
+	mouseclick value =  view::click(state, x, y);
+	if (value == mouseclick::ownLevel) {
 		mouseEvent.Invoke(this, (buttonstate)state);
 	}
-	return 0;
+	return value;
 }
 
 int grc::buttonview::keyboard(unsigned char key, int x, int y)
 {
-	return 0;
+	return view::keyboard(key, x, y);
+}
+
+int grc::buttonview::mouse(int x, int y)
+{
+	int value = view::mouse(x, y);
+	return value;
 }

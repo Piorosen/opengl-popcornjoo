@@ -32,19 +32,13 @@ bool grc::spriteview::render(long long tick) {
 	if (!getHidden()) {
 		int idx = (timer / (durationMS / images.size())) % images.size();
 		view::drawImage(this->frame, images[idx]);
+		for (auto& v : controls)
+		{
+			v->render(tick);
+		}
 		return true;
 	}
 	else {
 		return false;
 	}
-}
-
-int grc::spriteview::click(int state, int x, int y)
-{
-	return view::click(state, x, y);
-}
-
-int grc::spriteview::keyboard(unsigned char key, int x, int y)
-{
-	return view::keyboard(key, x, y);
 }

@@ -23,7 +23,5 @@ namespace grc
         void reset();
 
         virtual bool render(long long tick) override;
-        virtual int click(int state, int x, int y) override;
-        virtual int keyboard(unsigned char key, int x, int y) override;
     };
 }

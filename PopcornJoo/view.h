@@ -9,6 +9,12 @@
 
 namespace grc
 {
+    enum class mouseclick {
+        none = 0,
+        parentLevel = 1,
+        ownLevel = 2
+    };
+
     class view
     {
     private:
@@ -36,7 +42,7 @@ namespace grc
 
         virtual bool render(long long tick);
         virtual int mouse(int x, int y);
-        virtual int click(int state, int x, int y);
+        virtual mouseclick click(int state, int x, int y);
         virtual int keyboard(unsigned char key, int x, int y);
 
     protected:

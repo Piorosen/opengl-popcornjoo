@@ -143,7 +143,10 @@ grc::size grc::application::getSize() const
     return this->size;
 }
 void grc::application::setScene(std::shared_ptr<grc::scene>&& scene) {
+    this->entryScene->closeEvent.Invoke(this->entryScene);
     this->entryScene = scene;
+    scene->openEvent.Invoke(scene);
+
     glutPostRedisplay();
 }
 

@@ -27,9 +27,10 @@ namespace grc
         grc::EventHandler<buttonview*, buttonstate> mouseEvent;
 
         virtual bool render(long long tick) override;
-        virtual int click(int state, int x, int y) override;
+        virtual mouseclick click(int state, int x, int y) override;
         virtual int keyboard(unsigned char key, int x, int y) override;
-    
+        virtual int mouse(int x, int y) override;
+
     protected:
         int mouseDownTiming = 100;
     };

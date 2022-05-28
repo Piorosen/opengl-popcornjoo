@@ -2,6 +2,7 @@
 #include <functional>
 
 #include "view.h"
+#include "EventHandler.h"
 
 namespace grc
 {
@@ -20,6 +21,8 @@ namespace grc
 
         std::vector<std::shared_ptr<grc::view>> view;
 
+        grc::EventHandler<std::weak_ptr<scene>> closeEvent;
+        grc::EventHandler<std::weak_ptr<scene>> openEvent;
     protected:
     };
 }
