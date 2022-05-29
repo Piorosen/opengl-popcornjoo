@@ -55,6 +55,12 @@
     <Filter Include="헤더 파일\ui">
       <UniqueIdentifier>{d5f13814-9a05-4731-ac79-6f30a1c9f51c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\engine\sound">
+      <UniqueIdentifier>{8a32ec82-a515-4a2a-a96c-836c5e46b58e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\engine\sound">
+      <UniqueIdentifier>{41f5f7ff-3845-4503-bebb-3f0b4785406e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -137,31 +143,5 @@
     <ClInclude Include="mainScene.hpp">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="tile000.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="tile001.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="tile002.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="tile003.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="tile004.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="tile005.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="tile006.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="tile007.png">
-      <Filter>리소스 파일</Filter>
-    </CopyFileToFolders>
   </ItemGroup>
 </Project>

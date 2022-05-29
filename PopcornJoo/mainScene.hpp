@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <spdlog/spdlog.h>
+
 #include "scene.h"
 
 
@@ -8,9 +9,12 @@
 #include "spriteview.h"
 #include "buttonview.h"
 
+
+
 std::vector<int> arrayData;
 int i = 0;
 std::shared_ptr<grc::scene> mainScene() {
+
 	auto data = std::make_shared<grc::scene>();
 	std::vector<int> im;
 	for (int i = 0; i < 8; i++) {
@@ -45,6 +49,7 @@ std::shared_ptr<grc::scene> mainScene() {
 		grc::application::shared->setTitle("차차의 모험기 : 메인화면");
 		grc::application::shared->setSize(grc::size{
 			500, 500 });
+		
 	};
 
 	v->play();
