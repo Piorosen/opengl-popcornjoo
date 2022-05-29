@@ -88,6 +88,7 @@ std::string grc::application::getTitle() const
 
 void grc::application::setTitle(const std::string title)
 {
+    spdlog::info("window title : []", title);
     this->title = title;
     glutSetWindowTitle(title.c_str());
 }
@@ -134,7 +135,9 @@ void grc::application::initialize(const grc::size size, const std::string title)
 
 void grc::application::setSize(const grc::size size)
 {
+    spdlog::info("window resize : [{}, {}]", size.width, size.height);
     this->size = size;
+    glutReshapeWindow(size.width, size.height);
     glViewport(0, 0, size.width, size.height);
 }
 
@@ -144,12 +147,21 @@ grc::size grc::application::getSize() const
 }
 void grc::application::setScene(std::shared_ptr<grc::scene>&& scene) {
     if (this->entryScene != nullptr) {
+        spdlog::info("scene close Event");
         this->entryScene->closeEvent.Invoke(this->entryScene);
+    }
+    else {
+        spdlog::error("scene close Event");
     }
     
     if (scene != nullptr) {
+        spdlog::info("scene open event");
         this->entryScene = scene;
         scene->openEvent.Invoke(scene);
+    }
+    else {
+        spdlog::error("scene open Event");
+        FatalExit(0);
     }
 
     glutPostRedisplay();

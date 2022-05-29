@@ -41,6 +41,11 @@ std::shared_ptr<grc::scene> mainScene() {
 	b->mouseEvent += [](grc::buttonview* self, grc::buttonstate state) {
 		spdlog::info("Occur Event!!");
 	};
+	data->openEvent += [](std::weak_ptr<grc::scene> self) {
+		grc::application::shared->setTitle("차차의 모험기 : 메인화면");
+		grc::application::shared->setSize(grc::size{
+			500, 500 });
+	};
 
 	v->play();
 	v1->play();
