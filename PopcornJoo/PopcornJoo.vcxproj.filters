@@ -61,6 +61,9 @@
     <Filter Include="헤더 파일\engine\sound">
       <UniqueIdentifier>{41f5f7ff-3845-4503-bebb-3f0b4785406e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\engine\scene\component\game">
+      <UniqueIdentifier>{a3c624a9-3ddc-4957-b916-85edbeeda7bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
