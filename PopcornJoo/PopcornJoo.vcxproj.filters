@@ -149,5 +149,11 @@
     <ClInclude Include="colorbuttonview.h">
       <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
+    <ClInclude Include="ingame.hpp">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="entryPoint.hpp">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

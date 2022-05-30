@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <functional>
+
 #include "Func.h"
 
 namespace grc
@@ -11,7 +13,13 @@ namespace grc
 		std::vector<grc::Func<void, ARGS...>> list;
 
 	public:
-		bool operator+=(void (*function)(ARGS...))
+		//bool operator+=(void (*function)(ARGS...))
+		//{
+		//	list.push_back(function);
+		//	return true;
+		//}
+
+		bool operator+=(std::function<void(ARGS...)> function)
 		{
 			list.push_back(function);
 			return true;

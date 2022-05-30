@@ -204,9 +204,11 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="colorbuttonview.h" />
+    <ClInclude Include="entryPoint.hpp" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="imagecollect.h" />
+    <ClInclude Include="ingame.hpp" />
     <ClInclude Include="mainScene.hpp" />
     <ClInclude Include="object.h" />
     <ClInclude Include="physics.hpp" />
