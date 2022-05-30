@@ -188,6 +188,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="ballview.cpp" />
     <ClCompile Include="buttonview.cpp" />
     <ClCompile Include="colorbuttonview.cpp" />
     <ClCompile Include="imagecollect.cpp" />
@@ -199,11 +200,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="ballview.h" />
     <ClInclude Include="buttonview.h" />
-    <ClInclude Include="circle.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="colorbuttonview.h" />
+    <ClInclude Include="damageview.h" />
     <ClInclude Include="entryPoint.hpp" />
     <ClInclude Include="helpScene.hpp" />
     <ClInclude Include="imagecollect.h" />
@@ -213,7 +215,6 @@
     <ClInclude Include="physics.hpp" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />
-    <ClInclude Include="rectangle.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="size.h" />
     <ClInclude Include="vector2d.h" />

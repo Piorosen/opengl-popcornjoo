@@ -19,9 +19,6 @@
     <Filter Include="소스 파일\engine\imagecollect">
       <UniqueIdentifier>{2c61db6b-e907-42d6-ae22-b9d891eb737e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\engine\physics">
-      <UniqueIdentifier>{19fd337b-fc97-4716-9b5d-e38a26205b71}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\engine\scene">
       <UniqueIdentifier>{46edb3e4-fe56-465e-aefc-132eae36bc11}</UniqueIdentifier>
     </Filter>
@@ -64,6 +61,9 @@
     <Filter Include="헤더 파일\engine\scene\component\game">
       <UniqueIdentifier>{a3c624a9-3ddc-4957-b916-85edbeeda7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\engine\scene\component\game">
+      <UniqueIdentifier>{acb7a5be-e4c0-4d25-9494-9f04f8bc04db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="colorbuttonview.cpp">
       <Filter>소스 파일\engine\scene\component</Filter>
+    </ClCompile>
+    <ClCompile Include="ballview.cpp">
+      <Filter>소스 파일\engine\scene\component\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,12 +131,6 @@
     <ClInclude Include="object.h">
       <Filter>헤더 파일\engine\physics\object</Filter>
     </ClInclude>
-    <ClInclude Include="circle.h">
-      <Filter>헤더 파일\engine\physics\object</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangle.h">
-      <Filter>헤더 파일\engine\physics\object</Filter>
-    </ClInclude>
     <ClInclude Include="physics.hpp">
       <Filter>헤더 파일\engine\physics</Filter>
     </ClInclude>
@@ -154,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="helpScene.hpp">
       <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ballview.h">
+      <Filter>헤더 파일\engine\scene\component\game</Filter>
+    </ClInclude>
+    <ClInclude Include="damageview.h">
+      <Filter>헤더 파일\engine\scene\component\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

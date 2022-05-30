@@ -4,5 +4,7 @@
 
 namespace phy{
 	static class collide {
+
+
 	};
 }

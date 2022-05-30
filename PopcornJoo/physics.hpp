@@ -1,34 +1,40 @@
 #pragma once
-#include <list>
+#include <vector>
 #include <memory>
+#include <functional>
 
 #include "circle.h"
 #include "rectangle.h"
 #include "object.h"
 #include "collision.h"
 
-#include "EventHandler.h"
 
 namespace phy {
 	class physicsEngine final {
 	private:
-		std::list<std::shared_ptr<object>> collide;
+		std::vector<std::shared_ptr<object>> target;
+		std::vector<std::shared_ptr<object>> wall;
+		std::vector<std::shared_ptr<object>> object;
 
 	public:
-		grc::EventHandler<std::weak_ptr<object>, std::weak_ptr<object>> collisionObject;
+		std::function<void(std::weak_ptr<phy::object>, std::weak_ptr<phy::object>)> collisionObject;
 		
-		void AddObject(std::shared_ptr<object> data) {
-			collide.push_back(data);
+		void AddTarget(std::shared_ptr<phy::object> data) {
+			target.push_back(data);
 		}
 
-		void RemoveObject(std::shared_ptr<object> data) {
-			for (auto& p : collide) {
-				collide.remove(data);
-			}
+		void AddWall(std::shared_ptr<phy::object> data) {
+			wall.push_back(data);
+		}
+
+		void AddObject(std::shared_ptr<phy::object> data) {
+			object.push_back(data);
 		}
 
 		void ClearObject() {
-			collide.clear();
+			target.clear();
+			wall.clear();
+			object.clear();
 		}
 
 		void update(long long tick) {
