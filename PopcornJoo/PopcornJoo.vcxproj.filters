@@ -119,12 +119,6 @@
     <ClInclude Include="buttonview.h">
       <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
-    <ClInclude Include="Func.h">
-      <Filter>헤더 파일\engine\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="EventHandler.h">
-      <Filter>헤더 파일\engine\utils</Filter>
-    </ClInclude>
     <ClInclude Include="collision.h">
       <Filter>헤더 파일\engine\physics</Filter>
     </ClInclude>
@@ -149,10 +143,13 @@
     <ClInclude Include="colorbuttonview.h">
       <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
-    <ClInclude Include="ingame.hpp">
+    <ClInclude Include="ingameScene.hpp">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
     <ClInclude Include="entryPoint.hpp">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="helpScene.hpp">
       <Filter>헤더 파일\ui</Filter>
     </ClInclude>
   </ItemGroup>

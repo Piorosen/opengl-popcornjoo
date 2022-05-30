@@ -145,10 +145,10 @@ grc::size grc::application::getSize() const
 {
     return this->size;
 }
-void grc::application::setScene(std::shared_ptr<grc::scene>&& scene) {
+void grc::application::setScene(std::shared_ptr<grc::scene> scene) {
     if (this->entryScene != nullptr) {
         spdlog::info("scene close Event");
-        this->entryScene->closeEvent.Invoke(this->entryScene);
+        this->entryScene->closeEvent(this->entryScene);
     }
     else {
         spdlog::error("scene close Event");
@@ -157,7 +157,7 @@ void grc::application::setScene(std::shared_ptr<grc::scene>&& scene) {
     if (scene != nullptr) {
         spdlog::info("scene open event");
         this->entryScene = scene;
-        scene->openEvent.Invoke(scene);
+        scene->openEvent(scene);
     }
     else {
         spdlog::error("scene open Event");

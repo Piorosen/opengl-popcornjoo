@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 
-#include "EventHandler.h"
 #include "buttonview.h"
 
 namespace grc
@@ -23,7 +22,7 @@ namespace grc
                                      grc::color downColor = grc::color(0xcccccc),
                                      grc::color hoverColor = grc::color(0xdddddd));
 
-        grc::EventHandler<colorbuttonview*, buttonstate> mouseEvent;
+        std::function<void(colorbuttonview*, buttonstate)> mouseEvent;
 
         virtual bool render(long long tick) override;
         virtual mouseclick click(int state, int x, int y) override;

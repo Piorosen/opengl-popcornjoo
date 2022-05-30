@@ -9,7 +9,7 @@
 #include "spriteview.h"
 #include "buttonview.h"
 
-std::shared_ptr<grc::scene> getIngame() {
+std::shared_ptr<grc::scene> getIngameScene() {
 	auto data = std::make_shared<grc::scene>();
 	return data;
 }

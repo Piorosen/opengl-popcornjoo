@@ -61,7 +61,7 @@ grc::mouseclick grc::buttonview::click(int state, int x, int y)
 	mouseclick value =  view::click(state, x, y);
 	if (value == mouseclick::ownLevel) {
 		this->state = (buttonstate)state;
-		mouseEvent.Invoke(this, (buttonstate)state);
+		mouseEvent(this, (buttonstate)state);
 	}
 	return value;
 }
@@ -76,13 +76,13 @@ int grc::buttonview::mouse(int x, int y)
 	int value = view::mouse(x, y);
 	if (this->frame.exists(grc::point{ x, y })) {
 		if (this->state == grc::buttonstate::mouseLeave) {
-			mouseEvent.Invoke(this, grc::buttonstate::mouseHover);
+			mouseEvent(this, grc::buttonstate::mouseHover);
 			this->state = grc::buttonstate::mouseHover;
 		}
 	}
 	else {
 		if (this->state == grc::buttonstate::mouseHover) {
-			mouseEvent.Invoke(this, grc::buttonstate::mouseLeave);
+			mouseEvent(this, grc::buttonstate::mouseLeave);
 			this->state = grc::buttonstate::mouseLeave;
 		}
 	}

@@ -38,7 +38,7 @@ namespace grc
         void close() const;
 
         // 추후 Scene 설정 기능임
-        void setScene(std::shared_ptr<grc::scene>&& scene);
+        void setScene(std::shared_ptr<grc::scene> scene);
 
         void initialize(const grc::size size, const std::string title);
 
