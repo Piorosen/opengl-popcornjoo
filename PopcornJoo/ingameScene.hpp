@@ -3,13 +3,26 @@
 #include <spdlog/spdlog.h>
 
 #include "scene.h"
+#include "physics.hpp"
+#include "ballview.h"
 
-
-#include "imagecollect.h"
-#include "spriteview.h"
-#include "buttonview.h"
-
-std::shared_ptr<grc::scene> getIngameScene() {
+std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	auto data = std::make_shared<grc::scene>();
+
+	auto ball = std::make_shared<grc::ballview>(grc::rect(0, 0, 500, 500), grc::color(0xff000000));
+	data->view.push_back(ball);
+
+	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
+		phy::physicsEngine::shared->ClearObject();
+		phy::physicsEngine::shared->AddTarget(ball->getPhysical());
+
+	};
+
+	data->keyboard = [close](grc::scene* self, unsigned char key, int x, int y) {
+		if (key == 27) {
+			close();
+		}
+	};
+
 	return data;
 }

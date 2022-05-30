@@ -9,7 +9,9 @@ std::shared_ptr<grc::scene> ingame;
 std::shared_ptr<grc::scene> mainView;
 
 std::shared_ptr<grc::scene> entryPoint() {
-	ingame = getIngameScene();
+	ingame = getIngameScene([]() {
+		grc::application::shared->setScene(mainView);
+		});
 
 	help = getHelpScene([]() {
 		grc::application::shared->setScene(mainView);

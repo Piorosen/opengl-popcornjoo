@@ -17,6 +17,8 @@ namespace phy {
 		std::vector<std::shared_ptr<object>> object;
 
 	public:
+		static std::unique_ptr<phy::physicsEngine> shared;
+
 		std::function<void(std::weak_ptr<phy::object>, std::weak_ptr<phy::object>)> collisionObject;
 		
 		void AddTarget(std::shared_ptr<phy::object> data) {
@@ -43,7 +45,7 @@ namespace phy {
 
 	protected:
 
-
-
 	};
 }
+
+std::unique_ptr<phy::physicsEngine> phy::physicsEngine::shared = std::make_unique<phy::physicsEngine>();
