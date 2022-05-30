@@ -30,7 +30,6 @@ std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview
 	auto startButton = std::make_shared<grc::colorbuttonview>(grc::rect(150, 250, 350, 300));
 	auto helpButton = std::make_shared<grc::colorbuttonview>(grc::rect(150, 350, 350, 400));
 
-
 	startButton->mouseEvent = startEvent;
 	helpButton->mouseEvent = helpEvent;
 

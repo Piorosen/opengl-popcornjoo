@@ -2,7 +2,7 @@
 
 void grc::scene::mouseEvent(int button, int state, int x, int y)
 {
-    if (mouse != nullptr) {
+    if (mouse) {
         mouse(this, button, state, x, y);
     }
     if (button == 0)
@@ -16,7 +16,7 @@ void grc::scene::mouseEvent(int button, int state, int x, int y)
 
 void grc::scene::mouseMotionEvent(int x, int y)
 {
-    if (mouse != nullptr) {
+    if (mouseMotion) {
         mouseMotion(this, x, y);
     }
 	for (auto& v : view)
@@ -27,7 +27,7 @@ void grc::scene::mouseMotionEvent(int x, int y)
 
 void grc::scene::keyboardEvent(unsigned char key, int x, int y)
 {
-    if (keyboard != nullptr) {
+    if (keyboard) {
         this->keyboard(this, key, x, y);
     }
     for (auto& v : view)
