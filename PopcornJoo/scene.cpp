@@ -1,3 +1,4 @@
+#include <spdlog/spdlog.h>
 #include "scene.h"
 
 void grc::scene::mouseEvent(int button, int state, int x, int y)
@@ -7,9 +8,12 @@ void grc::scene::mouseEvent(int button, int state, int x, int y)
     }
     if (button == 0)
     {
+        spdlog::info("{}, {}, {}, {}", button, state, x, y);
         for (auto& v : view)
         {
-            v->click(state, x, y);
+            if (v) {
+                v->click(state, x, y);
+            }
         }
     }
 }
