@@ -76,14 +76,12 @@ int grc::buttonview::mouse(int x, int y)
 	int value = view::mouse(x, y);
 	if (this->frame.exists(grc::point{ x, y })) {
 		if (this->state == grc::buttonstate::mouseLeave) {
-			spdlog::info("hover");
 			mouseEvent.Invoke(this, grc::buttonstate::mouseHover);
 			this->state = grc::buttonstate::mouseHover;
 		}
 	}
 	else {
 		if (this->state == grc::buttonstate::mouseHover) {
-			spdlog::info("leave");
 			mouseEvent.Invoke(this, grc::buttonstate::mouseLeave);
 			this->state = grc::buttonstate::mouseLeave;
 		}

@@ -11,8 +11,8 @@
 
 std::vector<int> arrayData;
 int i = 0;
-std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview*, grc::buttonstate)> startEvent,
-									     std::function<void(grc::colorbuttonview*, grc::buttonstate)> helpEvent) {
+std::shared_ptr<grc::scene> getMainScene(void (*startEvent)(grc::colorbuttonview*, grc::buttonstate),
+									     void (*helpEvent)(grc::colorbuttonview*, grc::buttonstate)) {
 	auto data = std::make_shared<grc::scene>();
 	std::vector<int> im;
 	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\004.png"));
@@ -28,7 +28,7 @@ std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview
 	v->durationMS = 500;
 
 	auto startButton = std::make_shared<grc::colorbuttonview>(grc::rect(150, 250, 350, 300));
-	auto helpButton = std::make_shared<grc::colorbuttonview>(grc::rect(150, 250, 350, 300));
+	auto helpButton = std::make_shared<grc::colorbuttonview>(grc::rect(150, 350, 350, 400));
 
 
 	startButton->mouseEvent += startEvent;

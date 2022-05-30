@@ -13,17 +13,17 @@ namespace grc
 		std::vector<grc::Func<void, ARGS...>> list;
 
 	public:
-		//bool operator+=(void (*function)(ARGS...))
-		//{
-		//	list.push_back(function);
-		//	return true;
-		//}
-
-		bool operator+=(std::function<void(ARGS...)> function)
+		bool operator+=(void (*function)(ARGS...))
 		{
 			list.push_back(function);
 			return true;
 		}
+
+		//bool operator+=(std::function<void(ARGS...)> function)
+		//{
+		//	list.push_back(function);
+		//	return true;
+		//}
 
 		bool operator+=(grc::Action<ARGS...> function)
 		{

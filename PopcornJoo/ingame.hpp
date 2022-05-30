@@ -11,5 +11,5 @@
 
 std::shared_ptr<grc::scene> getIngame() {
 	auto data = std::make_shared<grc::scene>();
-
+	return data;
 }

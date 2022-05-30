@@ -5,11 +5,15 @@
 
 std::shared_ptr<grc::scene> entryPoint() {
 	return getMainScene([](grc::colorbuttonview* view, grc::buttonstate state) {
-		spdlog::info("Start 이벤트 발생");
+		if (state == grc::buttonstate::mouseUp) {
+			spdlog::info("Start 이벤트 발생");
+		}
 		// Start 이벤트
 	}, [](grc::colorbuttonview* view, grc::buttonstate state) {
 		// End 이벤트
-		spdlog::info("End 이벤트 발생");
+		if (state == grc::buttonstate::mouseUp) {
+			spdlog::info("End 이벤트 발생");
+		}
 	});
 
 }
