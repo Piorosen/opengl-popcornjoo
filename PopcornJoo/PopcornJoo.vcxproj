@@ -189,6 +189,7 @@
   <ItemGroup>
     <ClCompile Include="application.cpp" />
     <ClCompile Include="buttonview.cpp" />
+    <ClCompile Include="colorbuttonview.cpp" />
     <ClCompile Include="imagecollect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="circle.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="colorbuttonview.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="imagecollect.h" />

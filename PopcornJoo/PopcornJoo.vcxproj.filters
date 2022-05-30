@@ -87,6 +87,9 @@
     <ClCompile Include="buttonview.cpp">
       <Filter>소스 파일\engine\scene\component</Filter>
     </ClCompile>
+    <ClCompile Include="colorbuttonview.cpp">
+      <Filter>소스 파일\engine\scene\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imagecollect.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="mainScene.hpp">
       <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="colorbuttonview.h">
+      <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
