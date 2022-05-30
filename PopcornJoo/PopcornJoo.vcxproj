@@ -110,7 +110,7 @@
       <Command>COPY /Y "$(SolutionDir)3rdparty\fmod\lib\x86\fmodL.dll" "$(SolutionDir)$(Configuration)\fmodL.dll"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY /E /Y /D "$(SolutionDir)resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
+      <Command>XCOPY /E /Y /D "$(SolutionDir)PopcornJoo\resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,7 +137,7 @@
       <Command>COPY /Y "$(SolutionDir)3rdparty\fmod\lib\x86\fmodL.dll" "$(SolutionDir)$(Configuration)\fmodL.dll"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY /E /Y /D "$(SolutionDir)resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
+      <Command>XCOPY /E /Y /D "$(SolutionDir)PopcornJoo\resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,7 +155,7 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY /E /Y /D "$(SolutionDir)resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
+      <Command>XCOPY /E /Y /D "$(SolutionDir)PopcornJoo\resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>COPY /Y "$(SolutionDir)3rdparty\fmod\lib\x64\fmodL.dll" "$(SolutionDir)$(Configuration)\fmodL.dll"</Command>
@@ -180,7 +180,7 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY /E /Y /D "$(SolutionDir)resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
+      <Command>XCOPY /E /Y /D "$(SolutionDir)PopcornJoo\resources\" "$(SolutionDir)$(Configuration)\resources\"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>COPY /Y "$(SolutionDir)3rdparty\fmod\lib\x64\fmodL.dll" "$(SolutionDir)$(Configuration)\fmodL.dll"</Command>
