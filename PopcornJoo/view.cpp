@@ -131,8 +131,8 @@ void grc::view::drawRect(grc::rect size, grc::color color) const
     grc::point rbp = { size.location.x + size.size.width, size.location.y };
 
     const auto& displaySize = grc::application::shared->getSize();
-    float displayX = displaySize.width / 2,
-        displayY = -displaySize.height / 2;
+    float displayX = displaySize.width / 2.0,
+        displayY = -displaySize.height / 2.0;
 
     glVertex2f(lbp.x / displayX - 1, lbp.y / displayY + 1); // x, y
     glVertex2f(rbp.x / displayX - 1, rbp.y / displayY + 1);
@@ -149,8 +149,8 @@ void grc::view::drawCircle(grc::point pt, float radius, grc::color color) const
 
     double twicePi = 2.0f * MATH_PI;
     const auto& displaySize = grc::application::shared->getSize();
-    float displayX = displaySize.width / 2,
-        displayY = -displaySize.height / 2;
+    float displayX = displaySize.width / 2.0,
+        displayY = -displaySize.height / 2.0;
 
     float ptX = pt.x / displayX - 1, ptY = pt.y / displayY + 1;
     float szX = (radius * 2) / displaySize.width, szY = (radius * 2) / displaySize.height;
@@ -171,8 +171,8 @@ void grc::view::drawCircle(grc::point pt, float radius, grc::color color) const
 void grc::view::drawLine(grc::point x, grc::point y, float thin, grc::color color) const
 {
     const auto& displaySize = grc::application::shared->getSize();
-    float displayX = displaySize.width / 2,
-        displayY = -displaySize.height / 2;
+    float displayX = displaySize.width / 2.0,
+        displayY = -displaySize.height / 2.0;
 
     glLineWidth(thin);
     glColor4f(color.red / 255.0, color.green / 255.0, color.blue / 255.0, color.alpha / 255.0);
@@ -191,8 +191,8 @@ void grc::view::drawImage(grc::rect size, unsigned int imageId) const
     grc::point rbp = { size.location.x + size.size.width, size.location.y };
 
     const auto& displaySize = grc::application::shared->getSize();
-    float displayX = displaySize.width / 2,
-        displayY = -displaySize.height / 2;
+    float displayX = displaySize.width / 2.0,
+        displayY = -displaySize.height / 2.0;
 
     glEnable(GL_TEXTURE_2D);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -224,8 +224,8 @@ void grc::view::drawBitmapText(std::string text, grc::point pos) const
 
     int fontSize = 3;
     const auto& displaySize = grc::application::shared->getSize();
-    float displayX = displaySize.width / 2,
-        displayY = -displaySize.height / 2;
+    float displayX = displaySize.width / 2.0,
+        displayY = -displaySize.height / 2.0;
 
     glColor3f(1, 0, 0);
     glRasterPos2f((pos.x - (fontSize * text.size() * 2)) / displayX - 1, (pos.y + (7.5)) / displayY + 1);
