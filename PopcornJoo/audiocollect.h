@@ -23,11 +23,12 @@ namespace grc
     public:
         audiocollect() {
             auto d = FMOD::System_Create(&pSystem);
+            pSystem->init(32, FMOD_INIT_NORMAL, nullptr);
             if (d != FMOD_OK) {
                 spdlog::error("audio driver fail!");
             }
             else {
-                spdlog::info("audio driver success!");
+                spdlog::error("audio driver success!");
             }
         }
 
@@ -43,4 +44,3 @@ namespace grc
 }
 
 
-std::unique_ptr<grc::audiocollect> grc::audiocollect::shared = std::make_unique<grc::audiocollect>();

@@ -30,7 +30,8 @@ bool grc::spriteview::render(long long tick) {
 	}
 
 	if (!getHidden()) {
-		int idx = (timer / (durationMS / images.size())) % images.size();
+		int dur = durationMS / images.size();
+		int idx = (timer / dur) % images.size();
 		view::drawImage(this->frame, images[idx]);
 		for (auto& v : controls)
 		{
