@@ -26,7 +26,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 			double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
 			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
 			obj->velocity.y += downSpeed;
-			obj->velocity.y = -obj->velocity.y * 1.05;
+			obj->velocity.y = -obj->velocity.y * 1.00;
 		}
 		else if (info.other == phy::collisionPos::left || info.other == phy::collisionPos::right) {
 			obj->setTransform(phy::vector2d{ t.x - obj->velocity.x * (tick / 1000.0), t.y });
@@ -34,7 +34,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		}
 		else {
 			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
-			obj->velocity.y = -obj->velocity.y * 0.9;
+			obj->velocity.y = -obj->velocity.y * 0.8;
 		}
 		switch (info.other) {
 		case phy::collisionPos::none:
@@ -71,10 +71,10 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 								location.x + radius, location.y + radius);
 	};
 	physical->setType(radius);
-	physical->velocity.x = 300;
+	physical->velocity.x = 200;
 	physical->velocity.y = 1000;
-	physical->gravity = -100;
-	physical->mesh = 20;
+	physical->gravity = -200;
+	physical->mesh = 10;
 }
 
 std::shared_ptr<phy::object> grc::ballview::getPhysical() const

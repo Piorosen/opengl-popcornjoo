@@ -131,16 +131,16 @@ namespace phy {
 			auto start = ls->getOldTransform();
 			auto length = (target - start);
 			auto base = (target - start).normalization() * ld;
-			int i;
-			for (i = 0; i < (int)(length.x / base.x); i++) {
-				bool d = checkCollision(lsType, lr, ld, start + (base * i), 
-										rsType, rr, rd, rs->getTransform(), info);
-				if (d == true) {
-					spdlog::info("coolide");
-					return true;
-					break;
-				}
-			}
+			//int i;
+			//for (i = 0; i < (int)(length.x / base.x); i++) {
+			//	bool d = checkCollision(lsType, lr, ld, start + (base * i), 
+			//							rsType, rr, rd, rs->getTransform(), info);
+			//	if (d == true) {
+			//		spdlog::info("coolide");
+			//		return true;
+			//		break;
+			//	}
+			//}
 			return checkCollision(lsType, lr, ld, target,
 								  rsType, rr, rd, rs->getTransform(), info);
 		}

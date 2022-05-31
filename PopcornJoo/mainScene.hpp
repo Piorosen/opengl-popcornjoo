@@ -43,10 +43,10 @@ std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview
 			1280, 800 });
 		auto audio = grc::audiocollect::shared->get(".\\resources\\audio\\main_logo.mp3");
 		if (audio.has_value()) {
-			audio.value()->setPaused(false);
+			//audio.value()->setPaused(false);
 		}
 		else {
-			grc::audiocollect::shared->set(".\\resources\\audio\\main_logo.mp3", false);
+			//grc::audiocollect::shared->set(".\\resources\\audio\\main_logo.mp3", false);
 		}
 	};
 
