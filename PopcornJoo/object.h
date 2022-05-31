@@ -18,8 +18,8 @@ namespace phy {
 	public:
 		// circle mode
 		void setType(double radius) {
-			this->rect = grc::rect(-radius / 2.0, -radius / 2.0, 
-								    radius / 2.0,  radius / 2.0);
+			this->rect = grc::rect(-radius, -radius, 
+								    radius,  radius);
 			type = collisiontype::circle;
 		}
 		// circle mode
@@ -29,7 +29,7 @@ namespace phy {
 		}
 
 		collisiontype getType(double& radius, grc::rect& rect) {
-			radius = this->rect.size.width + this->rect.location.x;
+			radius = -this->rect.location.x;
 			rect = this->rect;
 			return type;
 		}
@@ -43,7 +43,7 @@ namespace phy {
 		std::function<void(std::weak_ptr<object>, std::weak_ptr<object>)> collisionevent;
 
 		virtual void update(long long tick) {
-			double downSpeed = gravity * (1.0 / mesh) * (tick / 1000.0);
+			double downSpeed = gravity * mesh * (tick / 1000.0);
 			velocity.y -= downSpeed;
 			transform.x += velocity.x * (tick / 1000.0);
 			transform.y += velocity.y * (tick / 1000.0);

@@ -3,27 +3,28 @@
 
 
 grc::ballview::ballview(grc::point center, int radius, grc::color ballColor) 
-	: view(grc::rect(center.x - (radius / 2),
-					 center.y - (radius / 2),
-					 center.x + (radius / 2),
-					 center.y + (radius / 2)), ballColor)
+	: view(grc::rect(center.x - radius,
+					 center.y - radius,
+					 center.x + radius,
+					 center.y + radius), ballColor)
 {
 	physical = std::make_shared<phy::object>();
 	physical->collisionevent = [](std::weak_ptr<phy::object> self, std::weak_ptr<phy::object> other) {
 		auto obj = self.lock();
 		auto oobj = other.lock();
-		obj->velocity.y = -300;
-
+		
 		double r = 0;
 		grc::rect rc;
 		grc::rect rc2;
 		oobj->getType(r, rc2);
 		obj->getType(r, rc);
 
-		//double ballBottom = obj->transform.y + r;
-		//double wallTop = oobj->transform.y + rc2.location.y;
+		double ballBottom = obj->transform.y + r;
+		double wallTop = oobj->transform.y + rc2.location.y;
 
-		//obj->transform.y -= ballBottom - wallTop + r;
+		obj->velocity.y = -obj->velocity.y * 0.9;
+		
+		obj->transform.y -= ballBottom - wallTop + r;
 		obj->transformchanged(obj->transform);
 		spdlog::info("COLLISION");
 	};
@@ -37,8 +38,9 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 								location.x + radius, location.y + radius);
 	};
 	physical->setType(radius);
-	physical->gravity = -10;
-	physical->mesh = 0.05;
+	//physical->velocity.y = 500;
+	physical->gravity = -100;
+	physical->mesh = 20;
 }
 
 std::shared_ptr<phy::object> grc::ballview::getPhysical() const
