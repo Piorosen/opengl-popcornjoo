@@ -2,19 +2,47 @@
 
 #include <spdlog/spdlog.h>
 
-grc::wallview::wallview(grc::rect rect, grc::color backgroundColor) : view(rect, backgroundColor)
+grc::wallview::wallview(grc::rect rect, bool iswall, grc::color backgroundColor) : view(rect, backgroundColor)
 {
+	setIsWall(iswall);
 	auto center = rect.center();
-
 	physical = std::make_shared<phy::object>();
 	physical->setTransform(phy::vector2d{
 		(double)center.x,
 		(double)center.y
 		});
+	physical->collisionevent = [this](std::weak_ptr<phy::object> own, std::weak_ptr<phy::object> others, phy::collisioninfo info, long long tick) {
+		if (!this->getIsWall()) {
+			auto ownP = own.lock();
+			ownP->setHidden(true);
+			this->setHidden(true);
+			spdlog::info("remove");
+		}
+	};
 	physical->setType(grc::rect(-rect.size.width / 2.0, -rect.size.height / 2.0,
 								 rect.size.width / 2.0,  rect.size.height / 2.0));
 	physical->gravity = 0;
 	physical->mesh = INT_MAX;
+}
+
+void grc::wallview::setIsWall(bool iswall)
+{
+	this->isWall = iswall;
+}
+
+bool grc::wallview::getIsWall() const
+{
+	return isWall;
+}
+
+void grc::wallview::setScore(int iswall)
+{
+	score = iswall;
+}
+
+int grc::wallview::getScore() const
+{
+	return score;
 }
 
 

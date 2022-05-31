@@ -17,7 +17,17 @@ namespace phy {
 		vector2d prevTrasform;
 		vector2d transform;
 
+		bool hidden = false;
+
 	public:
+		void setHidden(bool hidden) {
+			this->hidden = hidden;
+		}
+
+		bool getHidden() const {
+			return hidden;
+		}
+
 		// circle mode
 		void setType(double radius) {
 			this->rect = grc::rect(-radius, -radius, 
@@ -60,12 +70,14 @@ namespace phy {
 		std::function<void(std::weak_ptr<object>, std::weak_ptr<object>, phy::collisioninfo, long long)> collisionevent;
 
 		virtual void update(long long tick) {
-			double downSpeed = gravity * mesh * (tick / 1000.0);
-			velocity.y -= downSpeed;
-			transform.x += velocity.x * (tick / 1000.0);
-			transform.y += velocity.y * (tick / 1000.0);
-			if (transformchanged) {
-				transformchanged(transform);
+			if (!hidden) {
+				double downSpeed = gravity * mesh * (tick / 1000.0);
+				velocity.y -= downSpeed;
+				transform.x += velocity.x * (tick / 1000.0);
+				transform.y += velocity.y * (tick / 1000.0);
+				if (transformchanged) {
+					transformchanged(transform);
+				}
 			}
 		}
 	};

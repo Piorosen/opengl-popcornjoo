@@ -147,10 +147,15 @@ namespace phy {
 
 		void update(long long tick) {
 			for (auto& t : target) {
+				if (t->getHidden()) {
+					continue;
+				}
 				t->update(tick);
 				for (auto& w : wall) {
+					if (w->getHidden()) {
+						continue;
+					}
 					w->update(tick);
-
 					collisioninfo info{};
 					bool data = nextPosVel(t, w, info);
 					if (data) {

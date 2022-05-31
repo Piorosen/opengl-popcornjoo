@@ -85,27 +85,27 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	// right
 	auto wall4 = std::make_shared<grc::wallview>(grc::rect(1255 - 8, 0, 2000, 1200));
 
-	auto ball = std::make_shared<grc::ballview>(grc::point{ (1255 + 413) / 2, 750 - 8 }, 10, grc::color(0xfff000ff));
-	data->view.push_back(ball);
+	//auto ball = std::make_shared<grc::ballview>(grc::point{ (1255 + 413) / 2, 750 - 8 }, 10, grc::color(0xfff000ff));
+	//data->view.push_back(ball);
 	
 	auto game = loadGame(".\\resources\\map\\002.m");
 	std::vector<std::shared_ptr<grc::wallview>> wallList;
 	std::vector<std::shared_ptr<grc::ballview>> ballList;
 
 	for (auto& elem : game.element) {
-		switch (elem.type) {
-		case 0:
+		if (elem.type == 0) {
 			ballList.push_back(std::make_shared<grc::ballview>(grc::point{
 				413 + elem.x,
 				208 + elem.y
 				}, 10, 0xfff000ff));
-			break;
-		case 1:
-			wallList.push_back(std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), 0xffccc0ff));
-			break;
-		case 2:
+		}
+		else if (elem.type == 1) {
+			auto blockTest = std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), false, 0xffccc0ff);
+			blockTest->setScore(elem.score);
+			wallList.push_back(blockTest);
+		}
+		else {
 			wallList.push_back(std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), 0xc0c00cff));
-			break;
 		}
 	}
 	for (auto& elem : wallList) {
@@ -120,7 +120,6 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 		grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", false);
 		phy::physicsEngine::shared->ClearObject();
 
-		phy::physicsEngine::shared->AddTarget(ball->getPhysical());
 		phy::physicsEngine::shared->AddWall(wall1->getPhysical());
 		phy::physicsEngine::shared->AddWall(wall2->getPhysical());
 		phy::physicsEngine::shared->AddWall(wall3->getPhysical());
