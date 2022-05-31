@@ -41,6 +41,40 @@ namespace phy {
 			//object.clear();
 		}
 
+		bool rectCheck(grc::rect leftRect, grc::rect rightRect, collisioninfo& info) {
+			if (leftRect.location.x + leftRect.size.width >= rightRect.location.x &&
+				leftRect.location.x <= rightRect.location.x + rightRect.size.width &&
+				leftRect.location.y + leftRect.size.height >= rightRect.location.y &&
+				leftRect.location.y <= rightRect.location.y + rightRect.size.height) {
+				info.own = phy::collisionPos::none;
+
+				auto pos = leftRect.center();
+				double left = abs(pos.x - rightRect.location.x);
+				double top = abs(pos.y - rightRect.location.y);
+				double right = abs((rightRect.location.x + rightRect.size.width) - pos.x);
+				double bottom = abs((rightRect.location.y + rightRect.size.height) - pos.y);
+				spdlog::info("{}, {}, {}, {}", left, top, right, bottom);
+
+				if (left < top && left < right && left < bottom) {
+					info.other = phy::collisionPos::left;
+				}
+				else if (top < left && top < right && top < bottom) {
+					info.other = phy::collisionPos::top;
+				}
+				else if (right < top && right < left && right < bottom) {
+					info.other = phy::collisionPos::right;
+				}
+				else {
+					info.other = phy::collisionPos::bottom;
+				}
+
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
 		bool checkCollision(std::weak_ptr<phy::object> left, std::weak_ptr<phy::object> right, collisioninfo& info) {
 			auto ls = left.lock();
 			auto rs = right.lock();
@@ -59,7 +93,7 @@ namespace phy {
 				rightType == phy::collisiontype::circle) {
 				info.type = collidetype::circleTocircle;
 
-				auto length = (ls->transform - rs->transform).magnitude();
+				auto length = (ls->getTransform() - rs->getTransform()).magnitude();
 				if (length < leftRadius + rightRadius) {
 					return true;
 				}
@@ -67,15 +101,17 @@ namespace phy {
 					return false;
 				}
 			}
-			else if (leftType == phy::collisiontype::circle && rightType == phy::collisiontype::rectangle) {
-				leftRect.location.x += ls->transform.x;
-				leftRect.location.y += ls->transform.y;
 
-				rightRect.location.x += rs->transform.x;
-				rightRect.location.y += rs->transform.y;
+			else if (leftType == phy::collisiontype::circle && rightType == phy::collisiontype::rectangle) {
+				leftRect.location.x += ls->getTransform().x;
+				leftRect.location.y += ls->getTransform().y;
+
+				rightRect.location.x += rs->getTransform().x;
+				rightRect.location.y += rs->getTransform().y;
 
 				if (leftType != rightType) {
 					info.type = collidetype::circleToRect;
+					return rectCheck(leftRect, rightRect, info);
 				}
 				else {
 					info.type = collidetype::RectToRect;
@@ -83,38 +119,7 @@ namespace phy {
 					return false;
 				}
 				
-				if (leftRect.location.x + leftRect.size.width >= rightRect.location.x &&
-					leftRect.location.x <= rightRect.location.x + rightRect.size.width &&
-					leftRect.location.y + leftRect.size.height >= rightRect.location.y &&
-					leftRect.location.y <= rightRect.location.y + rightRect.size.height) {
-					
-					info.own = phy::collisionPos::none;
-
-					auto pos = leftRect.center();
-					double left = abs(pos.x - rightRect.location.x);
-					double top = abs(pos.y - rightRect.location.y);
-					double right = abs((rightRect.location.x + rightRect.size.width) - pos.x);
-					double bottom = abs((rightRect.location.y + rightRect.size.height) - pos.y);
-					spdlog::info("{}, {}, {}, {}", left, top, right, bottom);
-
-					if (left < top && left < right && left < bottom) {
-						info.other = phy::collisionPos::left;
-					}
-					else if (top < left && top < right && top < bottom) {
-						info.other = phy::collisionPos::top;
-					}
-					else if (right < top && right < left && right < bottom) {
-						info.other = phy::collisionPos::right;
-					}
-					else {
-						info.other = phy::collisionPos::bottom;
-					}
-
-					return true;
-				}
-				else {
-					return false;
-				}
+				
 			}
 
 
@@ -123,14 +128,9 @@ namespace phy {
 		void update(long long tick) {
 			for (auto& t : target) {
 				t->update(tick);
-			}
-
-			for (auto& w : wall) {
-				w->update(tick);
-			}
-
-			for (auto& t : target) {
 				for (auto& w : wall) {
+					w->update(tick);
+
 					collisioninfo info{};
 					bool data = checkCollision(t, w, info);
 					if (data) {

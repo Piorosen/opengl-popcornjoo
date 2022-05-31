@@ -20,19 +20,20 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		oobj->getType(r, rc2);
 		obj->getType(r, rc);
 
+		auto t = obj->getTransform();
 		// gravity ¿ª¹æÇâ
 		if (info.other == phy::collisionPos::top) {
 			double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
-			obj->transform.y -= obj->velocity.y * (tick / 1000.0);
+			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
 			obj->velocity.y += downSpeed;
 			obj->velocity.y = -obj->velocity.y * 1.05;
 		}
 		else if (info.other == phy::collisionPos::left || info.other == phy::collisionPos::right) {
-			obj->transform.x -= obj->velocity.x * (tick / 1000.0);
+			obj->setTransform(phy::vector2d{ t.x - obj->velocity.x * (tick / 1000.0), t.y });
 			obj->velocity.x *= -1;
 		}
 		else {
-			obj->transform.y -= obj->velocity.y * (tick / 1000.0);
+			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
 			obj->velocity.y = -obj->velocity.y * 0.9;
 		}
 		switch (info.other) {
@@ -59,12 +60,11 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 			obj->velocity.y = 0;
 		}*/
 		
-		obj->transformchanged(obj->transform);
 	};
-	physical->transform = phy::vector2d{
+	physical->setTransform(phy::vector2d{
 		(double)center.x,
 		(double)center.y
-	};
+		});
 	physical->transformchanged = [this](phy::vector2d location) {
 		auto radius = this->getRadius();
 		this->frame = grc::rect(location.x - radius, location.y - radius,

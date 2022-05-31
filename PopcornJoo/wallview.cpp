@@ -7,10 +7,10 @@ grc::wallview::wallview(grc::rect rect, grc::color backgroundColor) : view(rect,
 	auto center = rect.center();
 
 	physical = std::make_shared<phy::object>();
-	physical->transform = phy::vector2d{
+	physical->setTransform(phy::vector2d{
 		(double)center.x,
 		(double)center.y
-	};
+		});
 	physical->setType(grc::rect(-rect.size.width / 2.0, -rect.size.height / 2.0,
 								 rect.size.width / 2.0,  rect.size.height / 2.0));
 	physical->gravity = 0;

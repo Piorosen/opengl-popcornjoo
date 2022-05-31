@@ -36,7 +36,7 @@ std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview
 	data->openEvent = [](std::weak_ptr<grc::scene> self) {
 		grc::application::shared->setTitle("차차의 모험기 : 메인화면");
 		grc::application::shared->setSize(grc::size{
-			500, 500 });
+			1280, 800 });
 	};
 
 	v->play();

@@ -14,7 +14,9 @@ namespace phy {
 		collisiontype type = collisiontype::circle;
 		// type : rectangle needs
 		grc::rect rect = grc::rect(0,0,100, 100);
-		
+		vector2d prevTrasform;
+		vector2d transform;
+
 	public:
 		// circle mode
 		void setType(double radius) {
@@ -36,8 +38,23 @@ namespace phy {
 
 		double mesh = 1;
 		double gravity = 0;
-		vector2d transform;
 		vector2d velocity;
+
+		void setTransform(vector2d data) {
+			prevTrasform = transform;
+			transform = data;
+			if (transformchanged) {
+				transformchanged(data);
+			}
+		}
+
+		vector2d getTransform() const {
+			return transform;
+		}
+
+		vector2d getOldTransform() const {
+			return prevTrasform;
+		}
 		
 		std::function<void(vector2d)> transformchanged;
 		std::function<void(std::weak_ptr<object>, std::weak_ptr<object>, phy::collisioninfo, long long)> collisionevent;
