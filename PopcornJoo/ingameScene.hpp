@@ -11,7 +11,25 @@
 #include "toggleview.h"
 #include "numview.h"
 
-void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> close) {
+struct gameElement
+{
+	int x, y, w, h;
+	// 0 : 볼
+	// 1 : 블럭
+	// 2 : 벽
+	int type;
+	// 블록에 관한 점수
+	int score;
+};
+
+struct gameData {
+	int tryCount;
+	int clearScore;
+	int totalScore;
+	std::vector<gameElement> element;
+};
+
+void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> close, gameData game) {
 	auto background = std::make_shared<grc::view>(grc::rect(0, 0, 1280, 800), grc::color(0xffffffff));
 	// 위
 
@@ -59,18 +77,19 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 
 	auto playTimeTitle = std::make_shared<grc::view>(grc::rect(centerPos.x - 150, scorePos.location.y + 110 - 55,
 															   centerPos.x + 150, scorePos.location.y + 110), playTimeImage);
-	auto remianTitle = std::make_shared<grc::view>(grc::rect(centerPos.x - 150, scorePos.location.y + 250 - 55,
-															   centerPos.x + 150, scorePos.location.y + 250), reMonsterImage);
+	auto remianTitle = std::make_shared<grc::view>(grc::rect(centerPos.x - 150, scorePos.location.y + 240 - 55,
+															   centerPos.x + 150, scorePos.location.y + 240), reMonsterImage);
 	auto retryTitle = std::make_shared<grc::view>(grc::rect(centerPos.x - 150, scorePos.location.y + 370 - 55,
 															   centerPos.x + 150, scorePos.location.y + 370), retryImage);
 
 	auto playTime = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 120,
-															 centerPos.x + 150, scorePos.location.y + 170), bNum, 1234);
-	auto remainMonster = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 250,
-																  centerPos.x + 150, scorePos.location.y + 300), rNum, 567);
-	auto remainTry = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 380,
-															  centerPos.x + 150, scorePos.location.y + 430), gNum, 89);
+															 centerPos.x + 150, scorePos.location.y + 170), bNum, 0);
 
+	auto remainMonster = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 250,
+																  centerPos.x + 150, scorePos.location.y + 300), rNum, game.totalScore);
+
+	auto remainTry = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 380,
+															  centerPos.x + 150, scorePos.location.y + 430), gNum, game.tryCount);
 
 	int mute = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\mute.png");
 	int unmute = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\unmute.png");
@@ -129,23 +148,7 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	data->view.push_back(inGame);		// 17
 }
 
-struct gameElement
-{
-	int x, y, w, h;
-	// 0 : 볼
-	// 1 : 블럭
-	// 2 : 벽
-	int type;
-	// 블록에 관한 점수
-	int score;
-};
 
-struct gameData {
-	int tryCount;
-	int clearScore;
-	int totalScore;
-	std::vector<gameElement> element;
-};
 
 gameData loadGame(std::string file) {
 	std::ifstream read(file);
@@ -186,14 +189,16 @@ long long sceneTicks = 0;
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::function<void(bool)> winCheck) {
 	auto data = std::make_shared<grc::scene>();
 	
+
 	data->renderEvent = [](grc::scene* self, long long tick) {
 		sceneTicks += tick;
-		((grc::numview*)(self->view[8].get()))->setNum(sceneTicks / 10);
+		std::static_pointer_cast<grc::numview>(self->view[8])->setNum(sceneTicks / 10);
 	};
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
 		grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
-		createIngameUI(data, close);
+		auto game = loadGame(".\\resources\\map\\002.m");
+		createIngameUI(data, close, game);
 
 		// left
 		auto wall1 = std::make_shared<grc::wallview>(grc::rect(0, 0, 405 + 8, 800));
@@ -207,8 +212,6 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 		//auto ball = std::make_shared<grc::ballview>(grc::point{ (1255 + 413) / 2, 750 - 8 }, 10, grc::color(0xfff000ff));
 		//data->view.push_back(ball);
 
-		auto game = loadGame(".\\resources\\map\\002.m");
-
 		for (auto& elem : game.element) {
 			if (elem.type == 0) {
 				auto p = std::make_shared<grc::ballview>(grc::point{
@@ -217,7 +220,8 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 					}, 10, 0xfff000ff);
 				p->clickRange = grc::rect(413, 208, 413 + 834, 208 + 559);
 
-				p->ballDeadEvent = [game, winCheck](grc::ballview* self) {
+				auto retry = std::static_pointer_cast<grc::numview>(data->view[10]);
+				p->ballDeadEvent = [game, winCheck, retry](grc::ballview* self) {
 					deadCount += 1;
 					self->shotable(false);
 					self->reset();
@@ -229,6 +233,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 							p->shotable(true);
 						}
 						spdlog::info("tryCount : [{}, {}]", tryCount, game.tryCount);
+						retry->setNum(game.tryCount - tryCount);
 
 						if (gameScore >= game.totalScore)
 						{
@@ -249,10 +254,12 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 				auto blockTest = std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), false, 0xffccc0ff);
 				blockTest->setScore(elem.score);
 				auto chacha = data->view[3];
-				blockTest->brokenBlock = [chacha, winCheck, game](grc::wallview* self) {
+				auto monster = std::static_pointer_cast<grc::numview>(data->view[9]);
+				blockTest->brokenBlock = [chacha, winCheck, game, monster](grc::wallview* self) {
 					// 벽돌 파괴!
 					// 점수 증가
 					gameScore += 1;
+					monster->setNum(game.totalScore - gameScore);
 					spdlog::info("gameScore : [{}, {}]", gameScore, game.totalScore);
 					double characterLength = (1117 - 167) / blockList.size() * gameScore;
 					chacha->frame = grc::rect(33 + characterLength, 33, 167 + characterLength, 167);
