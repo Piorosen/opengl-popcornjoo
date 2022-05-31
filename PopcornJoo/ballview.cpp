@@ -68,7 +68,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 			return;
 		}
 		spdlog::info("ball speed {}", speed);
-		if (speed < 100) {
+		if (speed < 100 || speed > 5000) {
 			if (ballDeadEvent) {
 				ballDeadEvent(this);
 			}
