@@ -12,6 +12,7 @@ std::unique_ptr<grc::application> grc::application::shared = std::make_unique<gr
 
 long long prevEscTime;
 long long prevRenderTime;
+
 void grc::application::keyboard(unsigned char key, int x, int y) const
 {
     this->entryScene->keyboardEvent(key, x, y);
@@ -68,8 +69,19 @@ void grc::application::render() const
     {
         auto time = std::chrono::system_clock::now();
         auto mill = std::chrono::duration_cast<std::chrono::milliseconds>(time.time_since_epoch()).count();
-        this->entryScene->render(mill - prevRenderTime);
-        prevRenderTime = mill;
+        if ((mill - prevRenderTime) >= 100) {
+            
+            glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //glClear에서 컬러 버퍼 지운 후 윈도우를 채울 색을 지정, 검은색
+            glClear(GL_COLOR_BUFFER_BIT);         //컬러 버퍼를 지운다.
+            glLoadIdentity();
+            
+            spdlog::info("RENDER!");
+            this->entryScene->render(mill - prevRenderTime);
+            prevRenderTime = mill;
+            
+            glutSwapBuffers();
+
+        }
     }
 }
 
@@ -174,13 +186,7 @@ void grc::application::setScene(std::shared_ptr<grc::scene> scene) {
 
 void grc::glDisplay()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //glClear에서 컬러 버퍼 지운 후 윈도우를 채울 색을 지정, 검은색
-    glClear(GL_COLOR_BUFFER_BIT);         //컬러 버퍼를 지운다.
-    glLoadIdentity();
-
     grc::application::shared->render();
-
-    glutSwapBuffers();
 }
 
 void grc::glKeyboard(unsigned char key, int x, int y)

@@ -1,12 +1,12 @@
 #include "ballview.h"
 
+
 grc::ballview::ballview(grc::point center, int radius, grc::color ballColor) 
 	: view(grc::rect(center.x - (radius / 2),
 					 center.y - (radius / 2),
 					 center.x + (radius / 2),
 					 center.y + (radius / 2)), ballColor)
 {
-
 	physical = std::make_shared<phy::object>();
 	physical->transform = phy::vector2d{
 		(double)center.x,
@@ -25,7 +25,7 @@ std::shared_ptr<phy::object> grc::ballview::getPhysical() const
 bool grc::ballview::render(long long tick)
 {
 	if (!getHidden()) {
-		view::drawCircle(frame.center(), frame.size.width / 2, background);
+		view::drawCircle(frame.center(), frame.size.width / 2.0, background);
 		for (auto& v : controls)
 		{
 			v->render(tick);

@@ -9,7 +9,7 @@
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	auto data = std::make_shared<grc::scene>();
 
-	auto ball = std::make_shared<grc::ballview>(grc::rect(0, 0, 500, 500), grc::color(0xff000000));
+	auto ball = std::make_shared<grc::ballview>(grc::point{250, 250}, 10, grc::color(0xff000000));
 	data->view.push_back(ball);
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {

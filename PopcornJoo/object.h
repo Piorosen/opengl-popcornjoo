@@ -11,15 +11,13 @@ namespace phy {
 	class object {
 	private:
 		collisiontype type = collisiontype::circle;
-		// type : circle needs
-		double radius = 1;
 		// type : rectangle needs
 		grc::rect rect = grc::rect(0,0,100, 100);
 		
 	public:
 		// circle mode
 		void setType(double radius) {
-			this->radius = radius;
+			this->rect = grc::rect(0, 0, radius, radius);
 			type = collisiontype::circle;
 		}
 		// circle mode
@@ -29,7 +27,7 @@ namespace phy {
 		}
 
 		collisiontype getType(double& radius, grc::rect& rect) {
-			radius = this->radius;
+			radius = this->rect.size.width;
 			rect = this->rect;
 			return type;
 		}
