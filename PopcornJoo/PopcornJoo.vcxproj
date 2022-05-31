@@ -188,6 +188,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="audiocollect.cpp" />
     <ClCompile Include="ballview.cpp" />
     <ClCompile Include="buttonview.cpp" />
     <ClCompile Include="colorbuttonview.cpp" />
@@ -202,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="audiocollect.h" />
     <ClInclude Include="ballview.h" />
     <ClInclude Include="buttonview.h" />
     <ClInclude Include="collision.h" />

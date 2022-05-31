@@ -23,7 +23,7 @@ grc::audioresult grc::audiocollect::add(std::string file, audiomode mode)
 
 grc::audioresult grc::audiocollect::play(std::string audio, FMOD::Channel** output)
 {
-    auto result = pSystem->playSound(audioId[audio], NULL, 0, &output);
+    auto result = pSystem->playSound(audioId[audio], NULL, 0, output);
     return (grc::audioresult)result;
 }
 

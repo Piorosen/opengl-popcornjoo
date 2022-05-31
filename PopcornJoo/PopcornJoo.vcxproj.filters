@@ -105,6 +105,9 @@
     <ClCompile Include="wallview.cpp">
       <Filter>소스 파일\engine\scene\component\game</Filter>
     </ClCompile>
+    <ClCompile Include="audiocollect.cpp">
+      <Filter>소스 파일\engine\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imagecollect.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="collisioninfo.h">
       <Filter>헤더 파일\engine\physics\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="audiocollect.h">
+      <Filter>헤더 파일\engine\sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

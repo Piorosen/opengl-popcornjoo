@@ -38,6 +38,10 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 		phy::physicsEngine::shared->AddWall(wall4->getPhysical());
 	};
 
+	data->closeEvent = [](std::weak_ptr<grc::scene> scene) {
+		phy::physicsEngine::shared->ClearObject();
+	};
+
 	data->keyboard = [close](grc::scene* self, unsigned char key, int x, int y) {
 		if (key == 27) {
 			close();
