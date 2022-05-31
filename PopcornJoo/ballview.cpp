@@ -34,7 +34,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		}
 		else {
 			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
-			obj->velocity.y = -obj->velocity.y * 1;
+			obj->velocity.y = -obj->velocity.y * 0.95;
 		}
 		switch (info.other) {
 		case phy::collisionPos::none:

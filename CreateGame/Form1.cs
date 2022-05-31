@@ -52,6 +52,7 @@ namespace CreateGame
         }
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
+            MessageBox.Show(e.Location.ToString());
             if (createMode == 1)
             {
                 list.Add(new data
@@ -107,8 +108,8 @@ namespace CreateGame
 
         private void save_button_Click(object sender, EventArgs e)
         {
-            StreamWriter sw = new StreamWriter("result.m.txt");
-            sw.WriteLine($"{int.Parse(try_text.Text)} {int.Parse(clear_text.Text)}");
+            StreamWriter sw = new StreamWriter("001.m");
+            sw.WriteLine($"{int.Parse(try_text.Text)} {int.Parse(clear_text.Text)} {list.Count}");
             // 0 : 볼
             // 1 : 블럭
             // 2 : 벽
