@@ -21,11 +21,11 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	// right
 	auto wall4 = std::make_shared<grc::wallview>(grc::rect(400, 50, 450, 450));
 	
-	data->view.push_back(ball);
 	data->view.push_back(wall1);
 	data->view.push_back(wall2);
 	data->view.push_back(wall3);
 	data->view.push_back(wall4);
+	data->view.push_back(ball);
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
 		phy::physicsEngine::shared->ClearObject();

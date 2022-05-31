@@ -1,7 +1,7 @@
+#include "spriteview.h"
+
 #include <spdlog/spdlog.h>
 #include <vector>
-
-#include "spriteview.h"
 
 grc::spriteview::spriteview(grc::rect f, std::vector<int> images) : view(f, grc::color())
 {

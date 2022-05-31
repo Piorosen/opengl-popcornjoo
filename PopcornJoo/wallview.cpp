@@ -11,10 +11,8 @@ grc::wallview::wallview(grc::rect rect, grc::color backgroundColor) : view(rect,
 		(double)center.x,
 		(double)center.y
 	};
-	
 	physical->setType(grc::rect(-rect.size.width / 2.0, -rect.size.height / 2.0,
-								rect.size.width / 2.0, rect.size.height / 2.0));
-	
+								 rect.size.width / 2.0,  rect.size.height / 2.0));
 	physical->gravity = 0;
 	physical->mesh = INT_MAX;
 }

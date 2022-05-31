@@ -52,7 +52,7 @@ namespace phy {
 			grc::rect rightRect;
 			
 			auto leftType = ls->getType(leftRadius, leftRect);
-			auto rightType = ls->getType(leftRadius, rightRect);
+			auto rightType = rs->getType(leftRadius, rightRect);
 
 			if (leftType == phy::collisiontype::circle &&
 				rightType == phy::collisiontype::circle) {
@@ -63,6 +63,28 @@ namespace phy {
 				else {
 					return false;
 				}
+			}
+			else {
+				//if (leftRect)
+				leftRect.location.x += ls->transform.x;
+				leftRect.location.y += ls->transform.y;
+
+				rightRect.location.x += rs->transform.x;
+				rightRect.location.y += rs->transform.y;
+
+				if (leftRect.location.x + leftRect.size.width >= rightRect.location.x &&
+					leftRect.location.x <= rightRect.location.x + rightRect.size.width &&
+					leftRect.location.y + leftRect.size.height >= rightRect.location.y &&
+					leftRect.location.y <= rightRect.location.y + rightRect.size.height) {
+					return true;
+				}
+				else {
+					return false;
+				}
+				/*if (x1 + w1 >= x2 && x1 <= x2 + w2 && y1 + h1 >= y2 && y1 <= y2 + h2)
+				{
+					return true;
+				}*/
 			}
 
 			spdlog::info("固备泅等 面倒 贸府");
@@ -84,10 +106,10 @@ namespace phy {
 					bool data = checkCollision(t, w);
 					if (data) {
 						if (t->collisionevent) {
-							t->collisionevent(t->transform, w->transform);
+							t->collisionevent(t, w);
 						}
 						if (w->collisionevent) {
-							w->collisionevent(w->transform, t->transform);
+							w->collisionevent(w, t);
 						}
 					}
 				}

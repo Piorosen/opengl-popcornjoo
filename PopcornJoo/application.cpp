@@ -68,7 +68,7 @@ void grc::application::render() const
     {
         auto time = std::chrono::system_clock::now();
         auto mill = std::chrono::duration_cast<std::chrono::milliseconds>(time.time_since_epoch()).count();
-        if ((mill - prevRenderTime) >= 100) {
+        if ((mill - prevRenderTime) >= 16) {
             
             glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //glClear에서 컬러 버퍼 지운 후 윈도우를 채울 색을 지정, 검은색
             glClear(GL_COLOR_BUFFER_BIT);         //컬러 버퍼를 지운다.
