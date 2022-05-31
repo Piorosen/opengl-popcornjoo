@@ -52,7 +52,6 @@ namespace CreateGame
         }
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
-            MessageBox.Show(e.Location.ToString());
             if (createMode == 1)
             {
                 list.Add(new data
