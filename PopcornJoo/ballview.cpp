@@ -1,6 +1,6 @@
 #include <spdlog/spdlog.h>
 #include "ballview.h"
-
+#include "buttonview.h"
 
 grc::ballview::ballview(grc::point center, int radius, grc::color ballColor) 
 	: view(grc::rect(center.x - radius,
@@ -9,6 +9,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 					 center.y + radius), ballColor)
 {
 	this->radius = radius;
+
 	physical = std::make_shared<phy::object>();
 	physical->collisionevent = [](std::weak_ptr<phy::object> self, std::weak_ptr<phy::object> other, phy::collisioninfo info, long long tick) {
 		auto obj = self.lock();
@@ -26,7 +27,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 			double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
 			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
 			obj->velocity.y += downSpeed;
-			obj->velocity.y = -obj->velocity.y * 1.05;
+			obj->velocity.y = -obj->velocity.y;
 		}
 		else if (info.other == phy::collisionPos::left || info.other == phy::collisionPos::right) {
 			obj->setTransform(phy::vector2d{ t.x - obj->velocity.x * (tick / 1000.0), t.y });
@@ -34,8 +35,10 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		}
 		else {
 			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
-			obj->velocity.y = -obj->velocity.y * 0.95;
+			obj->velocity.y = -obj->velocity.y;
 		}
+		obj->velocity = obj->velocity * 0.9;
+
 		switch (info.other) {
 		case phy::collisionPos::none:
 			spdlog::info("collision Pos : [NONE]");
@@ -53,13 +56,6 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 			spdlog::info("collision Pos : [bottom]");
 			break;
 		}
-
-		//spdlog::info("poss [{}, {}]", dir.x, dir.y);
-
-		/*if (abs(obj->velocity.y) < 300) {
-			obj->velocity.y = 0;
-		}*/
-		
 	};
 	physical->setTransform(phy::vector2d{
 		(double)center.x,
@@ -71,15 +67,48 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 								location.x + radius, location.y + radius);
 	};
 	physical->setType(radius);
-	physical->velocity.x = 200;
-	physical->velocity.y = 1000;
 	physical->gravity = -200;
 	physical->mesh = 10;
+	physical->setHidden(true);
 }
 
 std::shared_ptr<phy::object> grc::ballview::getPhysical() const
 {
 	return physical;
+}
+
+void grc::ballview::reset()
+{
+	physical->setHidden(true);
+	auto center = this->initCenter;
+
+	this->frame = grc::rect(center.x - radius,
+		center.y - radius,
+		center.x + radius,
+		center.y + radius);
+
+	physical->setTransform(phy::vector2d{
+		(double)center.x,
+		(double)center.y
+		});
+	physical->velocity = phy::vector2d {
+		0,0
+	};
+
+}
+
+void grc::ballview::shot(grc::point click)
+{
+	phy::vector2d pos{
+		(double)click.x,
+		(double)click.y
+	};
+
+	auto power = (pos - physical->getTransform()).normalization() * 5000;
+
+	physical->velocity.x = power.x;
+	physical->velocity.y = power.y;
+	physical->setHidden(false);
 }
 
 bool grc::ballview::render(long long tick)
@@ -99,7 +128,12 @@ bool grc::ballview::render(long long tick)
 
 grc::mouseclick grc::ballview::click(int state, int x, int y)
 {
-	return view::click(state, x, y);
+	auto p = view::click(state, x, y);
+	auto pp = (grc::buttonstate)state;
+	if (pp == grc::buttonstate::mouseUp) {
+		shot(grc::point{ x, y });
+	}
+	return p;
 }
 
 int grc::ballview::mouse(int x, int y)
