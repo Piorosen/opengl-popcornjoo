@@ -1,5 +1,6 @@
 #include <spdlog/spdlog.h>
 #include "scene.h"
+#include "physics.h"
 
 void grc::scene::mouseEvent(int button, int state, int x, int y)
 {
@@ -42,6 +43,8 @@ void grc::scene::keyboardEvent(unsigned char key, int x, int y)
 
 void grc::scene::render(long long tick) const
 {
+    phy::physicsEngine::shared->update(tick);
+
     for (auto& v : view)
     {
         v->render(tick);

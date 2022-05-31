@@ -7,7 +7,6 @@
 #include <spdlog/spdlog.h>
 #include <chrono>
 
-
 std::unique_ptr<grc::application> grc::application::shared = std::make_unique<grc::application>();
 
 long long prevEscTime;
