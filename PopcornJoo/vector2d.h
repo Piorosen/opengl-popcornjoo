@@ -17,6 +17,11 @@ namespace phy {
 		vector2d operator*(const double& other) const {
 			return vector2d{ x * other, y * other };
 		}
+
+		double dot(const vector2d& other) const {
+			return this->x * other.x + this->y * other.y;
+		}
+
 		double magnitude() const {
 			return sqrt(pow(x, 2) + 
 						   pow(y, 2));

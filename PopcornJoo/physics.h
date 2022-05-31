@@ -75,25 +75,17 @@ namespace phy {
 			}
 		}
 
-		bool checkCollision(std::weak_ptr<phy::object> left, std::weak_ptr<phy::object> right, collisioninfo& info) {
-			auto ls = left.lock();
-			auto rs = right.lock();
-			if (!(ls && rs)) {
-				return false;
-			}
-			double leftRadius = 0;
-			grc::rect leftRect;
-			double rightRadius = 0;
-			grc::rect rightRect;
-			
-			auto leftType = ls->getType(leftRadius, leftRect);
-			auto rightType = rs->getType(leftRadius, rightRect);
+		bool checkCollision(phy::collisiontype leftType, grc::rect leftRect, double leftRadius, phy::vector2d leftPos,
+						    phy::collisiontype rightType, grc::rect rightRect, double rightRadius, phy::vector2d rightPos,
+							collisioninfo& info) {
+			auto lst = leftPos;
+			auto rst = rightPos;
 
 			if (leftType == phy::collisiontype::circle &&
 				rightType == phy::collisiontype::circle) {
 				info.type = collidetype::circleTocircle;
 
-				auto length = (ls->getTransform() - rs->getTransform()).magnitude();
+				auto length = (lst - rst).magnitude();
 				if (length < leftRadius + rightRadius) {
 					return true;
 				}
@@ -103,11 +95,11 @@ namespace phy {
 			}
 
 			else if (leftType == phy::collisiontype::circle && rightType == phy::collisiontype::rectangle) {
-				leftRect.location.x += ls->getTransform().x;
-				leftRect.location.y += ls->getTransform().y;
+				leftRect.location.x += lst.x;
+				leftRect.location.y += lst.y;
 
-				rightRect.location.x += rs->getTransform().x;
-				rightRect.location.y += rs->getTransform().y;
+				rightRect.location.x += rst.x;
+				rightRect.location.y += rst.y;
 
 				if (leftType != rightType) {
 					info.type = collidetype::circleToRect;
@@ -118,11 +110,39 @@ namespace phy {
 					spdlog::info("固备泅等 面倒 贸府");
 					return false;
 				}
-				
-				
 			}
 
 
+		}
+		
+		bool nextPosVel(std::weak_ptr<phy::object> left, std::weak_ptr<phy::object> right, collisioninfo& info) {
+			auto ls = left.lock();
+			auto rs = right.lock();
+
+			double ld;
+			grc::rect lr;
+			double rd;
+			grc::rect rr;
+
+			auto lsType = ls->getType(ld, lr);
+			auto rsType = rs->getType(rd, rr);
+
+			auto target = ls->getTransform();
+			auto start = ls->getOldTransform();
+			auto length = (target - start);
+			auto base = (target - start).normalization() * ld;
+			int i;
+			for (i = 0; i < (int)(length.x / base.x); i++) {
+				bool d = checkCollision(lsType, lr, ld, start + (base * i), 
+										rsType, rr, rd, rs->getTransform(), info);
+				if (d == true) {
+					spdlog::info("coolide");
+					return true;
+					break;
+				}
+			}
+			return checkCollision(lsType, lr, ld, target,
+								  rsType, rr, rd, rs->getTransform(), info);
 		}
 
 		void update(long long tick) {
@@ -132,7 +152,7 @@ namespace phy {
 					w->update(tick);
 
 					collisioninfo info{};
-					bool data = checkCollision(t, w, info);
+					bool data = nextPosVel(t, w, info);
 					if (data) {
 						if (t->collisionevent) {
 							t->collisionevent(t, w, info, tick);

@@ -13,7 +13,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 
 	auto ball = std::make_shared<grc::ballview>(grc::point{ 250, 250 }, 10, grc::color(0xff0000ff));
 	
-	int think = 10;
+	int think = 50;
 	// top
 	auto wall1 = std::make_shared<grc::wallview>(grc::rect(50, 50, 450, 50 + think));
 	// left
@@ -22,11 +22,14 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	auto wall3 = std::make_shared<grc::wallview>(grc::rect(50, 450 - think, 450, 450));
 	// right
 	auto wall4 = std::make_shared<grc::wallview>(grc::rect(450 - think, 50, 450, 450));
-	
+
+	auto wall5 = std::make_shared<grc::wallview>(grc::rect(225, 225, 275, 275));
+
 	data->view.push_back(wall1);
 	data->view.push_back(wall2);
 	data->view.push_back(wall3);
 	data->view.push_back(wall4);
+	data->view.push_back(wall5);
 	data->view.push_back(ball);
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
@@ -40,6 +43,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 		phy::physicsEngine::shared->AddWall(wall2->getPhysical());
 		phy::physicsEngine::shared->AddWall(wall3->getPhysical());
 		phy::physicsEngine::shared->AddWall(wall4->getPhysical());
+		phy::physicsEngine::shared->AddWall(wall5->getPhysical());
 	};
 
 	data->closeEvent = [](std::weak_ptr<grc::scene> scene) {
