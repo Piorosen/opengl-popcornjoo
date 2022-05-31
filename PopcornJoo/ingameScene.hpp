@@ -98,6 +98,8 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 				413 + elem.x,
 				208 + elem.y
 				}, 10, 0xfff000ff);
+			p->clickRange = grc::rect(413, 208, 413 + 834, 208 + 559);
+
 			p->ballDeadEvent = [](grc::ballview* self) {
 				self->reset();
 			};

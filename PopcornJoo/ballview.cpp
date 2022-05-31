@@ -143,7 +143,10 @@ grc::mouseclick grc::ballview::click(int state, int x, int y)
 	auto p = view::click(state, x, y);
 	auto pp = (grc::buttonstate)state;
 	if (pp == grc::buttonstate::mouseUp) {
-		shot(grc::point{ x, y });
+		auto pos = grc::point{ x, y };
+		if (this->clickRange.exists(pos)) {
+			shot(pos);
+		}
 	}
 	return p;
 }

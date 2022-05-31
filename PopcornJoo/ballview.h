@@ -23,6 +23,8 @@ namespace grc
         std::function<void(ballview*)> mouseEvent;
         std::function<void(ballview*)> ballDeadEvent;
 
+        grc::rect clickRange;
+        
         void reset();
         void shot(grc::point clickPos);
 
