@@ -34,7 +34,7 @@ grc::mouseclick grc::toggleview::click(int state, int x, int y)
 {
 	spdlog::info("toggleview - click : [{}, {}, {}]", state, x, y);
 	mouseclick value = view::click(state, x, y);
-	if (value == mouseclick::ownLevel) {
+	if (value == mouseclick::ownLevel && ((grc::buttonstate)state) == grc::buttonstate::mouseUp) {
 		this->toggle = !this->toggle;
 		if (toggleEvent) {
 			toggleEvent(this, this->toggle);

@@ -8,6 +8,8 @@
 #include "physics.h"
 #include "ballview.h"
 #include "wallview.h"
+#include "toggleview.h"
+#include "numview.h"
 
 void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> close) {
 	auto background = std::make_shared<grc::view>(grc::rect(0, 0, 1280, 800), grc::color(0xffffffff));
@@ -28,10 +30,6 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 
 	// 1230
 	// 150
-
-	// ¿ÞÂÊ
-	auto outScore = std::make_shared<grc::view>(grc::rect(25, 200, 380, 775), grc::color(0x62e3ffff));
-	auto inScore = std::make_shared<grc::view>(grc::rect(25 + 4, 200 + 4, 380 - 4, 775 - 4), leftframe);
 	// start : 
 	// 53, 228
 	// end :
@@ -39,19 +37,53 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	// total length :
 	
 	// 355, 575
-	auto clearScore = std::make_shared<grc::view>(grc::rect(53, 228, 347, 319), grc::color(0xff0000ff));
-	auto nowScore = std::make_shared<grc::view>(grc::rect(53, 329, 347, 410), grc::color(0xff0000ff));
-	auto remainTry = std::make_shared<grc::view>(grc::rect(53, 420, 347, 511), grc::color(0xff0000ff));
-	auto musicPlayer = std::make_shared<grc::colorbuttonview>(grc::rect(53, 555, 347, 646), grc::color(0xff0000ff));
-	auto backButton = std::make_shared<grc::colorbuttonview>(grc::rect(53, 656, 347, 747), grc::color(0xff0000ff));
-	
-	musicPlayer->mouseEvent = [](grc::colorbuttonview* self, grc::buttonstate state) {
-		if (state == grc::buttonstate::mouseUp) {
+	// ¿ÞÂÊ
+	auto outScore = std::make_shared<grc::view>(grc::rect(25, 200, 380, 775), grc::color(0x62e3ffff));
+	auto inScore = std::make_shared<grc::view>(grc::rect(25 + 4, 200 + 4, 380 - 4, 775 - 4), leftframe);
+
+	std::vector<int> bNum;
+	std::vector<int> gNum;
+	std::vector<int> rNum;
+	for (int i = 0; i < 10; i++) {
+		bNum.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\blackNum\\" + std::to_string(i) + ".png"));
+		gNum.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\greenNum\\" + std::to_string(i) + ".png"));
+		rNum.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\redNum\\" + std::to_string(i) + ".png"));
+	}
+
+	auto playTimeImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\playTime.png");
+	auto reMonsterImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\remainMonster.png");
+	auto retryImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\remainTry.png");
+
+	auto scorePos = inScore->frame;
+	auto centerPos = scorePos.center();
+
+	auto playTimeTitle = std::make_shared<grc::view>(grc::rect(centerPos.x - 150, scorePos.location.y + 110 - 55,
+															   centerPos.x + 150, scorePos.location.y + 110), playTimeImage);
+	auto remianTitle = std::make_shared<grc::view>(grc::rect(centerPos.x - 150, scorePos.location.y + 250 - 55,
+															   centerPos.x + 150, scorePos.location.y + 250), reMonsterImage);
+	auto retryTitle = std::make_shared<grc::view>(grc::rect(centerPos.x - 150, scorePos.location.y + 370 - 55,
+															   centerPos.x + 150, scorePos.location.y + 370), retryImage);
+
+	auto playTime = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 120,
+															 centerPos.x + 150, scorePos.location.y + 170), bNum, 1234);
+	auto remainMonster = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 250,
+																  centerPos.x + 150, scorePos.location.y + 300), rNum, 567);
+	auto remainTry = std::make_shared<grc::numview>(grc::rect(centerPos.x - 150, scorePos.location.y + 380,
+															  centerPos.x + 150, scorePos.location.y + 430), gNum, 89);
+
+
+	int mute = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\mute.png");
+	int unmute = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\unmute.png");
+	int homeImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\home.png");
+
+	auto musicPlayer = std::make_shared<grc::toggleview>(grc::rect(75 + 30, 626, 175 + 30, 726), mute, unmute);
+	auto backButton = std::make_shared<grc::buttonview>(grc::rect(219 + 30, 626, 319 + 30, 726), homeImage, homeImage, homeImage);
+
+	musicPlayer->toggleEvent = [](grc::toggleview* self, bool toggle) {
+		if (toggle) {
 			auto audio = grc::audiocollect::shared->get(".\\resources\\audio\\ingame.mp3");
 			if (audio.has_value()) {
-				bool result;
-				audio.value()->getPaused(&result);
-				grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", !result);
+				grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", !toggle);
 			}
 			else {
 				spdlog::error("audio not found {}", ".\\resources\\audio\\ingame.mp3");
@@ -59,7 +91,7 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 		}
 	};
 
-	backButton->mouseEvent = [close](grc::colorbuttonview* self, grc::buttonstate state) {
+	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
 			close();
 		}
@@ -71,26 +103,30 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	// 834
 	// 559
 
-	data->view.push_back(background);
+	data->view.push_back(background);	// 0
 
-	data->view.push_back(outBoard);
-	data->view.push_back(inBoard);
-	data->view.push_back(boardChaCha);
-	data->view.push_back(boardJinju);
-	data->view.push_back(boardFrame);
+	data->view.push_back(outBoard);		// 1
+	data->view.push_back(inBoard);		// 2
+	data->view.push_back(boardChaCha);	// 3
+	data->view.push_back(boardJinju);	// 4	
+	data->view.push_back(boardFrame);	// 5
 
-	data->view.push_back(outScore);
-	data->view.push_back(inScore);
+	data->view.push_back(outScore);		// 6
+	data->view.push_back(inScore);		// 7
 
-	data->view.push_back(clearScore);
-	data->view.push_back(nowScore);
-	data->view.push_back(remainTry);
-	data->view.push_back(musicPlayer);
-	data->view.push_back(backButton);
+	data->view.push_back(playTime);		// 8
+	data->view.push_back(remainMonster);// 9
+	data->view.push_back(remainTry);	// 10
 
+	data->view.push_back(playTimeTitle);// 11
+	data->view.push_back(remianTitle);	// 12
+	data->view.push_back(retryTitle);	// 13
 
-	data->view.push_back(outGame);
-	data->view.push_back(inGame);
+	data->view.push_back(musicPlayer);	// 14
+	data->view.push_back(backButton);	// 15
+
+	data->view.push_back(outGame);		// 16
+	data->view.push_back(inGame);		// 17
 }
 
 struct gameElement
@@ -145,10 +181,15 @@ int tryCount = 0;
 std::vector<std::shared_ptr<grc::wallview>> wallList;
 std::vector<std::shared_ptr<grc::wallview>> blockList;
 std::vector<std::shared_ptr<grc::ballview>> ballList;
+long long sceneTicks = 0;
 
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::function<void(bool)> winCheck) {
 	auto data = std::make_shared<grc::scene>();
 	
+	data->renderEvent = [](grc::scene* self, long long tick) {
+		sceneTicks += tick;
+		((grc::numview*)(self->view[8].get()))->setNum(sceneTicks / 10);
+	};
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
 		grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
@@ -263,6 +304,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 		tryCount = 0;
 		gameScore = 0;
 		deadCount = 0;
+		sceneTicks = 0;
 		phy::physicsEngine::shared->ClearObject();
 		grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", true);
 	};

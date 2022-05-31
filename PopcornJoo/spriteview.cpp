@@ -3,10 +3,10 @@
 #include <spdlog/spdlog.h>
 #include <vector>
 
-grc::spriteview::spriteview(grc::rect f, std::vector<int> images) : view(f, grc::color())
+grc::spriteview::spriteview(grc::rect f, std::vector<int> image) : view(f, grc::color())
 {
 	frame = f;
-	this->images = images;
+	this->images = image;
 }
 
 void grc::spriteview::play()

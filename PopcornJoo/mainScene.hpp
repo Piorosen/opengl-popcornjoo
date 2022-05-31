@@ -30,6 +30,7 @@ std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview
 	
 	auto v = std::make_shared<grc::spriteview>(grc::rect(150, 100, 350, 200), im);
 	v->durationMS = 500;
+	v->play();
 
 	auto startButton = std::make_shared<grc::colorbuttonview>(grc::rect(350, 250, 550, 300));
 	auto helpButton = std::make_shared<grc::colorbuttonview>(grc::rect(350, 350, 550, 400));
@@ -55,7 +56,6 @@ std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview
 	
 	};
 
-	v->play();
 
 	data->view.push_back(v);
 	data->view.push_back(startButton);

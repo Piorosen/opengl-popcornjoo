@@ -41,8 +41,11 @@ void grc::scene::keyboardEvent(unsigned char key, int x, int y)
     }
 }
 
-void grc::scene::render(long long tick) const
+void grc::scene::render(long long tick) 
 {
+    if (renderEvent) {
+        renderEvent(this, tick);
+    }
     phy::physicsEngine::shared->update(tick);
 
     for (auto& v : view)

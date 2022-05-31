@@ -17,7 +17,7 @@ namespace grc
         int durationMS = 1000;
         std::vector<int> images;
 
-        spriteview(grc::rect f, std::vector<int> images);
+        spriteview(grc::rect f, std::vector<int> image);
 
         void play();
         void stop();

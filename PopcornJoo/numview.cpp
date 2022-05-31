@@ -20,7 +20,7 @@ bool grc::numview::render(long long tick)
     for (int i = 0; i < text.size(); i++) {
         int numId = this->numListImage[(text[i] - '0') % numListImage.size()];
         drawImage(grc::rect(f.location.x + (oneSize * i), f.location.y,
-                            f.location.x + (oneSize * i), f.location.y + f.size.height), numId);
+                            f.location.x + (oneSize * (i + 1)), f.location.y + f.size.height), numId);
     }
 
     return false;
