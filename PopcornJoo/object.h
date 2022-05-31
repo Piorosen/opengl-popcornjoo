@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include "rect.h"
 #include "vector2d.h"
 
 namespace phy {

@@ -193,6 +193,7 @@
     <ClCompile Include="colorbuttonview.cpp" />
     <ClCompile Include="imagecollect.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="physics.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="spriteview.cpp" />
     <ClCompile Include="spriteview.h" />
@@ -212,7 +213,7 @@
     <ClInclude Include="ingameScene.hpp" />
     <ClInclude Include="mainScene.hpp" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="physics.hpp" />
+    <ClInclude Include="physics.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="scene.h" />

@@ -1,3 +1,4 @@
+#include <spdlog/spdlog.h>
 #include "ballview.h"
 
 
@@ -12,6 +13,9 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		(double)center.x,
 		(double)center.y
 	};
+	physical->transformchanged = [](phy::vector2d location) {
+		spdlog::info("[{}, {}]", location.x, location.y);
+	};
 	physical->setType(radius);
 	physical->gravity = 1.0;
 	physical->mesh = 10;
@@ -25,7 +29,7 @@ std::shared_ptr<phy::object> grc::ballview::getPhysical() const
 bool grc::ballview::render(long long tick)
 {
 	if (!getHidden()) {
-		view::drawCircle(frame.center(), frame.size.width / 2.0, background);
+		view::drawCircle(frame.center(), frame.size.width / 2, background);
 		for (auto& v : controls)
 		{
 			v->render(tick);

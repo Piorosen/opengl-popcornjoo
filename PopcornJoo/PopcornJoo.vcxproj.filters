@@ -64,6 +64,9 @@
     <Filter Include="소스 파일\engine\scene\component\game">
       <UniqueIdentifier>{acb7a5be-e4c0-4d25-9494-9f04f8bc04db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\engine\physical">
+      <UniqueIdentifier>{f1234646-383d-4d03-90ca-dd432e8d1d1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="ballview.cpp">
       <Filter>소스 파일\engine\scene\component\game</Filter>
+    </ClCompile>
+    <ClCompile Include="physics.cpp">
+      <Filter>소스 파일\engine\physical</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,7 +137,7 @@
     <ClInclude Include="object.h">
       <Filter>헤더 파일\engine\physics\object</Filter>
     </ClInclude>
-    <ClInclude Include="physics.hpp">
+    <ClInclude Include="physics.h">
       <Filter>헤더 파일\engine\physics</Filter>
     </ClInclude>
     <ClInclude Include="vector2d.h">

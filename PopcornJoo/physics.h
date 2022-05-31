@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <functional>
+#include <spdlog/spdlog.h>
 
 #include "circle.h"
 #include "rectangle.h"
@@ -14,7 +15,7 @@ namespace phy {
 	private:
 		std::vector<std::shared_ptr<object>> target;
 		std::vector<std::shared_ptr<object>> wall;
-		std::vector<std::shared_ptr<object>> object;
+		//std::vector<std::shared_ptr<object>> object;
 
 	public:
 		static std::unique_ptr<phy::physicsEngine> shared;
@@ -36,7 +37,7 @@ namespace phy {
 		void ClearObject() {
 			target.clear();
 			wall.clear();
-			object.clear();
+			//object.clear();
 		}
 
 		bool checkCollision(std::weak_ptr<phy::object> left, std::weak_ptr<phy::object> right) {
@@ -70,16 +71,16 @@ namespace phy {
 		}
 
 		void update(long long tick) {
-			for (auto t : target) {
+			for (auto& t : target) {
 				t->update(tick);
 			}
 
-			for (auto w : wall) {
+			for (auto& w : wall) {
 				w->update(tick);
 			}
 
-			for (auto t : target) {
-				for (auto w : wall) {
+			for (auto& t : target) {
+				for (auto& w : wall) {
 					bool data = checkCollision(t, w);
 					if (data) {
 						t->collisionevent(t->transform, w->transform);
@@ -96,5 +97,3 @@ namespace phy {
 
 	};
 }
-
-std::unique_ptr<phy::physicsEngine> phy::physicsEngine::shared = std::make_unique<phy::physicsEngine>();
