@@ -9,6 +9,7 @@
 
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	auto data = std::make_shared<grc::scene>();
+	grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
 
 	auto ball = std::make_shared<grc::ballview>(grc::point{ 250, 250 }, 10, grc::color(0xff0000ff));
 	
@@ -29,6 +30,9 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	data->view.push_back(ball);
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
+		auto data = grc::audiocollect::shared->set(".\\resources\\audio\\main_logo.mp3", true);
+		grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", false);
+
 		phy::physicsEngine::shared->ClearObject();
 		phy::physicsEngine::shared->AddTarget(ball->getPhysical());
 		
@@ -40,6 +44,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 
 	data->closeEvent = [](std::weak_ptr<grc::scene> scene) {
 		phy::physicsEngine::shared->ClearObject();
+		grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", true);
 	};
 
 	data->keyboard = [close](grc::scene* self, unsigned char key, int x, int y) {

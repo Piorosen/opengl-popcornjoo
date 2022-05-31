@@ -18,8 +18,9 @@ namespace grc
     {
     private:
         std::map<std::string, FMOD::Sound*> audioId;
+        std::map<std::string, FMOD::Channel*> playLists;
+        
         FMOD::System* pSystem;
-
     public:
         audiocollect() {
             auto d = FMOD::System_Create(&pSystem);
@@ -34,9 +35,11 @@ namespace grc
 
         static std::unique_ptr<grc::audiocollect> shared;
 
-        std::optional<FMOD::Sound*> get(std::string file);
+        std::optional<FMOD::Channel*> get(std::string file);
+
         audioresult add(std::string file, audiomode mode = audiomode::DEFAULT);
-        audioresult play(std::string audio, FMOD::Channel** output);
+        audioresult play(std::string audio);
+        audioresult set(std::string audio, bool paused);
 
 
     protected:

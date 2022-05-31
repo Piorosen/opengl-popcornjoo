@@ -40,7 +40,7 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 		if (state == grc::buttonstate::mouseUp) {
 			tutorialImageIndex -= 1;
 			background->backgroundImage = tutorial[tutorialImageIndex % tutorial.size()];
-			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3", NULL);
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 		}
 	};
 
@@ -48,7 +48,7 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 		if (state == grc::buttonstate::mouseUp) {
 			tutorialImageIndex += 1;
 			background->backgroundImage = tutorial[tutorialImageIndex % tutorial.size()];
-			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3", NULL);
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 		}
 	};
 
@@ -65,8 +65,10 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 	};
 
 	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
-		if (close) {
-			close();
+		if (state == grc::buttonstate::mouseUp) {
+			if (close) {
+				close();
+			}
 		}
 	};
 

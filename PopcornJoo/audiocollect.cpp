@@ -2,11 +2,11 @@
 
 std::unique_ptr<grc::audiocollect> grc::audiocollect::shared = std::make_unique<grc::audiocollect>();
 
-std::optional<FMOD::Sound*> grc::audiocollect::get(std::string file)
+std::optional<FMOD::Channel*> grc::audiocollect::get(std::string file)
 {
-    if (audioId.find(file) != audioId.end())
+    if (playLists.find(file) != playLists.end())
     {
-        return audioId[file];
+        return playLists[file];
     }
     else
     {
@@ -29,16 +29,37 @@ grc::audioresult grc::audiocollect::add(std::string file, audiomode mode)
     return (grc::audioresult)result;
 }
 
-grc::audioresult grc::audiocollect::play(std::string audio, FMOD::Channel** output)
+grc::audioresult grc::audiocollect::play(std::string audio)
 {
-    auto result = pSystem->playSound(audioId[audio], NULL, 0, output);
-    if (result == FMOD_OK) {
-        spdlog::info("audio play success \"{}\", [ {} ]", audio, result);
+	FMOD::Channel* output;
+	auto result = pSystem->playSound(audioId[audio], NULL, 0, &output);
+	this->playLists[audio] = output;
+	if (result == FMOD_OK) {
+		spdlog::info("audio play success \"{}\", [ {} ]", audio, result);
+	}
+	else {
+		spdlog::error("audio play fail \"{}\", [ {} ]", audio, result);
+	}
+
+	return (grc::audioresult)result;
+}
+
+grc::audioresult grc::audiocollect::set(std::string audio, bool paused)
+{
+    auto data = get(audio);
+    if (data.has_value()) {
+        data.value()->setPaused(paused);
+        spdlog::info("오디오가 중지 성공. [{}]", audio);
+        return audioresult::OK;
     }
     else {
-        spdlog::error("audio play fail \"{}\", [ {} ]", audio, result);
+        if (!paused) {
+            play(audio);
+        }
+        else {
+            spdlog::error("오디오가 없습니다. [{}]", audio);
+        }
+        return audioresult::ERR_NOTREADY;
     }
-
-    return (grc::audioresult)result;
 }
 
