@@ -83,14 +83,15 @@ namespace phy {
 				for (auto& w : wall) {
 					bool data = checkCollision(t, w);
 					if (data) {
-						t->collisionevent(t->transform, w->transform);
-						w->collisionevent(w->transform, t->transform);
+						if (t->collisionevent) {
+							t->collisionevent(t->transform, w->transform);
+						}
+						if (w->collisionevent) {
+							w->collisionevent(w->transform, t->transform);
+						}
 					}
-
 				}
 			}
-
-
 		}
 
 	protected:

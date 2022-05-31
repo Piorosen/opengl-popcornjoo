@@ -198,6 +198,7 @@
     <ClCompile Include="spriteview.cpp" />
     <ClCompile Include="spriteview.h" />
     <ClCompile Include="view.cpp" />
+    <ClCompile Include="wallview.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
@@ -220,6 +221,7 @@
     <ClInclude Include="size.h" />
     <ClInclude Include="vector2d.h" />
     <ClInclude Include="view.h" />
+    <ClInclude Include="wallview.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

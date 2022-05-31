@@ -5,17 +5,36 @@
 #include "scene.h"
 #include "physics.h"
 #include "ballview.h"
+#include "wallview.h"
 
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	auto data = std::make_shared<grc::scene>();
 
-	auto ball = std::make_shared<grc::ballview>(grc::point{250, 250}, 10, grc::color(0xff0000ff));
+	auto ball = std::make_shared<grc::ballview>(grc::point{ 250, 250 }, 10, grc::color(0xff0000ff));
+	
+	// top
+	auto wall1 = std::make_shared<grc::wallview>(grc::rect(50, 50, 450, 100));
+	// left
+	auto wall2 = std::make_shared<grc::wallview>(grc::rect(50, 50, 100, 450));
+	// bottom
+	auto wall3 = std::make_shared<grc::wallview>(grc::rect(50, 400, 450, 450));
+	// right
+	auto wall4 = std::make_shared<grc::wallview>(grc::rect(400, 50, 450, 450));
+	
 	data->view.push_back(ball);
+	data->view.push_back(wall1);
+	data->view.push_back(wall2);
+	data->view.push_back(wall3);
+	data->view.push_back(wall4);
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
 		phy::physicsEngine::shared->ClearObject();
 		phy::physicsEngine::shared->AddTarget(ball->getPhysical());
-
+		
+		phy::physicsEngine::shared->AddWall(wall1->getPhysical());
+		phy::physicsEngine::shared->AddWall(wall2->getPhysical());
+		phy::physicsEngine::shared->AddWall(wall3->getPhysical());
+		phy::physicsEngine::shared->AddWall(wall4->getPhysical());
 	};
 
 	data->keyboard = [close](grc::scene* self, unsigned char key, int x, int y) {
