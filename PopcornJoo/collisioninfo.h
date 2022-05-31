@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 namespace phy {
 	enum class collidetype {
@@ -16,7 +17,7 @@ namespace phy {
 	struct collisioninfo {
 		collidetype type;
 
-		collisionPos own;
-		collisionPos other;
+		std::vector<collisionPos> own;
+		std::vector<collisionPos> other;
 	};
 }

@@ -9,21 +9,72 @@
 #include "ballview.h"
 #include "wallview.h"
 
-void createIngameUI(std::shared_ptr<grc::scene> data) {
+void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> close) {
 	auto background = std::make_shared<grc::view>(grc::rect(0, 0, 1280, 800), grc::color(0xffffffff));
-	auto outBoard = std::make_shared<grc::view>(grc::rect(25, 25, 1280 - 25, 25 + 150), grc::color(0xff0000ff));
-	auto inBoard = std::make_shared<grc::view>(grc::rect(25 + 8, 25 + 8, 1280 - 25 - 8, 25 + 150 - 8), grc::color(0x00ffffff));
+	// 위
+	auto outBoard = std::make_shared<grc::view>(grc::rect(25, 25, 1280 - 25, 175), grc::color(0xff0000ff));
+	auto inBoard = std::make_shared<grc::view>(grc::rect(25 + 8, 25 + 8, 1280 - 25 - 8, 175 - 8), grc::color(0x00ffffff));
+	// 1230
+	// 150
+
+	// 왼쪽
 	auto outScore = std::make_shared<grc::view>(grc::rect(25, 200, 380, 775), grc::color(0xff0000ff));
 	auto inScore = std::make_shared<grc::view>(grc::rect(25 + 8, 200 + 8, 380 - 8, 775 - 8), grc::color(0x00ffffff));
+	// start : 
+	// 53, 228
+	// end :
+	// 319, 747
+	// total length :
+	// 294, 559
+	// 53 ~ 347
 
+	// 294, 519
+	auto clearScore = std::make_shared<grc::view>(grc::rect(53, 228, 347, 319), grc::color(0xff0000ff));
+	auto nowScore = std::make_shared<grc::view>(grc::rect(53, 329, 347, 410), grc::color(0xff0000ff));
+	auto remainTry = std::make_shared<grc::view>(grc::rect(53, 420, 347, 511), grc::color(0xff0000ff));
+	auto musicPlayer = std::make_shared<grc::colorbuttonview>(grc::rect(53, 555, 347, 646), grc::color(0xff0000ff));
+	auto backButton = std::make_shared<grc::colorbuttonview>(grc::rect(53, 656, 347, 747), grc::color(0xff0000ff));
+	
+	musicPlayer->mouseEvent = [](grc::colorbuttonview* self, grc::buttonstate state) {
+		if (state == grc::buttonstate::mouseUp) {
+			auto audio = grc::audiocollect::shared->get(".\\resources\\audio\\ingame.mp3");
+			if (audio.has_value()) {
+				bool result;
+				audio.value()->getPaused(&result);
+				grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", !result);
+			}
+			else {
+				spdlog::error("audio not found {}", ".\\resources\\audio\\ingame.mp3");
+			}
+		}
+	};
+
+	backButton->mouseEvent = [close](grc::colorbuttonview* self, grc::buttonstate state) {
+		if (state == grc::buttonstate::mouseUp) {
+			close();
+		}
+	};
+
+	// 오른쪽
 	auto outGame = std::make_shared<grc::view>(grc::rect(405, 200, 1255, 775), grc::color(0xff0000ff));
 	auto inGame = std::make_shared<grc::view>(grc::rect(405 + 8, 200 + 8, 1255 - 8, 775 - 8), grc::color(0x00ffffff));
+	// 834
+	// 559
 
 	data->view.push_back(background);
 	data->view.push_back(outBoard);
 	data->view.push_back(inBoard);
+
 	data->view.push_back(outScore);
 	data->view.push_back(inScore);
+
+	data->view.push_back(clearScore);
+	data->view.push_back(nowScore);
+	data->view.push_back(remainTry);
+	data->view.push_back(musicPlayer);
+	data->view.push_back(backButton);
+
+
 	data->view.push_back(outGame);
 	data->view.push_back(inGame);
 }
@@ -74,7 +125,7 @@ gameData loadGame(std::string file) {
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 	auto data = std::make_shared<grc::scene>();
 	grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
-	createIngameUI(data);
+	createIngameUI(data, close);
 
 	// left
 	auto wall1 = std::make_shared<grc::wallview>(grc::rect(0, 0, 405 + 8, 800));

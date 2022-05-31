@@ -46,7 +46,9 @@ namespace phy {
 				leftRect.location.x <= rightRect.location.x + rightRect.size.width &&
 				leftRect.location.y + leftRect.size.height >= rightRect.location.y &&
 				leftRect.location.y <= rightRect.location.y + rightRect.size.height) {
-				info.own = phy::collisionPos::none;
+				info.own.push_back(phy::collisionPos::none);
+
+				auto radius = (leftRect.size.width);
 
 				auto pos = leftRect.center();
 				double left = abs(pos.x - rightRect.location.x);
@@ -55,17 +57,17 @@ namespace phy {
 				double bottom = abs((rightRect.location.y + rightRect.size.height) - pos.y);
 				spdlog::info("{}, {}, {}, {}", left, top, right, bottom);
 
-				if (left < top && left < right && left < bottom) {
-					info.other = phy::collisionPos::left;
+				if (left < top) {
+					info.other.push_back(phy::collisionPos::left);
 				}
-				else if (top < left && top < right && top < bottom) {
-					info.other = phy::collisionPos::top;
+				if (top < radius) {
+					info.other.push_back(phy::collisionPos::top);
 				}
-				else if (right < top && right < left && right < bottom) {
-					info.other = phy::collisionPos::right;
+				if (right < radius) {
+					info.other.push_back(phy::collisionPos::right);
 				}
-				else {
-					info.other = phy::collisionPos::bottom;
+				{
+					info.other.push_back(phy::collisionPos::bottom);
 				}
 
 				return true;
@@ -111,8 +113,6 @@ namespace phy {
 					return false;
 				}
 			}
-
-
 		}
 		
 		bool nextPosVel(std::weak_ptr<phy::object> left, std::weak_ptr<phy::object> right, collisioninfo& info) {
@@ -141,8 +141,10 @@ namespace phy {
 			//		break;
 			//	}
 			//}
-			return checkCollision(lsType, lr, ld, target,
-								  rsType, rr, rd, rs->getTransform(), info);
+			auto result = checkCollision(lsType, lr, ld, target,
+										 rsType, rr, rd, rs->getTransform(), info);
+
+			return result;
 		}
 
 		void update(long long tick) {

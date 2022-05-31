@@ -23,39 +23,41 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 
 		auto t = obj->getTransform();
 		// gravity ¿ª¹æÇâ
-		if (info.other == phy::collisionPos::top) {
-			double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
-			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
-			obj->velocity.y += downSpeed;
-			obj->velocity.y = -obj->velocity.y;
-		}
-		else if (info.other == phy::collisionPos::left || info.other == phy::collisionPos::right) {
-			obj->setTransform(phy::vector2d{ t.x - obj->velocity.x * (tick / 1000.0), t.y });
-			obj->velocity.x *= -1;
-		}
-		else {
-			obj->setTransform(phy::vector2d{ t.x, t.y - obj->velocity.y * (tick / 1000.0) });
-			obj->velocity.y = -obj->velocity.y;
+		auto veloff = obj->velocity * (tick / 1000.0);
+
+		obj->setTransform(phy::vector2d{ t.x - veloff.x, t.y - veloff.y });
+		for (auto pos : info.other) {
+			if (pos == phy::collisionPos::top) {
+				double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
+				obj->velocity.y += downSpeed;
+				obj->velocity.y = -obj->velocity.y;
+			}
+			else if (pos == phy::collisionPos::left || pos == phy::collisionPos::right) {
+				obj->velocity.x *= -1;
+			}
+			else {
+				obj->velocity.y = -obj->velocity.y;
+			}
+
+			switch (pos) {
+			case phy::collisionPos::none:
+				spdlog::info("collision Pos : [NONE]");
+				break;
+			case phy::collisionPos::left:
+				spdlog::info("collision Pos : [left]");
+				break;
+			case phy::collisionPos::top:
+				spdlog::info("collision Pos : [top]");
+				break;
+			case phy::collisionPos::right:
+				spdlog::info("collision Pos : [right]");
+				break;
+			case phy::collisionPos::bottom:
+				spdlog::info("collision Pos : [bottom]");
+				break;
+			}
 		}
 		obj->velocity = obj->velocity * 0.9;
-
-		switch (info.other) {
-		case phy::collisionPos::none:
-			spdlog::info("collision Pos : [NONE]");
-			break;
-		case phy::collisionPos::left:
-			spdlog::info("collision Pos : [left]");
-			break;
-		case phy::collisionPos::top:
-			spdlog::info("collision Pos : [top]");
-			break;
-		case phy::collisionPos::right:
-			spdlog::info("collision Pos : [right]");
-			break;
-		case phy::collisionPos::bottom:
-			spdlog::info("collision Pos : [bottom]");
-			break;
-		}
 	};
 	physical->setTransform(phy::vector2d{
 		(double)center.x,
