@@ -4,7 +4,7 @@
 #include "view.h"
 
 #include "buttonview.h"
-
+    
 namespace grc
 {
     class numview : public view

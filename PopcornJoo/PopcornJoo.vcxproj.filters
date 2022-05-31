@@ -108,6 +108,12 @@
     <ClCompile Include="audiocollect.cpp">
       <Filter>소스 파일\engine\sound</Filter>
     </ClCompile>
+    <ClCompile Include="toggleview.cpp">
+      <Filter>소스 파일\engine\scene\component</Filter>
+    </ClCompile>
+    <ClCompile Include="numview.cpp">
+      <Filter>소스 파일\engine\scene\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imagecollect.h">
@@ -167,9 +173,6 @@
     <ClInclude Include="ballview.h">
       <Filter>헤더 파일\engine\scene\component\game</Filter>
     </ClInclude>
-    <ClInclude Include="damageview.h">
-      <Filter>헤더 파일\engine\scene\component\game</Filter>
-    </ClInclude>
     <ClInclude Include="wallview.h">
       <Filter>헤더 파일\engine\scene\component\game</Filter>
     </ClInclude>
@@ -181,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="clearScene.hpp">
       <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="toggleview.h">
+      <Filter>헤더 파일\engine\scene\component</Filter>
+    </ClInclude>
+    <ClInclude Include="numview.h">
+      <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

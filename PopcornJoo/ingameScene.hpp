@@ -14,8 +14,11 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	// À§
 
 	int upframe = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\upframe.png");
+	int leftframe = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\leftframe.png");
+	
 	int chahca0 = grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\chacha000.png");
 	int jinju0 = grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\jinju000.png");
+
 
 	auto outBoard = std::make_shared<grc::view>(grc::rect(25, 25, 1280 - 25, 175), grc::color(0x62e3ffff));
 	auto inBoard = std::make_shared<grc::view>(grc::rect(25 + 4, 25 + 4, 1280 - 25 - 4, 175 - 4), grc::color(0x4fa6f0ff));
@@ -27,8 +30,8 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	// 150
 
 	// ¿ÞÂÊ
-	auto outScore = std::make_shared<grc::view>(grc::rect(25, 200, 380, 775), grc::color(0xff0000ff));
-	auto inScore = std::make_shared<grc::view>(grc::rect(25 + 4, 200 + 4, 380 - 4, 775 - 4), grc::color(0x00ffffff));
+	auto outScore = std::make_shared<grc::view>(grc::rect(25, 200, 380, 775), grc::color(0x62e3ffff));
+	auto inScore = std::make_shared<grc::view>(grc::rect(25 + 4, 200 + 4, 380 - 4, 775 - 4), leftframe);
 	// start : 
 	// 53, 228
 	// end :

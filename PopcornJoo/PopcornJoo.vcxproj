@@ -194,10 +194,12 @@
     <ClCompile Include="colorbuttonview.cpp" />
     <ClCompile Include="imagecollect.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="numview.cpp" />
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="spriteview.cpp" />
     <ClCompile Include="spriteview.h" />
+    <ClCompile Include="toggleview.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="wallview.cpp" />
   </ItemGroup>
@@ -211,18 +213,19 @@
     <ClInclude Include="collisioninfo.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="colorbuttonview.h" />
-    <ClInclude Include="damageview.h" />
     <ClInclude Include="entryPoint.hpp" />
     <ClInclude Include="helpScene.hpp" />
     <ClInclude Include="imagecollect.h" />
     <ClInclude Include="ingameScene.hpp" />
     <ClInclude Include="mainScene.hpp" />
+    <ClInclude Include="numview.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="size.h" />
+    <ClInclude Include="toggleview.h" />
     <ClInclude Include="vector2d.h" />
     <ClInclude Include="view.h" />
     <ClInclude Include="wallview.h" />
