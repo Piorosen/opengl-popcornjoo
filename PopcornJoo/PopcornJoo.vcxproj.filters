@@ -179,5 +179,8 @@
     <ClInclude Include="audiocollect.h">
       <Filter>헤더 파일\engine\sound</Filter>
     </ClInclude>
+    <ClInclude Include="clearScene.hpp">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

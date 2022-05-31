@@ -206,6 +206,7 @@
     <ClInclude Include="audiocollect.h" />
     <ClInclude Include="ballview.h" />
     <ClInclude Include="buttonview.h" />
+    <ClInclude Include="clearScene.hpp" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="collisioninfo.h" />
     <ClInclude Include="color.h" />

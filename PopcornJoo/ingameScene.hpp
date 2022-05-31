@@ -23,7 +23,6 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	auto boardJinju = std::make_shared<grc::view>(grc::rect(1251 - 134, 33, 1251, 167), jinju0);
 	auto boardFrame = std::make_shared<grc::view>(grc::rect(25 + 4, 25 + 4, 1280 - 25 - 4, 175 - 4), upframe);
 
-	
 	// 1230
 	// 150
 
@@ -35,10 +34,8 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	// end :
 	// 319, 747
 	// total length :
-	// 294, 559
-	// 53 ~ 347
-
-	// 294, 519
+	
+	// 355, 575
 	auto clearScore = std::make_shared<grc::view>(grc::rect(53, 228, 347, 319), grc::color(0xff0000ff));
 	auto nowScore = std::make_shared<grc::view>(grc::rect(53, 329, 347, 410), grc::color(0xff0000ff));
 	auto remainTry = std::make_shared<grc::view>(grc::rect(53, 420, 347, 511), grc::color(0xff0000ff));
@@ -107,12 +104,14 @@ struct gameElement
 struct gameData {
 	int tryCount;
 	int clearScore;
+	int totalScore;
 	std::vector<gameElement> element;
 };
 
 gameData loadGame(std::string file) {
 	std::ifstream read(file);
 	gameData d;
+	d.totalScore = 0;
 	int count;
 	read >> d.tryCount >> d.clearScore >> count;
 	for (int i = 0; i < count; i++) {
@@ -124,6 +123,7 @@ gameData loadGame(std::string file) {
 			break;
 		case 1:
 			read >> elem.x >> elem.y >> elem.w >> elem.h >> elem.score;
+			d.totalScore += elem.score;
 			break;
 		case 2:
 			read >> elem.x >> elem.y >> elem.w >> elem.h;
@@ -136,73 +136,98 @@ gameData loadGame(std::string file) {
 	return d;
 }
 
+int gameScore = 0;
 int deadCount = 0;
+int tryCount = 0;
 std::vector<std::shared_ptr<grc::wallview>> wallList;
+std::vector<std::shared_ptr<grc::wallview>> blockList;
 std::vector<std::shared_ptr<grc::ballview>> ballList;
 
-std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
+std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::function<void(bool)> winCheck) {
 	auto data = std::make_shared<grc::scene>();
-	grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
-	createIngameUI(data, close);
-
-	// left
-	auto wall1 = std::make_shared<grc::wallview>(grc::rect(0, 0, 405 + 8, 800));
-	// top
-	auto wall2 = std::make_shared<grc::wallview>(grc::rect(0, 0, 1280, 208));
-	// bottom
-	auto wall3 = std::make_shared<grc::wallview>(grc::rect(0, 775 - 8, 1280, 1200));
-	// right
-	auto wall4 = std::make_shared<grc::wallview>(grc::rect(1255 - 8, 0, 2000, 1200));
-
-	//auto ball = std::make_shared<grc::ballview>(grc::point{ (1255 + 413) / 2, 750 - 8 }, 10, grc::color(0xfff000ff));
-	//data->view.push_back(ball);
 	
-	auto game = loadGame(".\\resources\\map\\002.m");
-	
-	for (auto& elem : game.element) {
-		if (elem.type == 0) {
-			auto p = std::make_shared<grc::ballview>(grc::point{
-				413 + elem.x,
-				208 + elem.y
-				}, 10, 0xfff000ff);
-			p->clickRange = grc::rect(413, 208, 413 + 834, 208 + 559);
-
-			p->ballDeadEvent = [](grc::ballview* self) {
-				deadCount += 1;
-				self->shotable(false);
-				self->reset();
-				spdlog::info("{}", deadCount);
-				if (deadCount == ballList.size()) {
-					deadCount = 0;
-					for (auto& p : ballList) {
-						p->shotable(true);
-					}
-				}
-			};
-			ballList.push_back(p);
-		}
-		else if (elem.type == 1) {
-			auto blockTest = std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), false, 0xffccc0ff);
-			blockTest->setScore(elem.score);
-			blockTest->brokenBlock = [](grc::wallview* self) {
-				// 벽돌 파괴!
-				// 점수 증가
-			};
-			wallList.push_back(blockTest);
-		}
-		else {
-			wallList.push_back(std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), 0xc0c00cff));
-		}
-	}
-	for (auto& elem : wallList) {
-		data->view.push_back(elem);
-	}
-	for (auto& elem : ballList) {
-		data->view.push_back(elem);
-	}
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
-		deadCount = 0;
+		grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
+		createIngameUI(data, close);
+
+		// left
+		auto wall1 = std::make_shared<grc::wallview>(grc::rect(0, 0, 405 + 8, 800));
+		// top
+		auto wall2 = std::make_shared<grc::wallview>(grc::rect(0, 0, 1280, 208));
+		// bottom
+		auto wall3 = std::make_shared<grc::wallview>(grc::rect(0, 775 - 8, 1280, 1200));
+		// right
+		auto wall4 = std::make_shared<grc::wallview>(grc::rect(1255 - 8, 0, 2000, 1200));
+
+		//auto ball = std::make_shared<grc::ballview>(grc::point{ (1255 + 413) / 2, 750 - 8 }, 10, grc::color(0xfff000ff));
+		//data->view.push_back(ball);
+
+		auto game = loadGame(".\\resources\\map\\002.m");
+
+		for (auto& elem : game.element) {
+			if (elem.type == 0) {
+				auto p = std::make_shared<grc::ballview>(grc::point{
+					413 + elem.x,
+					208 + elem.y
+					}, 10, 0xfff000ff);
+				p->clickRange = grc::rect(413, 208, 413 + 834, 208 + 559);
+
+				p->ballDeadEvent = [game, winCheck](grc::ballview* self) {
+					deadCount += 1;
+					self->shotable(false);
+					self->reset();
+					spdlog::info("{}", deadCount);
+					if (deadCount == ballList.size()) {
+						deadCount = 0;
+						tryCount += 1;
+						for (auto& p : ballList) {
+							p->shotable(true);
+						}
+						spdlog::info("tryCount : [{}, {}]", tryCount, game.tryCount);
+
+						if (gameScore >= game.totalScore)
+						{
+							if (winCheck) {
+								winCheck(true);
+							}
+						}
+						else if (tryCount >= game.tryCount) {
+							if (winCheck) {
+								winCheck(false);
+							}
+						}
+					}
+				};
+				ballList.push_back(p);
+			}
+			else if (elem.type == 1) {
+				auto blockTest = std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), false, 0xffccc0ff);
+				blockTest->setScore(elem.score);
+				auto chacha = data->view[3];
+				blockTest->brokenBlock = [chacha, winCheck, game](grc::wallview* self) {
+					// 벽돌 파괴!
+					// 점수 증가
+					gameScore += 1;
+					spdlog::info("gameScore : [{}, {}]", gameScore, game.totalScore);
+					double characterLength = (1117 - 167) / blockList.size() * gameScore;
+					chacha->frame = grc::rect(33 + characterLength, 33, 167 + characterLength, 167);
+				};
+				blockList.push_back(blockTest);
+			}
+			else {
+				wallList.push_back(std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), 0xc0c00cff));
+			}
+		}
+		for (auto& elem : wallList) {
+			data->view.push_back(elem);
+		}
+		for (auto& elem : blockList) {
+			data->view.push_back(elem);
+		}
+		for (auto& elem : ballList) {
+			data->view.push_back(elem);
+		}
 
 		auto data = grc::audiocollect::shared->set(".\\resources\\audio\\main_logo.mp3", true);
 		grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", false);
@@ -221,12 +246,20 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 		for (auto& elem : wallList) {
 			phy::physicsEngine::shared->AddWall(elem->getPhysical());
 		}
+		for (auto& elem : blockList) {
+			phy::physicsEngine::shared->AddWall(elem->getPhysical());
+		}
+		
 		//phy::physicsEngine::shared->AddWall(wall5->getPhysical());
 	};
 
 	data->closeEvent = [](std::weak_ptr<grc::scene> scene) {
 		ballList.clear();
 		wallList.clear();
+		blockList.clear();
+		tryCount = 0;
+		gameScore = 0;
+		deadCount = 0;
 		phy::physicsEngine::shared->ClearObject();
 		grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", true);
 	};
