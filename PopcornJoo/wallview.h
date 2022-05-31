@@ -26,6 +26,7 @@ namespace grc
         void setScore(int iswall);
         int getScore() const;
 
+        std::function<void(wallview*)> brokenBlock;
 
         std::shared_ptr<phy::object> getPhysical() const;
 

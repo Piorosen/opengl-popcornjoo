@@ -69,7 +69,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		if (this->getPhysical()->getHidden()) {
 			return;
 		}
-		spdlog::info("ball speed {}", speed);
+
 		if (speed < 100 || speed > 5000) {
 			if (ballDeadEvent) {
 				ballDeadEvent(this);
@@ -125,6 +125,11 @@ void grc::ballview::shot(grc::point click)
 	physical->setHidden(false);
 }
 
+void grc::ballview::shotable(bool able)
+{
+	this->shotalbe = able;
+}
+
 bool grc::ballview::render(long long tick)
 {
 	if (!getHidden()) {
@@ -143,13 +148,17 @@ bool grc::ballview::render(long long tick)
 grc::mouseclick grc::ballview::click(int state, int x, int y)
 {
 	auto p = view::click(state, x, y);
-	auto pp = (grc::buttonstate)state;
-	if (pp == grc::buttonstate::mouseUp) {
-		auto pos = grc::point{ x, y };
-		if (this->clickRange.exists(pos)) {
-			shot(pos);
+	if (this->shotalbe) {
+		auto pp = (grc::buttonstate)state;
+		if (pp == grc::buttonstate::mouseUp) {
+			auto pos = grc::point{ x, y };
+			if (this->clickRange.exists(pos)) {
+				shot(pos);
+				this->shotalbe = false;
+			}
 		}
 	}
+
 	return p;
 }
 

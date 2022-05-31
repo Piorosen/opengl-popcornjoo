@@ -3,12 +3,13 @@
 #include <spdlog/spdlog.h>
 #include <functional>
 
+#include "rect.h"
+#include "colorbuttonview.h"
+#include "buttonview.h"
+#include "spriteview.h"
 #include "scene.h"
 #include "audiocollect.h"
 #include "imagecollect.h"
-#include "spriteview.h"
-#include "buttonview.h"
-#include "colorbuttonview.h"
 
 std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview*, grc::buttonstate)> startEvent,
 									     std::function<void(grc::colorbuttonview*, grc::buttonstate)> helpEvent) {

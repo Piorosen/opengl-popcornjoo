@@ -55,7 +55,7 @@ namespace phy {
 				double top = abs(pos.y - rightRect.location.y);
 				double right = abs((rightRect.location.x + rightRect.size.width) - pos.x);
 				double bottom = abs((rightRect.location.y + rightRect.size.height) - pos.y);
-				spdlog::info("{}, {}, {}, {}", left, top, right, bottom);
+				//spdlog::info("{}, {}, {}, {}", left, top, right, bottom);
 
 				if (left < radius) {
 					info.other.push_back(phy::collisionPos::left);

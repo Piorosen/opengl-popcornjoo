@@ -16,6 +16,9 @@ grc::wallview::wallview(grc::rect rect, bool iswall, grc::color backgroundColor)
 			auto ownP = own.lock();
 			ownP->setHidden(true);
 			this->setHidden(true);
+			if (brokenBlock) {
+				brokenBlock(this);
+			}
 			spdlog::info("remove");
 		}
 	};

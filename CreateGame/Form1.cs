@@ -78,29 +78,18 @@ namespace CreateGame
             }
             else if (createMode == 2)
             {
-                int lx = (e.X - down.X) / 50;
-                int ly = (e.Y - down.Y) / 50;
-
-                for (int x = 0; x < lx; x++)
+                list.Add(new data
                 {
-                    for (int y = 0; y < ly; y++)
-                    {
-                        list.Add(new data
-                        {
-                            x = down.X + (50 * x),
-                            y = down.Y + (50 * y),
-                            w = 50,
-                            h = 50,
-                            type = createMode
-                        });
-                        using (Graphics graphics = panel1.CreateGraphics())
-                        {
-                            graphics.FillRectangle(Brushes.Red, down.X + (50 * x), down.Y + (50 * y), 50, 50);
-                        }
-                    }
+                    x = down.X,
+                    y = down.Y,
+                    w = e.X - down.X,
+                    h = e.Y - down.Y,
+                    type = createMode
+                });
+                using (Graphics graphics = panel1.CreateGraphics())
+                {
+                    graphics.FillRectangle(Brushes.Red, down.X, down.Y, e.X - down.X, e.Y - down.Y);
                 }
-                
-               
             }
         }
 

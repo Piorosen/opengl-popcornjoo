@@ -13,7 +13,7 @@ namespace grc
         std::shared_ptr<phy::object> physical;
         int radius;
         grc::point initCenter;
-
+        bool shotalbe = true;
 
     public:
         // 전체를 렌더링 할 시간 루프 시간.
@@ -27,6 +27,7 @@ namespace grc
         
         void reset();
         void shot(grc::point clickPos);
+        void shotable(bool able);
 
         virtual bool render(long long tick) override;
         virtual mouseclick click(int state, int x, int y) override;
