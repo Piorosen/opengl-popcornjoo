@@ -54,34 +54,53 @@ namespace CreateGame
         {
             if (createMode == 1)
             {
-                list.Add(new data
+                int lx = (e.X - down.X) / 50;
+                int ly = (e.Y - down.Y) / 50;
+                for (int x = 0; x < lx; x++)
                 {
-                    x = down.X,
-                    y = down.Y,
-                    w = e.X - down.X,
-                    h = e.Y - down.Y,
-                    score = int.Parse(block_score_text.Text),
-                    type = createMode
-                });
-                using (Graphics graphics = panel1.CreateGraphics())
-                {
-                    graphics.FillRectangle(Brushes.Blue, down.X, down.Y, e.X - down.X, e.Y - down.Y);
+                    for (int y = 0; y < ly; y++)
+                    {
+                        list.Add(new data
+                        {
+                            x = down.X + (50 * x),
+                            y = down.Y + (50 * y),
+                            w = 50,
+                            h = 50,
+                            score = int.Parse(block_score_text.Text),
+                            type = createMode
+                        });
+                        using (Graphics graphics = panel1.CreateGraphics())
+                        {
+                            graphics.FillRectangle(Brushes.Blue, down.X + (50 * x), down.Y + (50 * y), 50, 50);
+                        }
+                    }
                 }
             }
             else if (createMode == 2)
             {
-                list.Add(new data
+                int lx = (e.X - down.X) / 50;
+                int ly = (e.Y - down.Y) / 50;
+
+                for (int x = 0; x < lx; x++)
                 {
-                    x = down.X,
-                    y = down.Y,
-                    w = e.X - down.X,
-                    h = e.Y - down.Y,
-                    type = createMode
-                });
-                using (Graphics graphics = panel1.CreateGraphics())
-                {
-                    graphics.FillRectangle(Brushes.Red, down.X, down.Y, e.X - down.X, e.Y - down.Y);
+                    for (int y = 0; y < ly; y++)
+                    {
+                        list.Add(new data
+                        {
+                            x = down.X + (50 * x),
+                            y = down.Y + (50 * y),
+                            w = 50,
+                            h = 50,
+                            type = createMode
+                        });
+                        using (Graphics graphics = panel1.CreateGraphics())
+                        {
+                            graphics.FillRectangle(Brushes.Red, down.X + (50 * x), down.Y + (50 * y), 50, 50);
+                        }
+                    }
                 }
+                
+               
             }
         }
 

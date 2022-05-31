@@ -28,8 +28,8 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		obj->setTransform(phy::vector2d{ t.x - veloff.x, t.y - veloff.y });
 		for (auto pos : info.other) {
 			if (pos == phy::collisionPos::top) {
-				double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
-				obj->velocity.y += downSpeed;
+				/*double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
+				obj->velocity.y += downSpeed;*/
 				obj->velocity.y = -obj->velocity.y;
 			}
 			else if (pos == phy::collisionPos::left || pos == phy::collisionPos::right) {
