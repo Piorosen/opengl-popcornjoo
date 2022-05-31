@@ -205,6 +205,7 @@
     <ClInclude Include="ballview.h" />
     <ClInclude Include="buttonview.h" />
     <ClInclude Include="collision.h" />
+    <ClInclude Include="collisioninfo.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="colorbuttonview.h" />
     <ClInclude Include="damageview.h" />

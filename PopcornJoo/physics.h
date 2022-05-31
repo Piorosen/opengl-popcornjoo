@@ -8,6 +8,7 @@
 #include "rectangle.h"
 #include "object.h"
 #include "collision.h"
+#include "collisioninfo.h"
 
 
 namespace phy {
@@ -40,7 +41,7 @@ namespace phy {
 			//object.clear();
 		}
 
-		bool checkCollision(std::weak_ptr<phy::object> left, std::weak_ptr<phy::object> right) {
+		bool checkCollision(std::weak_ptr<phy::object> left, std::weak_ptr<phy::object> right, collisioninfo& info) {
 			auto ls = left.lock();
 			auto rs = right.lock();
 			if (!(ls && rs)) {
@@ -56,6 +57,8 @@ namespace phy {
 
 			if (leftType == phy::collisiontype::circle &&
 				rightType == phy::collisiontype::circle) {
+				info.type = collidetype::circleTocircle;
+
 				auto length = (ls->transform - rs->transform).magnitude();
 				if (length < leftRadius + rightRadius) {
 					return true;
@@ -64,31 +67,56 @@ namespace phy {
 					return false;
 				}
 			}
-			else {
-				//if (leftRect)
+			else if (leftType == phy::collisiontype::circle && rightType == phy::collisiontype::rectangle) {
 				leftRect.location.x += ls->transform.x;
 				leftRect.location.y += ls->transform.y;
 
 				rightRect.location.x += rs->transform.x;
 				rightRect.location.y += rs->transform.y;
 
+				if (leftType != rightType) {
+					info.type = collidetype::circleToRect;
+				}
+				else {
+					info.type = collidetype::RectToRect;
+					spdlog::info("固备泅等 面倒 贸府");
+					return false;
+				}
+				
 				if (leftRect.location.x + leftRect.size.width >= rightRect.location.x &&
 					leftRect.location.x <= rightRect.location.x + rightRect.size.width &&
 					leftRect.location.y + leftRect.size.height >= rightRect.location.y &&
 					leftRect.location.y <= rightRect.location.y + rightRect.size.height) {
+					
+					info.own = phy::collisionPos::none;
+
+					auto pos = leftRect.center();
+					double left = abs(pos.x - rightRect.location.x);
+					double top = abs(pos.y - rightRect.location.y);
+					double right = abs((rightRect.location.x + rightRect.size.width) - pos.x);
+					double bottom = abs((rightRect.location.y + rightRect.size.height) - pos.y);
+					spdlog::info("{}, {}, {}, {}", left, top, right, bottom);
+
+					if (left < top && left < right && left < bottom) {
+						info.other = phy::collisionPos::left;
+					}
+					else if (top < left && top < right && top < bottom) {
+						info.other = phy::collisionPos::top;
+					}
+					else if (right < top && right < left && right < bottom) {
+						info.other = phy::collisionPos::right;
+					}
+					else {
+						info.other = phy::collisionPos::bottom;
+					}
+
 					return true;
 				}
 				else {
 					return false;
 				}
-				/*if (x1 + w1 >= x2 && x1 <= x2 + w2 && y1 + h1 >= y2 && y1 <= y2 + h2)
-				{
-					return true;
-				}*/
 			}
 
-			spdlog::info("固备泅等 面倒 贸府");
-			return false;
 
 		}
 
@@ -103,13 +131,17 @@ namespace phy {
 
 			for (auto& t : target) {
 				for (auto& w : wall) {
-					bool data = checkCollision(t, w);
+					collisioninfo info{};
+					bool data = checkCollision(t, w, info);
 					if (data) {
 						if (t->collisionevent) {
-							t->collisionevent(t, w);
+							t->collisionevent(t, w, info, tick);
 						}
+						collisioninfo info2 = info;
+						info2.other = info.own;
+						info2.own = info.other;
 						if (w->collisionevent) {
-							w->collisionevent(w, t);
+							w->collisionevent(w, t, info2, tick);
 						}
 					}
 				}

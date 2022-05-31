@@ -25,6 +25,10 @@ namespace grc
         virtual mouseclick click(int state, int x, int y) override;
         virtual int mouse(int x, int y) override;
 
+        int getRadius() const {
+            return radius;
+        }
+
     protected:
     };
 }

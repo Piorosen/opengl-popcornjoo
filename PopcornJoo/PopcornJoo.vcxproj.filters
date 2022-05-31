@@ -170,5 +170,8 @@
     <ClInclude Include="wallview.h">
       <Filter>헤더 파일\engine\scene\component\game</Filter>
     </ClInclude>
+    <ClInclude Include="collisioninfo.h">
+      <Filter>헤더 파일\engine\physics\utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

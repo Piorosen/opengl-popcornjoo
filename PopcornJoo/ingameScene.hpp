@@ -12,14 +12,15 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 
 	auto ball = std::make_shared<grc::ballview>(grc::point{ 250, 250 }, 10, grc::color(0xff0000ff));
 	
+	int think = 10;
 	// top
-	auto wall1 = std::make_shared<grc::wallview>(grc::rect(50, 50, 450, 100));
+	auto wall1 = std::make_shared<grc::wallview>(grc::rect(50, 50, 450, 50 + think));
 	// left
-	auto wall2 = std::make_shared<grc::wallview>(grc::rect(50, 50, 100, 450));
+	auto wall2 = std::make_shared<grc::wallview>(grc::rect(50, 50, 50 + think, 450));
 	// bottom
-	auto wall3 = std::make_shared<grc::wallview>(grc::rect(50, 400, 450, 450));
+	auto wall3 = std::make_shared<grc::wallview>(grc::rect(50, 450 - think, 450, 450));
 	// right
-	auto wall4 = std::make_shared<grc::wallview>(grc::rect(400, 50, 450, 450));
+	auto wall4 = std::make_shared<grc::wallview>(grc::rect(450 - think, 50, 450, 450));
 	
 	data->view.push_back(wall1);
 	data->view.push_back(wall2);

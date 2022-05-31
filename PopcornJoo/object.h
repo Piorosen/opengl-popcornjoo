@@ -2,7 +2,7 @@
 #include <functional>
 #include "rect.h"
 #include "vector2d.h"
-
+#include "collisioninfo.h"
 namespace phy {
 	enum class collisiontype {
 		circle,
@@ -40,7 +40,7 @@ namespace phy {
 		vector2d velocity;
 		
 		std::function<void(vector2d)> transformchanged;
-		std::function<void(std::weak_ptr<object>, std::weak_ptr<object>)> collisionevent;
+		std::function<void(std::weak_ptr<object>, std::weak_ptr<object>, phy::collisioninfo, long long)> collisionevent;
 
 		virtual void update(long long tick) {
 			double downSpeed = gravity * mesh * (tick / 1000.0);

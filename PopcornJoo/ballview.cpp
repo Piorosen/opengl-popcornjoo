@@ -8,8 +8,9 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 					 center.x + radius,
 					 center.y + radius), ballColor)
 {
+	this->radius = radius;
 	physical = std::make_shared<phy::object>();
-	physical->collisionevent = [](std::weak_ptr<phy::object> self, std::weak_ptr<phy::object> other) {
+	physical->collisionevent = [](std::weak_ptr<phy::object> self, std::weak_ptr<phy::object> other, phy::collisioninfo info, long long tick) {
 		auto obj = self.lock();
 		auto oobj = other.lock();
 		
@@ -19,26 +20,59 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		oobj->getType(r, rc2);
 		obj->getType(r, rc);
 
-		double ballBottom = obj->transform.y + r;
-		double wallTop = oobj->transform.y + rc2.location.y;
+		// gravity ¿ª¹æÇâ
+		if (info.other == phy::collisionPos::top) {
+			double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
+			obj->transform.y -= obj->velocity.y * (tick / 1000.0);
+			obj->velocity.y += downSpeed;
+			obj->velocity.y = -obj->velocity.y * 1.05;
+		}
+		else if (info.other == phy::collisionPos::left || info.other == phy::collisionPos::right) {
+			obj->transform.x -= obj->velocity.x * (tick / 1000.0);
+			obj->velocity.x *= -1;
+		}
+		else {
+			obj->transform.y -= obj->velocity.y * (tick / 1000.0);
+			obj->velocity.y = -obj->velocity.y * 0.9;
+		}
+		switch (info.other) {
+		case phy::collisionPos::none:
+			spdlog::info("collision Pos : [NONE]");
+			break;
+		case phy::collisionPos::left:
+			spdlog::info("collision Pos : [left]");
+			break;
+		case phy::collisionPos::top:
+			spdlog::info("collision Pos : [top]");
+			break;
+		case phy::collisionPos::right:
+			spdlog::info("collision Pos : [right]");
+			break;
+		case phy::collisionPos::bottom:
+			spdlog::info("collision Pos : [bottom]");
+			break;
+		}
 
-		obj->velocity.y = -obj->velocity.y * 0.9;
+		//spdlog::info("poss [{}, {}]", dir.x, dir.y);
+
+		/*if (abs(obj->velocity.y) < 300) {
+			obj->velocity.y = 0;
+		}*/
 		
-		obj->transform.y -= ballBottom - wallTop + r;
 		obj->transformchanged(obj->transform);
-		spdlog::info("COLLISION");
 	};
 	physical->transform = phy::vector2d{
 		(double)center.x,
 		(double)center.y
 	};
 	physical->transformchanged = [this](phy::vector2d location) {
-		auto radius = this->frame.size.width / 2.0;
+		auto radius = this->getRadius();
 		this->frame = grc::rect(location.x - radius, location.y - radius,
 								location.x + radius, location.y + radius);
 	};
 	physical->setType(radius);
-	//physical->velocity.y = 500;
+	physical->velocity.x = 300;
+	physical->velocity.y = 1000;
 	physical->gravity = -100;
 	physical->mesh = 20;
 }
