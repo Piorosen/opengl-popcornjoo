@@ -94,10 +94,14 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close) {
 
 	for (auto& elem : game.element) {
 		if (elem.type == 0) {
-			ballList.push_back(std::make_shared<grc::ballview>(grc::point{
+			auto p = std::make_shared<grc::ballview>(grc::point{
 				413 + elem.x,
 				208 + elem.y
-				}, 10, 0xfff000ff));
+				}, 10, 0xfff000ff);
+			p->ballDeadEvent = [](grc::ballview* self) {
+				self->reset();
+			};
+			ballList.push_back(p);
 		}
 		else if (elem.type == 1) {
 			auto blockTest = std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), false, 0xffccc0ff);

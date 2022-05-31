@@ -21,6 +21,7 @@ namespace grc
 
         std::shared_ptr<phy::object> getPhysical() const;
         std::function<void(ballview*)> mouseEvent;
+        std::function<void(ballview*)> ballDeadEvent;
 
         void reset();
         void shot(grc::point clickPos);

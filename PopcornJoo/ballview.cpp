@@ -9,7 +9,7 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 					 center.y + radius), ballColor)
 {
 	this->radius = radius;
-
+	this->initCenter = center;
 	physical = std::make_shared<phy::object>();
 	physical->collisionevent = [](std::weak_ptr<phy::object> self, std::weak_ptr<phy::object> other, phy::collisioninfo info, long long tick) {
 		auto obj = self.lock();
@@ -63,8 +63,20 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 		});
 	physical->transformchanged = [this](phy::vector2d location) {
 		auto radius = this->getRadius();
-		this->frame = grc::rect(location.x - radius, location.y - radius,
-								location.x + radius, location.y + radius);
+		auto speed = this->getPhysical()->velocity.magnitude();
+		if (this->getPhysical()->getHidden()) {
+			return;
+		}
+		spdlog::info("ball speed {}", speed);
+		if (speed < 100) {
+			if (ballDeadEvent) {
+				ballDeadEvent(this);
+			}
+		}
+		else {
+			this->frame = grc::rect(location.x - radius, location.y - radius,
+									location.x + radius, location.y + radius);
+		}
 	};
 	physical->setType(radius);
 	physical->gravity = -200;
@@ -87,25 +99,25 @@ void grc::ballview::reset()
 		center.x + radius,
 		center.y + radius);
 
+	physical->velocity = phy::vector2d {
+		0,0
+	};
 	physical->setTransform(phy::vector2d{
 		(double)center.x,
 		(double)center.y
 		});
-	physical->velocity = phy::vector2d {
-		0,0
-	};
 
 }
 
 void grc::ballview::shot(grc::point click)
 {
+	spdlog::info("SHOT!");
 	phy::vector2d pos{
 		(double)click.x,
 		(double)click.y
 	};
 
-	auto power = (pos - physical->getTransform()).normalization() * 5000;
-
+	auto power = (pos - physical->getTransform()).normalization() * 2000;
 	physical->velocity.x = power.x;
 	physical->velocity.y = power.y;
 	physical->setHidden(false);
