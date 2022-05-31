@@ -33,6 +33,8 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 
 	auto leftButton = std::make_shared<grc::buttonview>(grc::rect(200, 650, 300, 750), lde, ldwn, lh);
 	auto rightButton = std::make_shared<grc::buttonview>(grc::rect(1280 - 300 - 100, 650, 1280 - 200 - 100, 750), rde, rdwn, rh);
+	auto backButton = std::make_shared<grc::buttonview>(grc::rect(100, 100, 200, 200), lde, ldwn, lh);
+
 
 	leftButton->mouseEvent = [background, tutorial](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
@@ -55,15 +57,24 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 	data->view.push_back(background);
 	data->view.push_back(leftButton);
 	data->view.push_back(rightButton);
+	data->view.push_back(backButton);
 
 	data->openEvent = [](std::weak_ptr<grc::scene> data) {
 		grc::application::shared->setSize(grc::size{ 1280, 800 });
 		grc::application::shared->setTitle("차차의 모험기 : 사용법");
 	};
 
+	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
+		if (close) {
+			close();
+		}
+	};
+
 	data->keyboard = [close](grc::scene* self, unsigned char key, int x, int y) {
 		if (key == 27) {
-			close();
+			if (close) {
+				close();
+			}
 		}
 	};
 	

@@ -28,7 +28,7 @@ namespace grc
                 spdlog::error("audio driver fail!");
             }
             else {
-                spdlog::error("audio driver success!");
+                spdlog::info("audio driver success!");
             }
         }
 

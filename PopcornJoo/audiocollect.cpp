@@ -23,7 +23,7 @@ grc::audioresult grc::audiocollect::add(std::string file, audiomode mode)
         spdlog::info("audio load success \"{}\", [ {} ]", file, result);
     }
     else {
-        spdlog::info("audio load fail \"{}\", [ {} ]", file, result);
+        spdlog::error("audio load fail \"{}\", [ {} ]", file, result);
     }
 
     return (grc::audioresult)result;
@@ -32,6 +32,13 @@ grc::audioresult grc::audiocollect::add(std::string file, audiomode mode)
 grc::audioresult grc::audiocollect::play(std::string audio, FMOD::Channel** output)
 {
     auto result = pSystem->playSound(audioId[audio], NULL, 0, output);
+    if (result == FMOD_OK) {
+        spdlog::info("audio play success \"{}\", [ {} ]", audio, result);
+    }
+    else {
+        spdlog::error("audio play fail \"{}\", [ {} ]", audio, result);
+    }
+
     return (grc::audioresult)result;
 }
 
