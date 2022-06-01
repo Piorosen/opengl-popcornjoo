@@ -19,8 +19,6 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 	
 	grc::audiocollect::shared->add(".\\resources\\audio\\button.mp3");
 	
-	int homeImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\home.png");
-
 	int rde = grc::imagecollect::shared->add(".\\resources\\imaegs\\tutorial\\left_default.png");
 	int rdwn = grc::imagecollect::shared->add(".\\resources\\imaegs\\tutorial\\left_down.png");
 	int rh = grc::imagecollect::shared->add(".\\resources\\imaegs\\tutorial\\left_hover.png");
@@ -35,7 +33,6 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 
 	auto leftButton = std::make_shared<grc::buttonview>(grc::rect(200, 650, 300, 750), lde, ldwn, lh);
 	auto rightButton = std::make_shared<grc::buttonview>(grc::rect(1280 - 300 - 100, 650, 1280 - 200 - 100, 750), rde, rdwn, rh);
-	auto backButton = std::make_shared<grc::buttonview>(grc::rect(50, 50, 100, 100), homeImage, homeImage, homeImage);
 
 
 	leftButton->mouseEvent = [background, tutorial](grc::buttonview* self, grc::buttonstate state) {
@@ -53,8 +50,17 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 		}
 	};
-
-
+	
+	int backImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\back.png");
+	auto backButton = std::make_shared<grc::buttonview>(grc::rect(30, 30, 30 + 144, 30 + 74), backImage, backImage, backImage);
+	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
+		if (state == grc::buttonstate::mouseUp) {
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
+			if (close) {
+				close();
+			}
+		}
+	};
 
 	data->view.push_back(background);
 	data->view.push_back(leftButton);

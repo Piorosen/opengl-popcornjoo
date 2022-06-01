@@ -19,9 +19,10 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 	}
 	
 	int stageSelect = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\stageselect.png");
-	int backImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\back.png");
 
 	auto background = std::make_shared<grc::view>(grc::rect(0, 0, 1280, 800), stageSelect);
+
+	int backImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\back.png");
 	auto backButton = std::make_shared<grc::buttonview>(grc::rect(30, 30, 30 + 144, 30 + 74), backImage, backImage, backImage);
 	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
