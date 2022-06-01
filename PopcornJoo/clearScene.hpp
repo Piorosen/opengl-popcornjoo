@@ -19,6 +19,13 @@ std::shared_ptr<grc::scene> getEndgame(std::function<void()> close) {
 	auto backButton = std::make_shared<grc::buttonview>(grc::rect(1280 - 25 - 200, 800 - 25 - 100, 1280 - 25, 800 - 25), 20, 20, 20);
 	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
+			auto d = grc::audiocollect::shared->get(".\\resources\\audio\\game_finish.mp3");
+			if (d.has_value()) {
+				d.value()->stop();
+			}
+			else {
+				spdlog::info("audio fail");
+			}
 			close();
 		}
 	};
@@ -30,7 +37,13 @@ std::shared_ptr<grc::scene> getEndgame(std::function<void()> close) {
 	data->keyboard = [close](grc::scene* self, unsigned char key, int x, int y) {
 		if (key == 27) {
 			if (close) {
-				grc::audiocollect::shared->set(".\\resources\\audio\\game_finish.mp3", true);
+				auto d = grc::audiocollect::shared->get(".\\resources\\audio\\game_finish.mp3");
+				if (d.has_value()) {
+					d.value()->stop();
+				}
+				else {
+					spdlog::info("audio fail");
+				}
 				close();
 			}
 		}

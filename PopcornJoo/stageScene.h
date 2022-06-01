@@ -28,6 +28,7 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 	//	350
 
 	data->openEvent = [](std::weak_ptr<grc::scene> self) {
+		grc::audiocollect::shared->set(".\\resources\\audio\\main_logo.mp3", false);
 		grc::application::shared->setTitle("차차의 모험기 : 스테이지 선택");
 	};
 

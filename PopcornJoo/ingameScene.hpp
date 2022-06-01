@@ -39,8 +39,7 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	int chahca0 = grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\chacha000.png");
 	int jinju0 = grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\jinju000.png");
 
-
-	auto outBoard = std::make_shared<grc::view>(grc::rect(25, 25, 1280 - 25, 175), grc::color(0x62e3ffff));
+	auto outBoard = std::make_shared<grc::view>(grc::rect(25, 25, 1280 - 25, 175), grc::color(0x000000ff));
 	auto inBoard = std::make_shared<grc::view>(grc::rect(25 + 4, 25 + 4, 1280 - 25 - 4, 175 - 4), grc::color(0x4fa6f0ff));
 	auto boardChaCha = std::make_shared<grc::view>(grc::rect(33, 33, 167, 167), chahca0);
 	auto boardJinju = std::make_shared<grc::view>(grc::rect(1251 - 134, 33, 1251, 167), jinju0);
@@ -56,7 +55,7 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	
 	// 355, 575
 	// 왼쪽
-	auto outScore = std::make_shared<grc::view>(grc::rect(25, 200, 380, 775), grc::color(0x62e3ffff));
+	auto outScore = std::make_shared<grc::view>(grc::rect(25, 200, 380, 775), grc::color(0x000000ff));
 	auto inScore = std::make_shared<grc::view>(grc::rect(25 + 4, 200 + 4, 380 - 4, 775 - 4), leftframe);
 
 	std::vector<int> bNum;
@@ -94,6 +93,7 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	int mute = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\mute.png");
 	int unmute = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\unmute.png");
 	int homeImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\home.png");
+	int ingameImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\ingame.png");
 
 	auto musicPlayer = std::make_shared<grc::toggleview>(grc::rect(75 + 30, 626, 175 + 30, 726), mute, unmute);
 	auto backButton = std::make_shared<grc::buttonview>(grc::rect(219 + 30, 626, 319 + 30, 726), homeImage, homeImage, homeImage);
@@ -115,8 +115,8 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	};
 
 	// 오른쪽
-	auto outGame = std::make_shared<grc::view>(grc::rect(405, 200, 1255, 775), grc::color(0xff0000ff));
-	auto inGame = std::make_shared<grc::view>(grc::rect(405 + 4, 200 + 4, 1255 - 4, 775 - 4), grc::color(0x00ffffff));
+	auto outGame = std::make_shared<grc::view>(grc::rect(405, 200, 1255, 775), grc::color(0x000000ff));
+	auto inGame = std::make_shared<grc::view>(grc::rect(405 + 4, 200 + 4, 1255 - 4, 775 - 4), ingameImage);
 	// 834
 	// 559
 
@@ -190,6 +190,7 @@ std::string INGAME_RUN_GAME_LOAD_FILE = "001";
 
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::function<void(bool)> winCheck) {
 	auto data = std::make_shared<grc::scene>();
+	grc::audiocollect::shared->add(".\\resources\\audio\\block_broken.mp3");
 
 	data->renderEvent = [](grc::scene* self, long long tick) {
 		sceneTicks += tick;
@@ -219,7 +220,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 				auto p = std::make_shared<grc::ballview>(grc::point{
 					413 + elem.x,
 					208 + elem.y
-					}, 10, 0xfff000ff);
+					}, 10, 0xffffffff);
 				p->clickRange = grc::rect(413, 208, 413 + 834, 208 + 559);
 
 				auto retry = std::static_pointer_cast<grc::numview>(data->view[10]);
@@ -261,6 +262,8 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 					// 벽돌 파괴!
 					// 점수 증가
 					gameScore += 1;
+					grc::audiocollect::shared->play(".\\resources\\audio\\block_broken.mp3");
+
 					monster->setNum(game.totalScore - gameScore);
 					spdlog::info("gameScore : [{}, {}]", gameScore, game.totalScore);
 					double characterLength = (1117.0 - 167) / blockList.size() * gameScore;
@@ -269,7 +272,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 				blockList.push_back(blockTest);
 			}
 			else {
-				wallList.push_back(std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), 0xc0c00cff));
+				wallList.push_back(std::make_shared<grc::wallview>(grc::rect(413 + elem.x, 208 + elem.y, 413 + elem.x + elem.w, 208 + elem.y + elem.h), true, grc::color(0xccffccff)));
 			}
 		}
 		for (auto& elem : wallList) {

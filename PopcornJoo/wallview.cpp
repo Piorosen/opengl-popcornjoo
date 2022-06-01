@@ -57,7 +57,9 @@ std::shared_ptr<phy::object> grc::wallview::getPhysical() const
 bool grc::wallview::render(long long tick)
 {
 	if (!getHidden()) {
-		view::drawRect(frame, background);
+		view::drawRect(frame, 0x000000ff);
+		view::drawRect(grc::rect(frame.location.x + 2, frame.location.y + 2,
+								 frame.location.x + frame.size.width - 2, frame.location.y + frame.size.height - 2), background);
 		for (auto& v : controls)
 		{
 			v->render(tick);

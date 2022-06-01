@@ -133,7 +133,8 @@ void grc::ballview::shotable(bool able)
 bool grc::ballview::render(long long tick)
 {
 	if (!getHidden()) {
-		view::drawCircle(frame.center(), frame.size.width / 2.0, background);
+		view::drawCircle(frame.center(), frame.size.width / 2.0, grc::color(0x000000ff));
+		view::drawCircle(frame.center(), frame.size.width / 2.0 - 2, background);
 		for (auto& v : controls)
 		{
 			v->render(tick);
