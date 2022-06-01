@@ -36,13 +36,25 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	int upframe = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\upframe.png");
 	int leftframe = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\leftframe.png");
 	
-	int chahca0 = grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\chacha000.png");
-	int jinju0 = grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\jinju000.png");
+	std::vector<int> chahcaSprite;
+	std::vector<int> jinjuSprite;
+	for (int i = 0; i < 4; i++) {
+		chahcaSprite.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\chacha00" + std::to_string(i) + ".png"));
+	}
+	for (int i = 0; i < 4; i++) {
+		jinjuSprite.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\character\\jinju00" + std::to_string(i) + ".png"));
+	}
 
 	auto outBoard = std::make_shared<grc::view>(grc::rect(25, 25, 1280 - 25, 175), grc::color(0x000000ff));
 	auto inBoard = std::make_shared<grc::view>(grc::rect(25 + 4, 25 + 4, 1280 - 25 - 4, 175 - 4), grc::color(0x4fa6f0ff));
-	auto boardChaCha = std::make_shared<grc::view>(grc::rect(33, 33, 167, 167), chahca0);
-	auto boardJinju = std::make_shared<grc::view>(grc::rect(1251 - 134, 33, 1251, 167), jinju0);
+	auto boardChaCha = std::make_shared<grc::spriteview>(grc::rect(33, 33, 167, 167), chahcaSprite);
+	boardChaCha->play();
+	boardChaCha->durationMS = 500;
+
+	auto boardJinju = std::make_shared<grc::spriteview>(grc::rect(1251 - 134, 33, 1251, 167), jinjuSprite);
+	boardJinju->play();
+	boardJinju->durationMS = 500;
+
 	auto boardFrame = std::make_shared<grc::view>(grc::rect(25 + 4, 25 + 4, 1280 - 25 - 4, 175 - 4), upframe);
 
 	// 1230

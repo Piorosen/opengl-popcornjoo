@@ -9,7 +9,6 @@
 #include "spriteview.h"
 #include "buttonview.h"
 
-int tutorialImageIndex = 0;
 std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 	auto data = std::make_shared<grc::scene>();
 	std::vector<int> tutorial;
@@ -26,25 +25,17 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 		}, tutorial[0]);
 
 	auto nextButton = std::make_shared<grc::buttonview>(grc::rect(1180, 700, 1180 + 68, 700 + 61), nextImage, nextImage, nextImage);
-	auto homeButton = std::make_shared<grc::buttonview>(grc::rect(990, 697, 990 + 252, 697 + 73), homeImage, homeImage, homeImage);
 
-	nextButton->mouseEvent = [background, tutorial, homeButton](grc::buttonview* self, grc::buttonstate state) {
+	nextButton->mouseEvent = [background, tutorial](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
 			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
-			tutorialImageIndex += 1;
 
 			self->setHidden(true);
-			homeButton->setHidden(false);
 
-			background->backgroundImage = tutorial[tutorialImageIndex % tutorial.size()];
+			background->backgroundImage = tutorial[1];
 		}
 	};
 
-	homeButton->mouseEvent = [background, tutorial](grc::buttonview* self, grc::buttonstate state) {
-		if (state == grc::buttonstate::mouseUp) {
-			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
-		}
-	};
 
 	int backImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\back.png");
 	auto backButton = std::make_shared<grc::buttonview>(grc::rect(30, 45, 30 + 144, 45 + 74), backImage, backImage, backImage);
@@ -61,13 +52,11 @@ std::shared_ptr<grc::scene> getHelpScene(std::function<void()> close) {
 	data->view.push_back(backButton);
 
 	data->view.push_back(nextButton);
-	data->view.push_back(homeButton);
 
-	data->openEvent = [](std::weak_ptr<grc::scene> data) {
-		tutorialImageIndex = 0;
+	data->openEvent = [tutorial](std::weak_ptr<grc::scene> data) {
 		auto weakData = data.lock();
+		weakData->view[0]->backgroundImage = tutorial[0];
 		weakData->view[2]->setHidden(false);
-		weakData->view[3]->setHidden(true);
 
 		grc::application::shared->setSize(grc::size{ 1280, 800 });
 		grc::application::shared->setTitle("차차의 모험기 : 사용법");
