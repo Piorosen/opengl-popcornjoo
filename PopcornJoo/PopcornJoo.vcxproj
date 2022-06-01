@@ -225,6 +225,7 @@
     <ClInclude Include="rect.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="size.h" />
+    <ClInclude Include="stageScene.h" />
     <ClInclude Include="toggleview.h" />
     <ClInclude Include="vector2d.h" />
     <ClInclude Include="view.h" />

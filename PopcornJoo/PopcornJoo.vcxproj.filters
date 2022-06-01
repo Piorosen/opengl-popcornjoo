@@ -191,5 +191,8 @@
     <ClInclude Include="numview.h">
       <Filter>헤더 파일\engine\scene\component</Filter>
     </ClInclude>
+    <ClInclude Include="stageScene.h">
+      <Filter>헤더 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

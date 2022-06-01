@@ -99,14 +99,12 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	auto backButton = std::make_shared<grc::buttonview>(grc::rect(219 + 30, 626, 319 + 30, 726), homeImage, homeImage, homeImage);
 
 	musicPlayer->toggleEvent = [](grc::toggleview* self, bool toggle) {
-		if (toggle) {
-			auto audio = grc::audiocollect::shared->get(".\\resources\\audio\\ingame.mp3");
-			if (audio.has_value()) {
-				grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", !toggle);
-			}
-			else {
-				spdlog::error("audio not found {}", ".\\resources\\audio\\ingame.mp3");
-			}
+		auto audio = grc::audiocollect::shared->get(".\\resources\\audio\\ingame.mp3");
+		if (audio.has_value()) {
+			grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", toggle);
+		}
+		else {
+			spdlog::error("audio not found {}", ".\\resources\\audio\\ingame.mp3");
 		}
 	};
 
@@ -186,9 +184,13 @@ std::vector<std::shared_ptr<grc::wallview>> blockList;
 std::vector<std::shared_ptr<grc::ballview>> ballList;
 long long sceneTicks = 0;
 
+std::string INGAME_RUN_GAME_LOAD_FILE = "001";
+
+
+
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::function<void(bool)> winCheck) {
 	auto data = std::make_shared<grc::scene>();
-	
+
 
 	data->renderEvent = [](grc::scene* self, long long tick) {
 		sceneTicks += tick;
@@ -197,7 +199,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene) {
 		grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
-		auto game = loadGame(".\\resources\\map\\002.m");
+		auto game = loadGame(".\\resources\\map\\" + INGAME_RUN_GAME_LOAD_FILE + ".m");
 		createIngameUI(data, close, game);
 
 		// left
