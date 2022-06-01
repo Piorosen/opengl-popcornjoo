@@ -110,9 +110,11 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	};
 
 	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
-		grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 		if (state == grc::buttonstate::mouseUp) {
-			close();
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
+			if (close) {
+				close();
+			}
 		}
 	};
 
