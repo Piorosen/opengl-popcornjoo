@@ -195,6 +195,7 @@ std::string INGAME_RUN_GAME_LOAD_FILE = "001";
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::function<void(bool)> winCheck) {
 	auto data = std::make_shared<grc::scene>();
 	grc::audiocollect::shared->add(".\\resources\\audio\\block_broken.mp3");
+	grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
 
 	data->renderEvent = [](grc::scene* self, long long tick) {
 		sceneTicks += tick;
@@ -203,7 +204,6 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene){
 		grc::application::shared->setTitle("차차의 모험기 : 진쥬를 구해줘!");
-		grc::audiocollect::shared->add(".\\resources\\audio\\ingame.mp3", grc::audiomode::LOOP_NORMAL);
 		auto game = loadGame(".\\resources\\map\\" + INGAME_RUN_GAME_LOAD_FILE + ".m");
 		createIngameUI(data, close, game);
 
