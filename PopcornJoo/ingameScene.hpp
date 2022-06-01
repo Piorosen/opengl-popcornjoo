@@ -194,7 +194,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 
 	data->renderEvent = [](grc::scene* self, long long tick) {
 		sceneTicks += tick;
-		std::static_pointer_cast<grc::numview>(self->view[8])->setNum(sceneTicks / 10);
+		std::static_pointer_cast<grc::numview>(self->view[8])->setNum(sceneTicks / 1000);
 	};
 
 	data->openEvent = [=](std::weak_ptr<grc::scene> scene){
