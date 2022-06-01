@@ -191,7 +191,6 @@ std::string INGAME_RUN_GAME_LOAD_FILE = "001";
 std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::function<void(bool)> winCheck) {
 	auto data = std::make_shared<grc::scene>();
 
-
 	data->renderEvent = [](grc::scene* self, long long tick) {
 		sceneTicks += tick;
 		std::static_pointer_cast<grc::numview>(self->view[8])->setNum(sceneTicks / 10);
@@ -264,7 +263,7 @@ std::shared_ptr<grc::scene> getIngameScene(std::function<void()> close, std::fun
 					gameScore += 1;
 					monster->setNum(game.totalScore - gameScore);
 					spdlog::info("gameScore : [{}, {}]", gameScore, game.totalScore);
-					double characterLength = (1117 - 167) / blockList.size() * gameScore;
+					double characterLength = (1117.0 - 167) / blockList.size() * gameScore;
 					chacha->frame = grc::rect(33 + characterLength, 33, 167 + characterLength, 167);
 				};
 				blockList.push_back(blockTest);
