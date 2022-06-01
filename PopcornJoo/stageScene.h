@@ -25,6 +25,7 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 	auto backButton = std::make_shared<grc::buttonview>(grc::rect(30, 30, 30 + 144, 30 + 74), backImage, backImage, backImage);
 	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 			if (close) {
 				close();
 			}
@@ -64,6 +65,7 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 		
 		c->mouseEvent = [capture, startMap](grc::buttonview* self, grc::buttonstate state) {
 			if (state == grc::buttonstate::mouseUp) {
+				grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 				spdlog::info("Start Game : [{}]", capture + 1);
 				char dataText[100];
 				sprintf_s(dataText, "%03d", capture + 1);

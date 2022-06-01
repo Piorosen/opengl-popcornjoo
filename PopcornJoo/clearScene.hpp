@@ -36,6 +36,7 @@ std::shared_ptr<grc::scene> getEndgame(std::function<void()> close) {
 
 	clearBackView->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 			auto d = grc::audiocollect::shared->get(".\\resources\\audio\\game_finish.mp3");
 			if (d.has_value()) {
 				d.value()->stop();
@@ -49,6 +50,7 @@ std::shared_ptr<grc::scene> getEndgame(std::function<void()> close) {
 
 	failBackView->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 			auto d = grc::audiocollect::shared->get(".\\resources\\audio\\game_finish.mp3");
 			if (d.has_value()) {
 				d.value()->stop();

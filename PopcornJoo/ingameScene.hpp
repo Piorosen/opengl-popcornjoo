@@ -100,6 +100,7 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 
 	musicPlayer->toggleEvent = [](grc::toggleview* self, bool toggle) {
 		auto audio = grc::audiocollect::shared->get(".\\resources\\audio\\ingame.mp3");
+		grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 		if (audio.has_value()) {
 			grc::audiocollect::shared->set(".\\resources\\audio\\ingame.mp3", toggle);
 		}
@@ -109,6 +110,7 @@ void createIngameUI(std::shared_ptr<grc::scene> data, std::function<void()> clos
 	};
 
 	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
+		grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 		if (state == grc::buttonstate::mouseUp) {
 			close();
 		}

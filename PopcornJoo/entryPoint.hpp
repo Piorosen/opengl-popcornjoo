@@ -42,6 +42,7 @@ std::shared_ptr<grc::scene> entryPoint() {
 	mainView = getMainScene([](grc::buttonview* view, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
 			spdlog::info("Start 이벤트 발생");
+			grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 			grc::application::shared->setScene(stageScene);
 		}
 		// Start 이벤트
@@ -49,6 +50,7 @@ std::shared_ptr<grc::scene> entryPoint() {
 			// End 이벤트
 			if (state == grc::buttonstate::mouseUp) {
 				grc::application::shared->setScene(help);
+				grc::audiocollect::shared->play(".\\resources\\audio\\button.mp3");
 				spdlog::info("End 이벤트 발생");
 			}
 		});
