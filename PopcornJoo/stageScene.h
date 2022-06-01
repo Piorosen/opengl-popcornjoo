@@ -27,6 +27,10 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 	//400 ~ 750
 	//	350
 
+	data->openEvent = [](std::weak_ptr<grc::scene> self) {
+		grc::application::shared->setTitle("차차의 모험기 : 스테이지 선택");
+	};
+
 	int maxY = 4;
 	int maxX = 5;
 
@@ -42,9 +46,9 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 		
 		c->mouseEvent = [capture, startMap](grc::colorbuttonview* self, grc::buttonstate state) {
 			if (state == grc::buttonstate::mouseUp) {
-				spdlog::info("Start Game : [{}]", capture);
+				spdlog::info("Start Game : [{}]", capture + 1);
 				char dataText[100];
-				sprintf_s(dataText, "%03d", capture);
+				sprintf_s(dataText, "%03d", capture + 1);
 				startMap(dataText);
 			}
 		};

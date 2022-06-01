@@ -20,7 +20,10 @@ std::shared_ptr<grc::scene> getEndgame(std::function<void()> close) {
 			close();
 		}
 	};
-		
+	
+	data->openEvent = [](std::weak_ptr<grc::scene> self) {
+		grc::application::shared->setTitle("차차의 모험기 : 스테이지 끝");
+	};
 	data->keyboard = [close](grc::scene* self, unsigned char key, int x, int y) {
 		if (key == 27) {
 			if (close) {
