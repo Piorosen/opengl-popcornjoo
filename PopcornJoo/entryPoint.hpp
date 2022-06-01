@@ -1,4 +1,5 @@
 #pragma once
+bool gameClearStatus = false;
 
 #include "mainScene.hpp"
 #include "ingameScene.hpp"
@@ -11,6 +12,7 @@ std::shared_ptr<grc::scene> ingame;
 std::shared_ptr<grc::scene> mainView;
 std::shared_ptr<grc::scene> clearView;
 std::shared_ptr<grc::scene> stageScene;
+
 
 std::shared_ptr<grc::scene> entryPoint() {
 	stageScene = getStageScene([]() {
@@ -28,6 +30,7 @@ std::shared_ptr<grc::scene> entryPoint() {
 	ingame = getIngameScene([]() {
 		grc::application::shared->setScene(stageScene);
 		}, [](bool win) {
+			gameClearStatus = win;
 			spdlog::info("WIN CHECK!!! [{}]", win);
 			grc::application::shared->setScene(clearView);
 		});

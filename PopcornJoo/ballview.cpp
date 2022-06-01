@@ -27,16 +27,19 @@ grc::ballview::ballview(grc::point center, int radius, grc::color ballColor)
 
 		obj->setTransform(phy::vector2d{ t.x - veloff.x, t.y - veloff.y });
 		for (auto pos : info.other) {
-			if (pos == phy::collisionPos::top) {
+			if (pos == phy::collisionPos::top && obj->velocity.y > 0) {
 				/*double downSpeed = obj->gravity * obj->mesh * (tick / 1000.0);
 				obj->velocity.y += downSpeed;*/
-				obj->velocity.y = -obj->velocity.y;
+				obj->velocity.y *= -1;
 			}
-			else if (pos == phy::collisionPos::left || pos == phy::collisionPos::right) {
+			else if (pos == phy::collisionPos::left && obj->velocity.x > 0) {
 				obj->velocity.x *= -1;
 			}
-			else {
-				obj->velocity.y = -obj->velocity.y;
+			else if (pos == phy::collisionPos::right && obj->velocity.x < 0) {
+				obj->velocity.x *= -1;
+			}
+			else if (pos == phy::collisionPos::bottom && obj->velocity.y < 0) {
+				obj->velocity.y *= -1;
 			}
 
 			switch (pos) {

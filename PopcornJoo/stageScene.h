@@ -19,7 +19,17 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 	}
 	
 	int stageSelect = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\stageselect.png");
+	int backImage = grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\back.png");
+
 	auto background = std::make_shared<grc::view>(grc::rect(0, 0, 1280, 800), stageSelect);
+	auto backButton = std::make_shared<grc::buttonview>(grc::rect(30, 30, 30 + 144, 30 + 74), backImage, backImage, backImage);
+	backButton->mouseEvent = [close](grc::buttonview* self, grc::buttonstate state) {
+		if (state == grc::buttonstate::mouseUp) {
+			if (close) {
+				close();
+			}
+		}
+	};
 
 	std::sort(files.begin(), files.end());
 	std::vector<int> wNum;
@@ -32,11 +42,6 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 		level.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\game\\stageLevel\\" + std::to_string(i) + ".png"));
 	}
 
-
-	//1180
-	//400 ~ 750
-	//	350
-
 	data->openEvent = [](std::weak_ptr<grc::scene> self) {
 		grc::audiocollect::shared->set(".\\resources\\audio\\main_logo.mp3", false);
 		grc::application::shared->setTitle("차차의 모험기 : 스테이지 선택");
@@ -46,6 +51,7 @@ std::shared_ptr<grc::scene> getStageScene(std::function<void()> close, std::func
 	int maxX = 5;
 
 	data->view.push_back(background);
+	data->view.push_back(backButton);
 	for (int idx = 0; idx < files.size(); idx++) {
 		int capture = idx;
 		int y = idx / maxX;
