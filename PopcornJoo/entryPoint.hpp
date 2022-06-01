@@ -36,13 +36,13 @@ std::shared_ptr<grc::scene> entryPoint() {
 		grc::application::shared->setScene(mainView);
 		});
 
-	mainView = getMainScene([](grc::colorbuttonview* view, grc::buttonstate state) {
+	mainView = getMainScene([](grc::buttonview* view, grc::buttonstate state) {
 		if (state == grc::buttonstate::mouseUp) {
 			spdlog::info("Start 이벤트 발생");
 			grc::application::shared->setScene(stageScene);
 		}
 		// Start 이벤트
-		}, [](grc::colorbuttonview* view, grc::buttonstate state) {
+		}, [](grc::buttonview* view, grc::buttonstate state) {
 			// End 이벤트
 			if (state == grc::buttonstate::mouseUp) {
 				grc::application::shared->setScene(help);

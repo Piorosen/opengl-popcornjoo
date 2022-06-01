@@ -6,6 +6,7 @@
 #endif
 #include <spdlog/spdlog.h>
 #include <chrono>
+#include "imagecollect.h"
 
 std::unique_ptr<grc::application> grc::application::shared = std::make_unique<grc::application>();
 
@@ -46,6 +47,7 @@ void grc::application::mouse(int button, int state, int x, int y) const
 
 void grc::application::mousePassive(int x, int y) const
 {
+    mouseCursor->frame.location = grc::point{ x, y };
     if (this->entryScene == nullptr)
     {
         spdlog::critical("Entry Controller Not Found");
@@ -69,16 +71,18 @@ void grc::application::render() const
         auto time = std::chrono::system_clock::now();
         auto mill = std::chrono::duration_cast<std::chrono::milliseconds>(time.time_since_epoch()).count();
         if ((mill - prevRenderTime) >= 0) {
-            
+
+
             glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //glClear에서 컬러 버퍼 지운 후 윈도우를 채울 색을 지정, 검은색
             glClear(GL_COLOR_BUFFER_BIT);         //컬러 버퍼를 지운다.
             glLoadIdentity();
             
             this->entryScene->render(mill - prevRenderTime);
-            prevRenderTime = mill;
-            
-            glutSwapBuffers();
+            mouseCursor->render(mill - prevRenderTime);
 
+            prevRenderTime = mill;
+            glutSwapBuffers();
+            
         }
     }
 }
@@ -117,7 +121,10 @@ void grc::application::run()
     glutIdleFunc(grc::glDisplay);
     glutPassiveMotionFunc(grc::glMousePassive);
     glutTimerFunc(50, grc::glTimer, 0);
+    glutSetCursor(GLUT_CURSOR_NONE);
 
+    int cursor = grc::imagecollect::shared->add(".\\resources\\imaegs\\cursor.png");
+    mouseCursor = std::make_shared<grc::view>(grc::rect(0, 0, 30, 30), cursor);
     glutMainLoop();
 }
 

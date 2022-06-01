@@ -20,6 +20,7 @@ namespace grc
 
         // 현재 작업중인 VC임
         std::shared_ptr<grc::scene> entryScene = nullptr;
+        std::shared_ptr<grc::view> mouseCursor = nullptr;
 
     public:
         static std::unique_ptr<grc::application> shared;

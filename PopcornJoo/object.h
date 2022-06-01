@@ -46,10 +46,6 @@ namespace phy {
 			return type;
 		}
 
-		double mesh = 1;
-		double gravity = 0;
-		vector2d velocity;
-
 		void setTransform(vector2d data) {
 			prevTrasform = transform;
 			transform = data;
@@ -68,6 +64,10 @@ namespace phy {
 		
 		std::function<void(vector2d)> transformchanged;
 		std::function<void(std::weak_ptr<object>, std::weak_ptr<object>, phy::collisioninfo, long long)> collisionevent;
+
+		double mesh = 1;
+		double gravity = 0;
+		vector2d velocity;
 
 		virtual void update(long long tick) {
 			if (!hidden) {

@@ -11,30 +11,23 @@
 #include "audiocollect.h"
 #include "imagecollect.h"
 
-std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview*, grc::buttonstate)> startEvent,
-									     std::function<void(grc::colorbuttonview*, grc::buttonstate)> helpEvent) {
+std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::buttonview*, grc::buttonstate)> startEvent,
+									     std::function<void(grc::buttonview*, grc::buttonstate)> helpEvent) {
 	std::shared_ptr<grc::scene> data = std::make_shared<grc::scene>();
 
 	grc::audiocollect::shared->add(".\\resources\\audio\\main_logo.mp3", grc::audiomode::LOOP_NORMAL);
 
-	std::vector<int> im;
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\004.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\003.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\002.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\001.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\000.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\001.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\002.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\003.png"));
-	im.push_back(grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\logo\\004.png"));
-	
-	auto v = std::make_shared<grc::spriteview>(grc::rect(150, 100, 350, 200), im);
-	v->durationMS = 500;
-	v->play();
+	int help_default = grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\helpbutton_default.png");
+	int help_down = grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\helpbutton_default.png");
 
-	auto startButton = std::make_shared<grc::colorbuttonview>(grc::rect(350, 250, 550, 300));
-	auto helpButton = std::make_shared<grc::colorbuttonview>(grc::rect(350, 350, 550, 400));
+	int mainPage = grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\main.png");
 
+	int start_default = grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\startbutton_default.png");
+	int start_down = grc::imagecollect::shared->add(".\\resources\\imaegs\\main\\startbutton_default.png");
+
+	auto startButton = std::make_shared<grc::buttonview>(grc::rect(880, 530, 880 + 348, 530 + 95), start_default, start_down, start_default);
+	auto helpButton = std::make_shared<grc::buttonview>(grc::rect(880, 630, 880 + 348, 630 + 95), help_default, help_down, help_default);
+	auto mainPageView = std::make_shared<grc::view>(grc::rect(0, 0, 1280, 800), mainPage);
 
 	startButton->mouseEvent = startEvent;
 	helpButton->mouseEvent = helpEvent;
@@ -57,7 +50,7 @@ std::shared_ptr<grc::scene> getMainScene(std::function<void(grc::colorbuttonview
 	};
 
 
-	data->view.push_back(v);
+	data->view.push_back(mainPageView);
 	data->view.push_back(startButton);
 	data->view.push_back(helpButton);
 
