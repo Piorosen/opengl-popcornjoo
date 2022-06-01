@@ -57,7 +57,7 @@ bool grc::buttonview::render(long long tick)
 
 grc::mouseclick grc::buttonview::click(int state, int x, int y)
 {
-	spdlog::info("buttonview - click : [{}, {}, {}]", state, x, y);
+	//spdlog::info("buttonview - click : [{}, {}, {}]", state, x, y);
 	mouseclick value =  view::click(state, x, y);
 	if (value == mouseclick::ownLevel) {
 		this->state = (buttonstate)state;
