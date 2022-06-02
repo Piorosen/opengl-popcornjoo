@@ -77,8 +77,8 @@ void grc::application::render() const
             glClear(GL_COLOR_BUFFER_BIT);         //컬러 버퍼를 지운다.
             glLoadIdentity();
             
-            this->entryScene->render(mill - prevRenderTime);
-            mouseCursor->render(mill - prevRenderTime);
+            this->entryScene->render((mill - prevRenderTime) * ratio);
+            mouseCursor->render((mill - prevRenderTime) * ratio);
 
             prevRenderTime = mill;
             glutSwapBuffers();

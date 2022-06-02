@@ -22,6 +22,8 @@ namespace grc
         std::shared_ptr<grc::scene> entryScene = nullptr;
         std::shared_ptr<grc::view> mouseCursor = nullptr;
 
+        double ratio = 1;
+
     public:
         static std::unique_ptr<grc::application> shared;
 
@@ -34,6 +36,17 @@ namespace grc
         void render() const;
 
         application();
+
+        double getRenderSpeed() const {
+            return ratio;
+        }
+
+        void setRenderSpeed(double ratio) {
+            this->ratio = ratio;
+        }
+
+
+
 
         void run();
         void close() const;
