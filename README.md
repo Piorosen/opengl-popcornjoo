@@ -7,4 +7,4 @@
 
 디자인 : [MFDO](https://github.com/oMFDOo)
 
-[![main](/PopcornJoo/resources/imaegs/main/main.png)](https://youtu.be/BlPNwdjT7NE)
+[![main](/PopcornJoo/resources/imaegs/main/main.png)](https://youtu.be/E2IK1jFpJvI)
